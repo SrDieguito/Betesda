@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grace Community Church</title>
+    <meta name="description" content="Welcome to Grace Community Church - A place of worship, fellowship and spiritual growth">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="font-sans">
+    <!-- Updated: Changed header colors to gray and gold scheme -->
+    <header class="fixed w-full bg-gray-100 shadow-md z-50">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-bold text-gray-800">Grace Church</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-600 hover:text-amber-600 transition">Home</a>
+                    <a href="#about" class="text-gray-600 hover:text-amber-600 transition">About</a>
+                    <a href="#services" class="text-gray-600 hover:text-amber-600 transition">Services</a>
+                    <a href="#ministries" class="text-gray-600 hover:text-amber-600 transition">Ministries</a>
+                    <a href="#events" class="text-gray-600 hover:text-amber-600 transition">Events</a>
+                    <a href="#contact" class="text-gray-600 hover:text-amber-600 transition">Contact</a>
+                </div>
+                <button class="md:hidden focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Updated: Changed button color to gold in hero section -->
+        <section id="home" class="relative h-screen">
+            <div class="absolute inset-0">
+                <img src="https://images.unsplash.com/photo-1438032005730-c779502df39b" alt="Church Building" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gray-900 opacity-50"></div>
+            </div>
+            <div class="relative container mx-auto px-6 h-full flex items-center">
+                <div class="text-white max-w-3xl">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-4">Welcome to Grace Community Church</h1>
+                    <p class="text-xl mb-8">A place where faith grows and community thrives</p>
+                    <a href="#services" class="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition">Join Us</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Updated: Changed background colors in about section -->
+        <section id="about" class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">About Us</h2>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1601445638532-3c6f6c3aa1d6" alt="Church Interior" class="rounded-lg shadow-lg">
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <h3 class="text-2xl font-semibold mb-4 text-gray-800">Our Story</h3>
+                        <p class="text-gray-600 mb-6">Founded in 1950, Grace Community Church has been serving our community with faith, love, and dedication for over 70 years.</p>
+                        <h3 class="text-2xl font-semibold mb-4 text-gray-800">Our Mission</h3>
+                        <p class="text-gray-600">To spread God's love, build a strong community of believers, and serve others through Christ-centered ministry.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Updated: Changed service cards colors and hover states -->
+        <section id="services" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">Our Services</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg hover:shadow-xl transition">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Sunday Worship</h3>
+                        <p class="text-gray-600 mb-4">Join us every Sunday at 9:00 AM and 11:00 AM</p>
+                        <a href="#" class="text-amber-600 hover:text-amber-800">Learn More →</a>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg hover:shadow-xl transition">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Bible Study</h3>
+                        <p class="text-gray-600 mb-4">Wednesday evenings at 7:00 PM</p>
+                        <a href="#" class="text-amber-600 hover:text-amber-800">Learn More →</a>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg hover:shadow-xl transition">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Youth Ministry</h3>
+                        <p class="text-gray-600 mb-4">Friday evenings at 6:30 PM</p>
+                        <a href="#" class="text-amber-600 hover:text-amber-800">Learn More →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Updated: Changed contact section colors and form styling -->
+        <section id="contact" class="py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">Contact Us</h2>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <form class="space-y-6">
+                            <div>
+                                <label class="block text-gray-700 mb-2">Name</label>
+                                <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-amber-500">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2">Email</label>
+                                <input type="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-amber-500">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 mb-2">Message</label>
+                                <textarea class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-amber-500" rows="4"></textarea>
+                            </div>
+                            <button class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg transition">Send Message</button>
+                        </form>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4 text-gray-800">Visit Us</h3>
+                        <p class="text-gray-600 mb-4">123 Church Street<br>City, State 12345</p>
+                        <h3 class="text-2xl font-semibold mb-4 text-gray-800">Contact Info</h3>
+                        <p class="text-gray-600 mb-4">Phone: (555) 123-4567<br>Email: info@gracechurch.com</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Updated: Changed footer colors to darker gray with gold accents -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Grace Church</h4>
+                    <p class="text-gray-400">A place of worship, fellowship and spiritual growth</p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-amber-500 transition">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-amber-500 transition">Services</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-amber-500 transition">Events</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Connect</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-amber-500 transition">Facebook</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-amber-500 transition">Instagram</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-amber-500 transition">YouTube</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold mb-4">Newsletter</h4>
+                    <form class="space-y-4">
+                        <input type="email" placeholder="Your email" class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white border-gray-700 focus:border-amber-500">
+                        <button class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg transition">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
