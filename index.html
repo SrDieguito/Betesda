@@ -1,143 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iglesia Betesda</title>
-    <meta name="description" content="Binevenidos a la comidad de igelsia bautista Fundamental Betesda">
+    <title>Iglesia Bautista Fundamental Betesda</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="font-sans">
-    <!-- Updated: Changed header colors to gray and gold scheme -->
-    <header class="fixed w-full bg-gray-100 shadow-md z-50">
-        <nav class="container mx-auto px-6 py-3">
-            <div class="flex items-center justify-between">
-                <div class="text-2xl font-bold text-gray-800">Iglesia Bautista Fundamental Betesda</div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-gray-600 hover:text-amber-600 transition">Inicio</a>
-                    <a href="#about" class="text-gray-600 hover:text-amber-600 transition">Sobre Nosotros</a>
-                    <a href="#services" class="text-gray-600 hover:text-amber-600 transition">Servicios</a>
-                    <a href="#ministries" class="text-gray-600 hover:text-amber-600 transition">Ministerios</a>
-                    <a href="#events" class="text-gray-600 hover:text-amber-600 transition">Calendario</a>
-                    <a href="#contact" class="text-gray-600 hover:text-amber-600 transition">Contacto</a>
-                </div>
-                <button class="md:hidden focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
-                </button>
+<body class="bg-white">
+    <!-- Header/Nav -->
+    <header class="bg-black py-4 px-6 fixed w-full z-50">
+        <nav class="flex items-center justify-between max-w-7xl mx-auto">
+            <div class="flex items-center">
+                <img src="https://images.unsplash.com/photo-1580507091699-0da19f6a85e8" alt="Logo de la Iglesia" class="h-12 w-12 rounded-full">
+                <span class="text-[#BF9B30] ml-3 text-xl font-semibold">IBFB</span>
             </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-white hover:text-[#BF9B30]">Inicio</a>
+                <a href="#services" class="text-white hover:text-[#BF9B30]">Servicios</a>
+                <a href="#sermones" class="text-white hover:text-[#BF9B30]">Sermones</a>
+                <a href="#eventos" class="text-white hover:text-[#BF9B30]">Eventos</a>
+                <a href="#contact" class="text-white hover:text-[#BF9B30]">Contacto</a>
+            </div>
+            <button class="text-white border border-[#BF9B30] px-4 py-2 rounded hover:bg-[#BF9B30]">ES/EN</button>
         </nav>
     </header>
 
-    <main>
-        <!-- Updated: Changed button color to gold in hero section -->
-        <section id="home" class="relative h-screen">
-            <div class="absolute inset-0">
-                <img src="https://images.unsplash.com/photo-1438032005730-c779502df39b" alt="Church Building" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gray-900 opacity-50"></div>
-            </div>
-            <div class="relative container mx-auto px-6 h-full flex items-center">
-                <div class="text-white max-w-3xl">
-                    <h1 class="text-5xl md:text-6xl font-bold mb-4">Welcome to Grace Community Church</h1>
-                    <p class="text-xl mb-8">A place where faith grows and community thrives</p>
-                    <a href="#services" class="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition">Join Us</a>
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-12 px-6 bg-black text-white">
+        <div class="max-w-7xl mx-auto text-center py-20">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">Iglesia Bautista Fundamental Betesda</h1>
+            <h2 class="text-2xl md:text-3xl text-[#BF9B30] mb-4">Pastor Adolfo Hernandez</h2>
+            <p class="text-xl mb-8">Cuenca, Ecuador</p>
+            <p class="text-lg max-w-2xl mx-auto">Bienvenidos a nuestra familia en Cristo donde adoramos a Dios en espíritu y en verdad.</p>
+        </div>
+    </section>
+
+    <!-- Services Schedule -->
+    <section id="services" class="py-16 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 text-black">Horarios de Servicios</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-black p-8 rounded-lg text-center">
+                    <h3 class="text-[#BF9B30] text-2xl font-semibold mb-4">Escuela Dominical</h3>
+                    <p class="text-white text-xl">10:00 AM</p>
+                </div>
+                <div class="bg-black p-8 rounded-lg text-center">
+                    <h3 class="text-[#BF9B30] text-2xl font-semibold mb-4">Predicación Dominical</h3>
+                    <p class="text-white text-xl">11:00 AM</p>
+                </div>
+                <div class="bg-black p-8 rounded-lg text-center">
+                    <h3 class="text-[#BF9B30] text-2xl font-semibold mb-4">Oración Jueves</h3>
+                    <p class="text-white text-xl">7:00 PM</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Updated: Changed background colors in about section -->
-        <section id="about" class="py-20 bg-gray-100">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">Sobre Nosotros</h2>
-                <div class="grid md:grid-cols-2 gap-12">
-                    <div>
-                        <img src="https://images.unsplash.com/photo-1601445638532-3c6f6c3aa1d6" alt="Church Interior" class="rounded-lg shadow-lg">
-                    </div>
-                    <div class="flex flex-col justify-center">
-                        <h3 class="text-2xl font-semibold mb-4 text-gray-800">Nuestra Historia</h3>
-                        <p class="text-gray-600 mb-6">Fundada en 2025 por el Misionero Adolfo etc.</p>
-                        <h3 class="text-2xl font-semibold mb-4 text-gray-800">Nuestra mision</h3>
-                        <p class="text-gray-600">Compartir el evangelio a toda criatura.</p>
+    <!-- Recorded Sermons -->
+    <section id="sermones" class="py-16 px-6 bg-gray-100">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 text-black">Sermones Grabados</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1544427920-c49ccfb85579" alt="Sermón" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">La Gracia de Dios</h3>
+                        <p class="text-gray-600 mb-4">Pastor Adolfo Hernandez - 12/03/2024</p>
+                        <button class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]">Ver Sermón</button>
                     </div>
                 </div>
+                <!-- More sermon cards can be added here -->
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Updated: Changed service cards colors and hover states -->
-        <section id="services" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">Nuestros Servicios</h2>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg hover:shadow-xl transition">
-                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Domingo</h3>
-                        <p class="text-gray-600 mb-4">Escuela Dominical: 9am Culto 10am</p>
-                        <a href="#" class="text-amber-600 hover:text-amber-800">Mas informacion</a>
-                    </div>
-                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg hover:shadow-xl transition">
-                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Estudio Biblico</h3>
-                        <p class="text-gray-600 mb-4">Mieercoles a las 7:00 pm</p>
-                        <a href="#" class="text-amber-600 hover:text-amber-800">Mas informacion</a>
-                    </div>
-                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg hover:shadow-xl transition">
-                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Otro evento</h3>
-                        <p class="text-gray-600 mb-4">aqui horario</p>
-                        <a href="#" class="text-amber-600 hover:text-amber-800">Mas informacion</a>
+    <!-- Events Calendar -->
+    <section id="eventos" class="py-16 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 text-black">Calendario de Eventos</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-100 p-6 rounded-lg">
+                    <h3 class="text-2xl font-semibold mb-4">Próximos Eventos</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded shadow">
+                            <h4 class="text-lg font-semibold">Campaña Evangelística</h4>
+                            <p class="text-gray-600">15-17 Abril, 2024</p>
+                            <p>Tres días de predicación especial</p>
+                        </div>
+                        <!-- More events can be added here -->
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Updated: Changed contact section colors and form styling -->
-        <section id="contact" class="py-20 bg-gray-100">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">Contactanos</h2>
-                <div class="grid md:grid-cols-2 gap-12">
-                    <div>
-                        <form class="space-y-6">
-                            <div>
-                                <label class="block text-gray-700 mb-2">Nombre</label>
-                                <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-amber-500">
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 mb-2">Gmail</label>
-                                <input type="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-amber-500">
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 mb-2">Mensage</label>
-                                <textarea class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-amber-500" rows="4"></textarea>
-                            </div>
-                            <button class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg transition">Send Message</button>
-                        </form>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-semibold mb-4 text-gray-800">Visitanos</h3>
-                        <p class="text-gray-600 mb-4">Cuenca<br>Frente colegio Madrid</p>
-                        <h3 class="text-2xl font-semibold mb-4 text-gray-800">Informacion de Contacto</h3>
-                        <p class="text-gray-600 mb-4">Telefono: (555) 123-4567<br>Whatsapp Internacional: +593 95 883 1711</p>
-                        <p class="text-gray-600 mb-4">Telefono: (555) 123-4567<br>Whatsapp: 095 883 1711</p>
-
+                <div class="bg-gray-100 p-6 rounded-lg">
+                    <h3 class="text-2xl font-semibold mb-4">Boletín Semanal</h3>
+                    <div class="bg-white p-4 rounded shadow">
+                        <h4 class="text-lg font-semibold mb-2">Boletín - Semana 12</h4>
+                        <p class="text-gray-600 mb-4">18-24 Marzo, 2024</p>
+                        <button class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]">Descargar PDF</button>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <!-- Updated: Changed footer colors to darker gray with gold accents -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-8">
+    <!-- Contact Form -->
+    <section id="contact" class="py-16 px-6 bg-gray-100">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 text-black">Contáctenos</h2>
+            <form class="space-y-6">
                 <div>
-                    <h4 class="text-xl font-semibold mb-4">Iglesoa Bautista Fundamental Betesda</h4>
-                    <p class="text-gray-400">Un lugar donde puedes acercarte mas a Dios</p>
+                    <label class="block text-gray-700 mb-2" for="name">Nombre</label>
+                    <input type="text" id="name" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-[#BF9B30]" required>
                 </div>
                 <div>
-                    <h4 class="text-xl font-semibold mb-4">Redes</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-amber-500 transition">Facebook</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-amber-500 transition">Instagram</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-amber-500 transition">YouTube</a></li>
-                    </ul>
+                    <label class="block text-gray-700 mb-2" for="email">Correo Electrónico</label>
+                    <input type="email" id="email" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-[#BF9B30]" required>
+                </div>
+                <div>
+                    <label class="block text-gray-700 mb-2" for="message">Mensaje</label>
+                    <textarea id="message" rows="4" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-[#BF9B30]" required></textarea>
+                </div>
+                <button type="submit" class="w-full bg-black text-white py-3 px-6 rounded hover:bg-[#BF9B30] transition duration-300">Enviar Mensaje</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-[#BF9B30] text-xl font-semibold mb-4">Ubicación</h3>
+                <p>Cuenca, Ecuador</p>
+            </div>
+            <div>
+                <h3 class="text-[#BF9B30] text-xl font-semibold mb-4">Contacto</h3>
+                <p>Correo: contact@ibfb.org</p>
+                <p>Teléfono: +593 123 456 789</p>
+            </div>
+            <div>
+                <h3 class="text-[#BF9B30] text-xl font-semibold mb-4">Síguenos</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-[#BF9B30]">Facebook</a>
+                    <a href="#" class="hover:text-[#BF9B30]">YouTube</a>
+                    <a href="#" class="hover:text-[#BF9B30]">Instagram</a>
                 </div>
             </div>
         </div>
