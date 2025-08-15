@@ -1,0 +1,220 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Himnos - Iglesia Bautista Fundamental Betesda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white">
+    <!-- Header -->
+    <header class="bg-black py-4 px-6 fixed w-full z-50">
+        <nav class="flex items-center justify-between max-w-7xl mx-auto">
+            <div class="flex items-center">
+                <img src="img/1.png" alt="Logo de la Iglesia" class="h-24 w-24 rounded-full">
+                <span class="text-[#BF9B30] ml-3 text-xl font-semibold">IBFB</span>
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html#home" class="text-white hover:text-[#BF9B30]">Inicio</a>
+                <a href="index.html#recursos" class="text-white hover:text-[#BF9B30]">Recursos</a>
+                <a href="index.html#services" class="text-white hover:text-[#BF9B30]">Servicios</a>
+                <a href="index.html#sermones" class="text-white hover:text-[#BF9B30]">Sermones</a>
+                <a href="index.html#eventos" class="text-white hover:text-[#BF9B30]">Eventos</a>
+                <a href="index.html#contact" class="text-white hover:text-[#BF9B30]">Contacto</a>
+            </div>
+            <button id="lang-toggle" class="text-white border border-[#BF9B30] px-4 py-2 rounded hover:bg-[#BF9B30]">ES/EN</button>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <section class="pt-32 pb-12 px-6 bg-gray-100">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-4xl font-bold text-center mb-8 text-black">Himnos</h1>
+            <div class="mb-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-4">
+                <input type="text" id="search-input" placeholder="Buscar por nombre..." class="w-full md:w-1/2 p-3 border border-gray-300 rounded focus:outline-none focus:border-[#BF9B30]">
+                <select id="sort-select" class="w-full md:w-1/4 p-3 border border-gray-300 rounded focus:outline-none focus:border-[#BF9B30]">
+                    <option value="desc">Más reciente primero</option>
+                    <option value="asc">Más antiguo primero</option>
+                </select>
+            </div>
+            <div id="resource-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Example Resource Cards -->
+                <div class="resource-card bg-white rounded-lg shadow-lg p-6" data-name="Himno Clásico 1" data-date="2023-12-10">
+                    <h3 class="text-xl font-semibold mb-2">Himno Clásico 1</h3>
+                    <p class="text-gray-600 mb-4">Subido: 10/12/2023</p>
+                    <audio controls class="w-full">
+                        <source src="path/to/audio1.mp3" type="audio/mpeg">
+                        Tu navegador no soporta el elemento de audio.
+                    </audio>
+                </div>
+                <div class="resource-card bg-white rounded-lg shadow-lg p-6" data-name="Himno Tradicional 2" data-date="2024-01-05">
+                    <h3 class="text-xl font-semibold mb-2">Himno Tradicional 2</h3>
+                    <p class="text-gray-600 mb-4">Subido: 05/01/2024</p>
+                    <audio controls class="w-full">
+                        <source src="path/to/audio2.mp3" type="audio/mpeg">
+                        Tu navegador no soporta el elemento de audio.
+                    </audio>
+                </div>
+                <div class="resource-card bg-white rounded-lg shadow-lg p-6" data-name="Himno de Adoración 3" data-date="2024-02-15">
+                    <h3 class="text-xl font-semibold mb-2">Himno de Adoración 3</h3>
+                    <p class="text-gray-600 mb-4">Subido: 15/02/2024</p>
+                    <audio controls class="w-full">
+                        <source src="path/to/audio3.mp3" type="audio/mpeg">
+                        Tu navegador no soporta el elemento de audio.
+                    </audio>
+                </div>
+                <div class="resource-card bg-white rounded-lg shadow-lg p-6" data-name="Himno de Gratitud 4" data-date="2024-03-20">
+                    <h3 class="text-xl font-semibold mb-2">Himno de Gratitud 4</h3>
+                    <p class="text-gray-600 mb-4">Subido: 20/03/2024</p>
+                    <audio controls class="w-full">
+                        <source src="path/to/audio4.mp3" type="audio/mpeg">
+                        Tu navegador no soporta el elemento de audio.
+                    </audio>
+                </div>
+                <div class="resource-card bg-white rounded-lg shadow-lg p-6" data-name="Himno de Esperanza 5" data-date="2024-04-10">
+                    <h3 class="text-xl font-semibold mb-2">Himno de Esperanza 5</h3>
+                    <p class="text-gray-600 mb-4">Subido: 10/04/2024</p>
+                    <audio controls class="w-full">
+                        <source src="path/to/audio5.mp3" type="audio/mpeg">
+                        Tu navegador no soporta el elemento de audio.
+                    </audio>
+                </div>
+                <div class="resource-card bg-white rounded-lg shadow-lg p-6" data-name="Himno de Fe 6" data-date="2024-05-25">
+                    <h3 class="text-xl font-semibold mb-2">Himno de Fe 6</h3>
+                    <p class="text-gray-600 mb-4">Subido: 25/05/2024</p>
+                    <audio controls class="w-full">
+                        <source src="path/to/audio6.mp3" type="audio/mpeg">
+                        Tu navegador no soporta el elemento de audio.
+                    </audio>
+                </div>
+                <div class="resource-card bg-white rounded-lg shadow-lg p-6" data-name="Himno de Amor 7" data-date="2024-06-30">
+                    <h3 class="text-xl font-semibold mb-2">Himno de Amor 7</h3>
+                    <p class="text-gray-600 mb-4">Subido: 30/06/2024</p>
+                    <audio controls class="w-full">
+                        <source src="path/to/audio7.mp3" type="audio/mpeg">
+                        Tu navegador no soporta el elemento de audio.
+                    </audio>
+                </div>
+                <div class="resource-card bg-white rounded-lg shadow-lg p-6" data-name="Himno de Salvación 8" data-date="2024-07-12">
+                    <h3 class="text-xl font-semibold mb-2">Himno de Salvación 8</h3>
+                    <p class="text-gray-600 mb-4">Subido: 12/07/2024</p>
+                    <audio controls class="w-full">
+                        <source src="path/to/audio8.mp3" type="audio/mpeg">
+                        Tu navegador no soporta el elemento de audio.
+                    </audio>
+                </div>
+                <div class="resource-card bg-white rounded-lg shadow-lg p-6" data-name="Himno de Victoria 9" data-date="2024-08-05">
+                    <h3 class="text-xl font-semibold mb-2">Himno de Victoria 9</h3>
+                    <p class="text-gray-600 mb-4">Subido: 05/08/2024</p>
+                    <audio controls class="w-full">
+                        <source src="path/to/audio9.mp3" type="audio/mpeg">
+                        Tu navegador no soporta el elemento de audio.
+                    </audio>
+                </div>
+                <div class="resource-card bg-white rounded-lg shadow-lg p-6" data-name="Himno de Paz 10" data-date="2024-09-18">
+                    <h3 class="text-xl font-semibold mb-2">Himno de Paz 10</h3>
+                    <p class="text-gray-600 mb-4">Subido: 18/09/2024</p>
+                    <audio controls class="w-full">
+                        <source src="path/to/audio10.mp3" type="audio/mpeg">
+                        Tu navegador no soporta el elemento de audio.
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-[#BF9B30] text-xl font-semibold mb-4">Ubicación</h3>
+                <p>Cuenca, Ecuador</p>
+            </div>
+            <div>
+                <h3 class="text-[#BF9B30] text-xl font-semibold mb-4">Contacto</h3>
+                <p>Correo: contact@ibfb.org</p>
+                <p>Teléfono: +593 123 456 789</p>
+            </div>
+            <div>
+                <h3 class="text-[#BF9B30] text-xl font-semibold mb-4">Síguenos</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-[#BF9B30]">Facebook</a>
+                    <a href="#" class="hover:text-[#BF9B30]">YouTube</a>
+                    <a href="#" class="hover:text-[#BF9B30]">Instagram</a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-8 text-center text-gray-400">
+            <p>&copy; 2025 Iglesia Bautista Fundamental Betesda. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Filtering and Sorting -->
+    <script>
+        const searchInput = document.getElementById('search-input');
+        const sortSelect = document.getElementById('sort-select');
+        const grid = document.getElementById('resource-grid');
+        const cards = Array.from(grid.getElementsByClassName('resource-card'));
+
+        function filterAndSort() {
+            let filtered = cards.filter(card => 
+                card.dataset.name.toLowerCase().includes(searchInput.value.toLowerCase())
+            );
+
+            filtered.sort((a, b) => {
+                const dateA = new Date(a.dataset.date);
+                const dateB = new Date(b.dataset.date);
+                return sortSelect.value === 'asc' ? dateA - dateB : dateB - dateA;
+            });
+
+            grid.innerHTML = '';
+            filtered.forEach(card => grid.appendChild(card));
+        }
+
+        searchInput.addEventListener('input', filterAndSort);
+        sortSelect.addEventListener('change', filterAndSort);
+
+        // Initial sort
+        filterAndSort();
+    </script>
+</body>
+</html>
