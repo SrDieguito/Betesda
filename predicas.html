@@ -75,7 +75,6 @@
         const channelId = "UCLs1hNc80aCzFbhsQAbhHzQ";
         const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
         const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
-
         const resourceGrid = document.getElementById("resource-grid");
 
         // === Cargar videos ===
@@ -99,7 +98,10 @@
                         <h3 class="text-xl font-semibold mb-2">${item.title}</h3>
                         <p class="text-gray-600 mb-4">Fecha: ${date}</p>
                         <iframe width="100%" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
-                        <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" class="mt-4 inline-block bg-[#BF9B30] text-white px-4 py-2 rounded hover:bg-black">Ver en YouTube</a>
+                        <div class="mt-4 flex space-x-2">
+                            <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" class="inline-block bg-[#BF9B30] text-white px-4 py-2 rounded hover:bg-black">Ver en YouTube</a>
+                            <button onclick="downloadVideo('${videoId}')" class="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-800">Descargar Video</button>
+                        </div>
                     `;
                     resourceGrid.appendChild(card);
                 });
@@ -136,6 +138,12 @@
 
         searchInput.addEventListener("input", filterAndSortResources);
         sortSelect.addEventListener("change", filterAndSortResources);
+
+        // === Función de descarga ===
+        function downloadVideo(videoId) {
+            // Redirige al backend que descarga el MP4
+            window.location.href = `/download?videoId=${videoId}`;
+        }
 
         // === Inicializar ===
         loadVideos();
