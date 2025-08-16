@@ -66,121 +66,134 @@
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="pt-32 pb-12 bg-gray-100">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h1 class="text-4xl md:text-5xl font-bold text-black mb-4" data-i18n="hero-title">Bienvenidos a la Iglesia Bautista Fundamental Betesda</h1>
-            <p class="text-lg text-gray-600 mb-8" data-i18n="hero-subtitle">Una comunidad dedicada a compartir el amor de Cristo y crecer en fe.</p>
-            <a href="#contact" class="inline-block bg-[#BF9B30] text-white px-6 py-3 rounded-lg hover:bg-black" data-i18n="hero-cta">Contáctanos</a>
+    <section id="home" class="pt-24 pb-12 px-6 bg-black text-white">
+        <div class="max-w-7xl mx-auto text-center py-20">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6" data-i18n="hero-title">Iglesia Bautista Fundamental Betesda</h1>
+            <h2 class="text-2xl md:text-3xl text-[#BF9B30] mb-4" data-i18n="hero-pastor">Pastor Adolfo Hernandez</h2>
+            <p class="text-xl mb-8" data-i18n="hero-location">Cuenca, Ecuador</p>
+            <p class="text-lg max-w-2xl mx-auto" data-i18n="hero-welcome">Bienvenidos a nuestra familia en Cristo donde adoramos a Dios en espíritu y en verdad.</p>
+        </div>
+    </section>
+
+    <!-- Services Schedule -->
+    <section id="services" class="py-16 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 text-black" data-i18n="services-title">Horarios de Servicios</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-black p-8 rounded-lg text-center">
+                    <h3 class="text-[#BF9B30] text-2xl font-semibold mb-4" data-i18n="services-sunday-school">Escuela Dominical</h3>
+                    <p class="text-white text-xl">10:00 AM</p>
+                </div>
+                <div class="bg-black p-8 rounded-lg text-center">
+                    <h3 class="text-[#BF9B30] text-2xl font-semibold mb-4" data-i18n="services-sunday-preaching">Predicación Dominical</h3>
+                    <p class="text-white text-xl">11:00 AM</p>
+                </div>
+                <div class="bg-black p-8 rounded-lg text-center">
+                    <h3 class="text-[#BF9B30] text-2xl font-semibold mb-4" data-i18n="services-thursday-prayer">Oración Jueves</h3>
+                    <p class="text-white text-xl">7:00 PM</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Recursos Section -->
-    <section id="recursos" class="py-12 px-6 bg-white">
+    <section id="recursos" class="py-16 px-6 bg-gray-100">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl font-bold text-center text-black mb-8" data-i18n="resources-title">Recursos</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-gray-100 rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold mb-2" data-i18n="resource-music">Música</h3>
-                    <p class="text-gray-600 mb-4" data-i18n="resource-music-desc">Encuentra canciones y videos de adoración para fortalecer tu fe.</p>
-                    <a href="musica.html" class="text-[#BF9B30] hover:underline" data-i18n="resource-music-link">Explorar Música</a>
+            <h2 class="text-4xl font-bold text-center mb-12 text-black" data-i18n="resources-title">Recursos para la Iglesia</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Música Cristiana -->
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <h3 class="text-2xl font-semibold text-[#BF9B30] mb-4" data-i18n="resources-music">Música Cristiana</h3>
+                    <p class="text-gray-600 mb-4" data-i18n="resources-music-desc">Escucha y descarga música cristiana para adoración y edificación.</p>
+                    <a href="musica.html" class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]" data-i18n="resources-explore">Explorar</a>
                 </div>
-                <div class="bg-gray-100 rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold mb-2" data-i18n="resource-hymns">Himnos</h3>
-                    <p class="text-gray-600 mb-4" data-i18n="resource-hymns-desc">Escucha y descarga himnos tradicionales de nuestra iglesia.</p>
-                    <a href="himnos.html" class="text-[#BF9B30] hover:underline" data-i18n="resource-hymns-link">Explorar Himnos</a>
+                <!-- Himnos -->
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <h3 class="text-2xl font-semibold text-[#BF9B30] mb-4" data-i18n="resources-hymns">Himnos</h3>
+                    <p class="text-gray-600 mb-4" data-i18n="resources-hymns-desc">Accede a nuestra colección de himnos tradicionales.</p>
+                    <a href="himnos.html" class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]" data-i18n="resources-explore">Explorar</a>
                 </div>
-                <div class="bg-gray-100 rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold mb-2" data-i18n="resource-lyrics">Letras</h3>
-                    <p class="text-gray-600 mb-4" data-i18n="resource-lyrics-desc">Accede a las letras de nuestras canciones para cantar con nosotros.</p>
-                    <a href="letras.html" class="text-[#BF9B30] hover:underline" data-i18n="resource-lyrics-link">Explorar Letras</a>
+                <!-- Letras -->
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <h3 class="text-2xl font-semibold text-[#BF9B30] mb-4" data-i18n="resources-lyrics">Letras</h3>
+                    <p class="text-gray-600 mb-4" data-i18n="resources-lyrics-desc">Encuentra letras de himnos y canciones para tus devocionales.</p>
+                    <a href="letras.html" class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]" data-i18n="resources-explore">Explorar</a>
+                </div>
+                <!-- Prédicas -->
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <h3 class="text-2xl font-semibold text-[#BF9B30] mb-4" data-i18n="resources-sermons">Prédicas</h3>
+                    <p class="text-gray-600 mb-4" data-i18n="resources-sermons-desc">Escucha prédicas grabadas para fortalecer tu fe.</p>
+                    <a href="predicas.html" class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]" data-i18n="resources-explore">Explorar</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Servicios Section -->
-    <section id="services" class="py-12 px-6 bg-gray-100">
+    <!-- Recorded Sermons -->
+    <section id="sermones" class="py-16 px-6 bg-white">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl font-bold text-center text-black mb-8" data-i18n="services-title">Servicios</h2>
+            <h2 class="text-4xl font-bold text-center mb-12 text-black" data-i18n="sermons-title">Sermones Grabados</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold mb-2" data-i18n="service-sunday-school">Escuela Dominical</h3>
-                    <p class="text-gray-600 mb-4" data-i18n="service-sunday-school-desc">Domingos a las 9:00 AM - Enseñanza bíblica para todas las edades.</p>
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1544427920-c49ccfb85579" alt="Sermón" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2" data-i18n="sermon-grace">La Gracia de Dios</h3>
+                        <p class="text-gray-600 mb-4" data-i18n="sermon-pastor-date">Pastor Adolfo Hernandez - 12/03/2024</p>
+                        <a href="#sermon" class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]" data-i18n="sermon-view">Ver Sermón</a>
+                    </div>
                 </div>
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold mb-2" data-i18n="service-sunday-preaching">Predicación Dominical</h3>
-                    <p class="text-gray-600 mb-4" data-i18n="service-sunday-preaching-desc">Domingos a las 11:00 AM - Adoración y mensajes inspiradores.</p>
-                </div>
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold mb-2" data-i18n="service-prayer">Oración Jueves</h3>
-                    <p class="text-gray-600 mb-4" data-i18n="service-prayer-desc">Jueves a las 7:00 PM - Reunión de oración y estudio bíblico.</p>
-                </div>
+                <!-- More sermon cards can be added here -->
             </div>
         </div>
     </section>
 
-    <!-- Sermones Section -->
-    <section id="sermones" class="py-12 px-6 bg-white">
+    <!-- Events Calendar -->
+    <section id="eventos" class="py-16 px-6 bg-gray-100">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl font-bold text-center text-black mb-8" data-i18n="sermons-title">Sermones</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-gray-100 rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold mb-2" data-i18n="sermon-grace">La Gracia de Dios</h3>
-                    <p class="text-gray-600 mb-4" data-i18n="sermon-grace-desc">Un mensaje sobre el amor inmerecido de Dios.</p>
-                    <a href="predicas.html" class="text-[#BF9B30] hover:underline" data-i18n="sermon-link">Ver Sermones</a>
-                </div>
-                <div class="bg-gray-100 rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold mb-2" data-i18n="sermon-faith">El Poder de la Fe</h3>
-                    <p class="text-gray-600 mb-4" data-i18n="sermon-faith-desc">Cómo la fe puede transformar tu vida.</p>
-                    <a href="predicas.html" class="text-[#BF9B30] hover:underline" data-i18n="sermon-link">Ver Sermones</a>
-                </div>
-                <div class="bg-gray-100 rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold mb-2" data-i18n="sermon-hope">La Esperanza Eterna</h3>
-                    <p class="text-gray-600 mb-4" data-i18n="sermon-hope-desc">Encuentra esperanza en los planes de Dios.</p>
-                    <a href="predicas.html" class="text-[#BF9B30] hover:underline" data-i18n="sermon-link">Ver Sermones</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Eventos Section -->
-    <section id="eventos" class="py-12 px-6 bg-gray-100">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl font-bold text-center text-black mb-8" data-i18n="events-title">Eventos</h2>
+            <h2 class="text-4xl font-bold text-center mb-12 text-black" data-i18n="events-title">Calendario de Eventos</h2>
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold mb-2" data-i18n="event-retreat">Retiro Espiritual</h3>
-                    <p class="text-gray-600 mb-4" data-i18n="event-retreat-desc">Únete a nuestro retiro anual para un tiempo de comunión y crecimiento espiritual.</p>
-                    <p class="text-gray-600" data-i18n="event-retreat-date">Fecha: 15 de noviembre de 2025</p>
+                <div class="bg-gray-100 p-6 rounded-lg">
+                    <h3 class="text-2xl font-semibold mb-4" data-i18n="events-upcoming">Próximos Eventos</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded shadow">
+                            <h4 class="text-lg font-semibold" data-i18n="event-campaign">Campaña Evangelística</h4>
+                            <p class="text-gray-600" data-i18n="event-campaign-date">15-17 Abril, 2024</p>
+                            <p data-i18n="event-campaign-desc">Tres días de predicación especial</p>
+                        </div>
+                        <!-- More events can be added here -->
+                    </div>
                 </div>
-                <div class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold mb-2" data-i18n="event-youth">Noche de Jóvenes</h3>
-                    <p class="text-gray-600 mb-4" data-i18n="event-youth-desc">Un evento para jóvenes con música, mensajes y actividades.</p>
-                    <p class="text-gray-600" data-i18n="event-youth-date">Fecha: 20 de diciembre de 2025</p>
+                <div class="bg-gray-100 p-6 rounded-lg">
+                    <h3 class="text-2xl font-semibold mb-4" data-i18n="events-bulletin">Boletín Semanal</h3>
+                    <div class="bg-white p-4 rounded shadow">
+                        <h4 class="text-lg font-semibold mb-2" data-i18n="bulletin-title">Boletín - Semana 12</h4>
+                        <p class="text-gray-600 mb-4" data-i18n="bulletin-date">18-24 Marzo, 2024</p>
+                        <a href="#boletin" class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]" data-i18n="bulletin-download">Descargar PDF</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contacto Section -->
-    <section id="contact" class="py-12 px-6 bg-white">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl font-bold text-center text-black mb-8" data-i18n="contact-title">Contacto</h2>
-            <form class="max-w-lg mx-auto">
-                <div class="mb-4">
-                    <label for="name" class="block text-gray-700 mb-2" data-i18n="contact-name">Nombre</label>
+    <!-- Contact Form -->
+    <section id="contact" class="py-16 px-6 bg-white">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 text-black" data-i18n="contact-title">Contáctenos</h2>
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-gray-700 mb-2" for="name" data-i18n="contact-name">Nombre</label>
                     <input type="text" id="name" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-[#BF9B30]" required>
                 </div>
-                <div class="mb-4">
-                    <label for="email" class="block text-gray-700 mb-2" data-i18n="contact-email">Correo Electrónico</label>
+                <div>
+                    <label class="block text-gray-700 mb-2" for="email" data-i18n="contact-email">Correo Electrónico</label>
                     <input type="email" id="email" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-[#BF9B30]" required>
                 </div>
-                <div class="mb-4">
-                    <label for="message" class="block text-gray-700 mb-2" data-i18n="contact-message">Mensaje</label>
-                    <textarea id="message" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-[#BF9B30]" rows="5" required></textarea>
+                <div>
+                    <label class="block text-gray-700 mb-2" for="message" data-i18n="contact-message">Mensaje</label>
+                    <textarea id="message" rows="4" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-[#BF9B30]" required></textarea>
                 </div>
-                <button type="submit" class="w-full bg-[#BF9B30] text-white px-6 py-3 rounded-lg hover:bg-black" data-i18n="contact-submit">Enviar</button>
-            </form>
+                <button id="contact-submit" class="w-full bg-black text-white py-3 px-6 rounded hover:bg-[#BF9B30] transition duration-300" data-i18n="contact-submit">Enviar Mensaje</button>
+            </div>
         </div>
     </section>
 
@@ -210,7 +223,7 @@
         </div>
     </footer>
 
-    <!-- JavaScript for Language Toggle -->
+    <!-- JavaScript for Language Toggle and Form Handling -->
     <script>
         // Traducciones
         const translations = {
@@ -223,46 +236,42 @@
                 'nav-events': 'Eventos',
                 'nav-contact': 'Contacto',
                 'lang-toggle': 'ES/EN',
-                'hero-title': 'Bienvenidos a la Iglesia Bautista Fundamental Betesda',
-                'hero-subtitle': 'Una comunidad dedicada a compartir el amor de Cristo y crecer en fe.',
-                'hero-cta': 'Contáctanos',
-                'resources-title': 'Recursos',
-                'resource-music': 'Música',
-                'resource-music-desc': 'Encuentra canciones y videos de adoración para fortalecer tu fe.',
-                'resource-music-link': 'Explorar Música',
-                'resource-hymns': 'Himnos',
-                'resource-hymns-desc': 'Escucha y descarga himnos tradicionales de nuestra iglesia.',
-                'resource-hymns-link': 'Explorar Himnos',
-                'resource-lyrics': 'Letras',
-                'resource-lyrics-desc': 'Accede a las letras de nuestras canciones para cantar con nosotros.',
-                'resource-lyrics-link': 'Explorar Letras',
-                'services-title': 'Servicios',
-                'service-sunday-school': 'Escuela Dominical',
-                'service-sunday-school-desc': 'Domingos a las 9:00 AM - Enseñanza bíblica para todas las edades.',
-                'service-sunday-preaching': 'Predicación Dominical',
-                'service-sunday-preaching-desc': 'Domingos a las 11:00 AM - Adoración y mensajes inspiradores.',
-                'service-prayer': 'Oración Jueves',
-                'service-prayer-desc': 'Jueves a las 7:00 PM - Reunión de oración y estudio bíblico.',
-                'sermons-title': 'Sermones',
+                'hero-title': 'Iglesia Bautista Fundamental Betesda',
+                'hero-pastor': 'Pastor Adolfo Hernandez',
+                'hero-location': 'Cuenca, Ecuador',
+                'hero-welcome': 'Bienvenidos a nuestra familia en Cristo donde adoramos a Dios en espíritu y en verdad.',
+                'services-title': 'Horarios de Servicios',
+                'services-sunday-school': 'Escuela Dominical',
+                'services-sunday-preaching': 'Predicación Dominical',
+                'services-thursday-prayer': 'Oración Jueves',
+                'resources-title': 'Recursos para la Iglesia',
+                'resources-music': 'Música Cristiana',
+                'resources-music-desc': 'Escucha y descarga música cristiana para adoración y edificación.',
+                'resources-hymns': 'Himnos',
+                'resources-hymns-desc': 'Accede a nuestra colección de himnos tradicionales.',
+                'resources-lyrics': 'Letras',
+                'resources-lyrics-desc': 'Encuentra letras de himnos y canciones para tus devocionales.',
+                'resources-sermons': 'Prédicas',
+                'resources-sermons-desc': 'Escucha prédicas grabadas para fortalecer tu fe.',
+                'resources-explore': 'Explorar',
+                'sermons-title': 'Sermones Grabados',
                 'sermon-grace': 'La Gracia de Dios',
-                'sermon-grace-desc': 'Un mensaje sobre el amor inmerecido de Dios.',
-                'sermon-faith': 'El Poder de la Fe',
-                'sermon-faith-desc': 'Cómo la fe puede transformar tu vida.',
-                'sermon-hope': 'La Esperanza Eterna',
-                'sermon-hope-desc': 'Encuentra esperanza en los planes de Dios.',
-                'sermon-link': 'Ver Sermones',
-                'events-title': 'Eventos',
-                'event-retreat': 'Retiro Espiritual',
-                'event-retreat-desc': 'Únete a nuestro retiro anual para un tiempo de comunión y crecimiento espiritual.',
-                'event-retreat-date': 'Fecha: 15 de noviembre de 2025',
-                'event-youth': 'Noche de Jóvenes',
-                'event-youth-desc': 'Un evento para jóvenes con música, mensajes y actividades.',
-                'event-youth-date': 'Fecha: 20 de diciembre de 2025',
-                'contact-title': 'Contacto',
+                'sermon-pastor-date': 'Pastor Adolfo Hernandez - 12/03/2024',
+                'sermon-view': 'Ver Sermón',
+                'events-title': 'Calendario de Eventos',
+                'events-upcoming': 'Próximos Eventos',
+                'event-campaign': 'Campaña Evangelística',
+                'event-campaign-date': '15-17 Abril, 2024',
+                'event-campaign-desc': 'Tres días de predicación especial',
+                'events-bulletin': 'Boletín Semanal',
+                'bulletin-title': 'Boletín - Semana 12',
+                'bulletin-date': '18-24 Marzo, 2024',
+                'bulletin-download': 'Descargar PDF',
+                'contact-title': 'Contáctenos',
                 'contact-name': 'Nombre',
                 'contact-email': 'Correo Electrónico',
                 'contact-message': 'Mensaje',
-                'contact-submit': 'Enviar',
+                'contact-submit': 'Enviar Mensaje',
                 'footer-location': 'Ubicación',
                 'footer-location-desc': 'Cuenca, Ecuador',
                 'footer-contact': 'Contacto',
@@ -283,46 +292,42 @@
                 'nav-events': 'Events',
                 'nav-contact': 'Contact',
                 'lang-toggle': 'EN/ES',
-                'hero-title': 'Welcome to Fundamental Baptist Church Bethesda',
-                'hero-subtitle': 'A community dedicated to sharing the love of Christ and growing in faith.',
-                'hero-cta': 'Contact Us',
-                'resources-title': 'Resources',
-                'resource-music': 'Music',
-                'resource-music-desc': 'Find worship songs and videos to strengthen your faith.',
-                'resource-music-link': 'Explore Music',
-                'resource-hymns': 'Hymns',
-                'resource-hymns-desc': 'Listen to and download traditional hymns from our church.',
-                'resource-hymns-link': 'Explore Hymns',
-                'resource-lyrics': 'Lyrics',
-                'resource-lyrics-desc': 'Access the lyrics of our songs to sing along with us.',
-                'resource-lyrics-link': 'Explore Lyrics',
-                'services-title': 'Services',
-                'service-sunday-school': 'Sunday School',
-                'service-sunday-school-desc': 'Sundays at 9:00 AM - Biblical teaching for all ages.',
-                'service-sunday-preaching': 'Sunday Preaching',
-                'service-sunday-preaching-desc': 'Sundays at 11:00 AM - Worship and inspiring messages.',
-                'service-prayer': 'Thursday Prayer',
-                'service-prayer-desc': 'Thursdays at 7:00 PM - Prayer and Bible study meeting.',
-                'sermons-title': 'Sermons',
+                'hero-title': 'Fundamental Baptist Church Bethesda',
+                'hero-pastor': 'Pastor Adolfo Hernandez',
+                'hero-location': 'Cuenca, Ecuador',
+                'hero-welcome': 'Welcome to our family in Christ where we worship God in spirit and truth.',
+                'services-title': 'Service Schedule',
+                'services-sunday-school': 'Sunday School',
+                'services-sunday-preaching': 'Sunday Preaching',
+                'services-thursday-prayer': 'Thursday Prayer',
+                'resources-title': 'Church Resources',
+                'resources-music': 'Christian Music',
+                'resources-music-desc': 'Listen to and download Christian music for worship and edification.',
+                'resources-hymns': 'Hymns',
+                'resources-hymns-desc': 'Access our collection of traditional hymns.',
+                'resources-lyrics': 'Lyrics',
+                'resources-lyrics-desc': 'Find lyrics for hymns and songs for your devotionals.',
+                'resources-sermons': 'Sermons',
+                'resources-sermons-desc': 'Listen to recorded sermons to strengthen your faith.',
+                'resources-explore': 'Explore',
+                'sermons-title': 'Recorded Sermons',
                 'sermon-grace': 'The Grace of God',
-                'sermon-grace-desc': 'A message about God’s unmerited love.',
-                'sermon-faith': 'The Power of Faith',
-                'sermon-faith-desc': 'How faith can transform your life.',
-                'sermon-hope': 'Eternal Hope',
-                'sermon-hope-desc': 'Find hope in God’s plans.',
-                'sermon-link': 'View Sermons',
-                'events-title': 'Events',
-                'event-retreat': 'Spiritual Retreat',
-                'event-retreat-desc': 'Join our annual retreat for a time of fellowship and spiritual growth.',
-                'event-retreat-date': 'Date: November 15, 2025',
-                'event-youth': 'Youth Night',
-                'event-youth-desc': 'An event for youth with music, messages, and activities.',
-                'event-youth-date': 'Date: December 20, 2025',
-                'contact-title': 'Contact',
+                'sermon-pastor-date': 'Pastor Adolfo Hernandez - 03/12/2024',
+                'sermon-view': 'View Sermon',
+                'events-title': 'Events Calendar',
+                'events-upcoming': 'Upcoming Events',
+                'event-campaign': 'Evangelistic Campaign',
+                'event-campaign-date': 'April 15-17, 2024',
+                'event-campaign-desc': 'Three days of special preaching',
+                'events-bulletin': 'Weekly Bulletin',
+                'bulletin-title': 'Bulletin - Week 12',
+                'bulletin-date': 'March 18-24, 2024',
+                'bulletin-download': 'Download PDF',
+                'contact-title': 'Contact Us',
                 'contact-name': 'Name',
                 'contact-email': 'Email',
                 'contact-message': 'Message',
-                'contact-submit': 'Submit',
+                'contact-submit': 'Send Message',
                 'footer-location': 'Location',
                 'footer-location-desc': 'Cuenca, Ecuador',
                 'footer-contact': 'Contact',
@@ -342,8 +347,11 @@
                 const key = element.getAttribute('data-i18n');
                 element.textContent = translations[lang][key] || element.textContent;
             });
+            // Actualizar el atributo lang del HTML
             document.documentElement.lang = lang;
+            // Guardar el idioma en localStorage
             localStorage.setItem('language', lang);
+            // Actualizar el texto del botón
             document.getElementById('lang-toggle').textContent = lang === 'es' ? 'ES/EN' : 'EN/ES';
         }
 
@@ -356,6 +364,12 @@
             const currentLang = localStorage.getItem('language') || 'es';
             const newLang = currentLang === 'es' ? 'en' : 'es';
             setLanguage(newLang);
+        });
+
+        // Form submission (placeholder due to sandbox restrictions)
+        document.getElementById('contact-submit').addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Form submission is disabled in this environment. Please implement server-side handling for production.');
         });
     </script>
 </body>
