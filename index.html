@@ -1,4 +1,43 @@
-<!DOCTYPE html>
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +46,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white">
-    <!-- Header/Nav -->
+    <!-- Header -->
     <header class="bg-black py-4 px-6 fixed w-full z-50">
         <nav class="flex items-center justify-between max-w-7xl mx-auto">
             <div class="flex items-center">
@@ -16,12 +55,13 @@
             </div>
             <div class="hidden md:flex space-x-8">
                 <a href="#home" class="text-white hover:text-[#BF9B30]">Inicio</a>
+                <a href="#recursos" class="text-white hover:text-[#BF9B30]">Recursos</a>
                 <a href="#services" class="text-white hover:text-[#BF9B30]">Servicios</a>
                 <a href="#sermones" class="text-white hover:text-[#BF9B30]">Sermones</a>
                 <a href="#eventos" class="text-white hover:text-[#BF9B30]">Eventos</a>
                 <a href="#contact" class="text-white hover:text-[#BF9B30]">Contacto</a>
             </div>
-            <button class="text-white border border-[#BF9B30] px-4 py-2 rounded hover:bg-[#BF9B30]">ES/EN</button>
+            <button id="lang-toggle" class="text-white border border-[#BF9B30] px-4 py-2 rounded hover:bg-[#BF9B30]">ES/EN</button>
         </nav>
     </header>
 
@@ -56,8 +96,41 @@
         </div>
     </section>
 
+    <!-- Recursos Section -->
+    <section id="recursos" class="py-16 px-6 bg-gray-100">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 text-black">Recursos para la Iglesia</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Música Cristiana -->
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <h3 class="text-2xl font-semibold text-[#BF9B30] mb-4">Música Cristiana</h3>
+                    <p class="text-gray-600 mb-4">Escucha y descarga música cristiana para adoración y edificación.</p>
+                    <a href="musica.html" class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]">Explorar</a>
+                </div>
+                <!-- Himnos -->
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <h3 class="text-2xl font-semibold text-[#BF9B30] mb-4">Himnos</h3>
+                    <p class="text-gray-600 mb-4">Accede a nuestra colección de himnos tradicionales.</p>
+                    <a href="himnos.html" class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]">Explorar</a>
+                </div>
+                <!-- Letras -->
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <h3 class="text-2xl font-semibold text-[#BF9B30] mb-4">Letras</h3>
+                    <p class="text-gray-600 mb-4">Encuentra letras de himnos y canciones para tus devocionales.</p>
+                    <a href="letras.html" class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]">Explorar</a>
+                </div>
+                <!-- Prédicas -->
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <h3 class="text-2xl font-semibold text-[#BF9B30] mb-4">Prédicas</h3>
+                    <p class="text-gray-600 mb-4">Escucha prédicas grabadas para fortalecer tu fe.</p>
+                    <a href="predicas.html" class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]">Explorar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Recorded Sermons -->
-    <section id="sermones" class="py-16 px-6 bg-gray-100">
+    <section id="sermones" class="py-16 px-6 bg-white">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-4xl font-bold text-center mb-12 text-black">Sermones Grabados</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -66,7 +139,7 @@
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2">La Gracia de Dios</h3>
                         <p class="text-gray-600 mb-4">Pastor Adolfo Hernandez - 12/03/2024</p>
-                        <button class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]">Ver Sermón</button>
+                        <a href="#sermon" class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]">Ver Sermón</a>
                     </div>
                 </div>
                 <!-- More sermon cards can be added here -->
@@ -75,7 +148,7 @@
     </section>
 
     <!-- Events Calendar -->
-    <section id="eventos" class="py-16 px-6 bg-white">
+    <section id="eventos" class="py-16 px-6 bg-gray-100">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-4xl font-bold text-center mb-12 text-black">Calendario de Eventos</h2>
             <div class="grid md:grid-cols-2 gap-8">
@@ -95,7 +168,7 @@
                     <div class="bg-white p-4 rounded shadow">
                         <h4 class="text-lg font-semibold mb-2">Boletín - Semana 12</h4>
                         <p class="text-gray-600 mb-4">18-24 Marzo, 2024</p>
-                        <button class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]">Descargar PDF</button>
+                        <a href="#boletin" class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]">Descargar PDF</a>
                     </div>
                 </div>
             </div>
@@ -103,10 +176,10 @@
     </section>
 
     <!-- Contact Form -->
-    <section id="contact" class="py-16 px-6 bg-gray-100">
+    <section id="contact" class="py-16 px-6 bg-white">
         <div class="max-w-3xl mx-auto">
             <h2 class="text-4xl font-bold text-center mb-12 text-black">Contáctenos</h2>
-            <form class="space-y-6">
+            <div class="space-y-6">
                 <div>
                     <label class="block text-gray-700 mb-2" for="name">Nombre</label>
                     <input type="text" id="name" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-[#BF9B30]" required>
@@ -119,8 +192,8 @@
                     <label class="block text-gray-700 mb-2" for="message">Mensaje</label>
                     <textarea id="message" rows="4" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-[#BF9B30]" required></textarea>
                 </div>
-                <button type="submit" class="w-full bg-black text-white py-3 px-6 rounded hover:bg-[#BF9B30] transition duration-300">Enviar Mensaje</button>
-            </form>
+                <button id="contact-submit" class="w-full bg-black text-white py-3 px-6 rounded hover:bg-[#BF9B30] transition duration-300">Enviar Mensaje</button>
+            </div>
         </div>
     </section>
 
@@ -145,6 +218,23 @@
                 </div>
             </div>
         </div>
+        <div class="mt-8 text-center text-gray-400">
+            <p>&copy; 2025 Iglesia Bautista Fundamental Betesda. Todos los derechos reservados.</p>
+        </div>
     </footer>
+
+    <!-- JavaScript for handling form and language toggle -->
+    <script>
+        // Language toggle (placeholder functionality)
+        document.getElementById('lang-toggle').addEventListener('click', () => {
+            alert('Language toggle functionality to be implemented');
+        });
+
+        // Form submission (placeholder due to sandbox restrictions)
+        document.getElementById('contact-submit').addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Form submission is disabled in this environment. Please implement server-side handling for production.');
+        });
+    </script>
 </body>
 </html>
