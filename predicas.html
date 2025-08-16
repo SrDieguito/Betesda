@@ -1,43 +1,4 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -77,25 +38,7 @@
                 </select>
             </div>
             <div id="resource-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Example Resource Cards with Download -->
-                <div class="resource-card bg-white rounded-lg shadow-lg p-6" data-name="La Gracia de Dios" data-date="2024-01-15">
-                    <h3 class="text-xl font-semibold mb-2" data-i18n="sermon-grace">La Gracia de Dios</h3>
-                    <p class="text-gray-600 mb-4" data-i18n="sermon-pastor-date">Pastor Adolfo Hernandez - 15/01/2024</p>
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <a href="path/to/sermon1.mp4" download class="mt-4 inline-block bg-[#BF9B30] text-white px-4 py-2 rounded hover:bg-black" data-i18n="download-video">Descargar Video</a>
-                </div>
-                <div class="resource-card bg-white rounded-lg shadow-lg p-6" data-name="El Poder de la Fe" data-date="2024-02-20">
-                    <h3 class="text-xl font-semibold mb-2" data-i18n="sermon-faith">El Poder de la Fe</h3>
-                    <p class="text-gray-600 mb-4" data-i18n="sermon-pastor-date">Pastor Adolfo Hernandez - 20/02/2024</p>
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <a href="path/to/sermon2.mp4" download class="mt-4 inline-block bg-[#BF9B30] text-white px-4 py-2 rounded hover:bg-black" data-i18n="download-video">Descargar Video</a>
-                </div>
-                <div class="resource-card bg-white rounded-lg shadow-lg p-6" data-name="La Esperanza Eterna" data-date="2024-03-10">
-                    <h3 class="text-xl font-semibold mb-2" data-i18n="sermon-hope">La Esperanza Eterna</h3>
-                    <p class="text-gray-600 mb-4" data-i18n="sermon-pastor-date">Pastor Adolfo Hernandez - 10/03/2024</p>
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <a href="path/to/sermon3.mp4" download class="mt-4 inline-block bg-[#BF9B30] text-white px-4 py-2 rounded hover:bg-black" data-i18n="download-video">Descargar Video</a>
-                </div>
+                <!-- Los videos se cargarán aquí dinámicamente -->
             </div>
         </div>
     </section>
@@ -126,123 +69,76 @@
         </div>
     </footer>
 
-    <!-- JavaScript for Filtering, Sorting, and Language Toggle -->
+    <!-- JavaScript -->
     <script>
-        // Traducciones
-        const translations = {
-            es: {
-                'title': 'Prédicas - Iglesia Bautista Fundamental Betesda',
-                'nav-home': 'Inicio',
-                'nav-resources': 'Recursos',
-                'nav-services': 'Servicios',
-                'nav-sermons': 'Sermones',
-                'nav-events': 'Eventos',
-                'nav-contact': 'Contacto',
-                'lang-toggle': 'ES/EN',
-                'sermons-title': 'Prédicas',
-                'search-placeholder': 'Buscar por nombre...',
-                'sort-recent': 'Más reciente primero',
-                'sort-oldest': 'Más antiguo primero',
-                'sermon-grace': 'La Gracia de Dios',
-                'sermon-faith': 'El Poder de la Fe',
-                'sermon-hope': 'La Esperanza Eterna',
-                'sermon-pastor-date': 'Pastor Adolfo Hernandez - ',
-                'download-video': 'Descargar Video',
-                'footer-location': 'Ubicación',
-                'footer-location-desc': 'Cuenca, Ecuador',
-                'footer-contact': 'Contacto',
-                'footer-contact-email': 'Correo: contact@ibfb.org',
-                'footer-contact-phone': 'Teléfono: +593 123 456 789',
-                'footer-follow': 'Síguenos',
-                'footer-social-facebook': 'Facebook',
-                'footer-social-youtube': 'YouTube',
-                'footer-social-instagram': 'Instagram',
-                'footer-copyright': '&copy; 2025 Iglesia Bautista Fundamental Betesda. Todos los derechos reservados.'
-            },
-            en: {
-                'title': 'Sermons - Fundamental Baptist Church Bethesda',
-                'nav-home': 'Home',
-                'nav-resources': 'Resources',
-                'nav-services': 'Services',
-                'nav-sermons': 'Sermons',
-                'nav-events': 'Events',
-                'nav-contact': 'Contact',
-                'lang-toggle': 'EN/ES',
-                'sermons-title': 'Sermons',
-                'search-placeholder': 'Search by name...',
-                'sort-recent': 'Most recent first',
-                'sort-oldest': 'Oldest first',
-                'sermon-grace': 'The Grace of God',
-                'sermon-faith': 'The Power of Faith',
-                'sermon-hope': 'Eternal Hope',
-                'sermon-pastor-date': 'Pastor Adolfo Hernandez - ',
-                'download-video': 'Download Video',
-                'footer-location': 'Location',
-                'footer-location-desc': 'Cuenca, Ecuador',
-                'footer-contact': 'Contact',
-                'footer-contact-email': 'Email: contact@ibfb.org',
-                'footer-contact-phone': 'Phone: +593 123 456 789',
-                'footer-follow': 'Follow Us',
-                'footer-social-facebook': 'Facebook',
-                'footer-social-youtube': 'YouTube',
-                'footer-social-instagram': 'Instagram',
-                'footer-copyright': '&copy; 2025 Fundamental Baptist Church Bethesda. All rights reserved.'
-            }
-        };
+        // === Configuración ===
+        const channelId = "UCLs1hNc80aCzFbhsQAbhHzQ";
+        const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
 
-        // Función para cambiar el idioma
-        function setLanguage(lang) {
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                element.textContent = translations[lang][key] || element.textContent;
-            });
-            document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
-                const key = element.getAttribute('data-i18n-placeholder');
-                element.placeholder = translations[lang][key] || element.placeholder;
-            });
-            document.documentElement.lang = lang;
-            localStorage.setItem('language', lang);
-            document.getElementById('lang-toggle').textContent = lang === 'es' ? 'ES/EN' : 'EN/ES';
+        const resourceGrid = document.getElementById("resource-grid");
+
+        // === Cargar videos ===
+        async function loadVideos() {
+            try {
+                const res = await fetch(apiUrl);
+                const data = await res.json();
+
+                resourceGrid.innerHTML = "";
+
+                data.items.forEach(item => {
+                    const videoId = item.link.split("v=")[1];
+                    const date = new Date(item.pubDate).toISOString().split("T")[0];
+
+                    const card = document.createElement("div");
+                    card.className = "resource-card bg-white rounded-lg shadow-lg p-6";
+                    card.setAttribute("data-name", item.title);
+                    card.setAttribute("data-date", date);
+
+                    card.innerHTML = `
+                        <h3 class="text-xl font-semibold mb-2">${item.title}</h3>
+                        <p class="text-gray-600 mb-4">Fecha: ${date}</p>
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                        <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" class="mt-4 inline-block bg-[#BF9B30] text-white px-4 py-2 rounded hover:bg-black">Ver en YouTube</a>
+                    `;
+                    resourceGrid.appendChild(card);
+                });
+
+                filterAndSortResources();
+            } catch (error) {
+                console.error("Error al cargar videos:", error);
+                resourceGrid.innerHTML = "<p class='text-red-500'>No se pudieron cargar los videos.</p>";
+            }
         }
 
-        // Cargar idioma inicial
-        const savedLang = localStorage.getItem('language') || 'es';
-        setLanguage(savedLang);
-
-        // Evento para cambiar idioma
-        document.getElementById('lang-toggle').addEventListener('click', () => {
-            const currentLang = localStorage.getItem('language') || 'es';
-            const newLang = currentLang === 'es' ? 'en' : 'es';
-            setLanguage(newLang);
-        });
-
-        // Filtering and Sorting
-        const searchInput = document.getElementById('search-input');
-        const sortSelect = document.getElementById('sort-select');
-        const resourceGrid = document.getElementById('resource-grid');
-        const resourceCards = Array.from(document.getElementsByClassName('resource-card'));
+        // === Filtrar y ordenar ===
+        const searchInput = document.getElementById("search-input");
+        const sortSelect = document.getElementById("sort-select");
 
         function filterAndSortResources() {
             const searchTerm = searchInput.value.toLowerCase();
             const sortOrder = sortSelect.value;
+            const cards = Array.from(document.getElementsByClassName("resource-card"));
 
-            let filteredCards = resourceCards.filter(card => {
-                const name = card.getAttribute('data-name').toLowerCase();
-                return name.includes(searchTerm);
-            });
+            let filteredCards = cards.filter(card =>
+                card.getAttribute("data-name").toLowerCase().includes(searchTerm)
+            );
 
             filteredCards.sort((a, b) => {
-                const dateA = new Date(a.getAttribute('data-date'));
-                const dateB = new Date(b.getAttribute('data-date'));
-                return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+                const dateA = new Date(a.getAttribute("data-date"));
+                const dateB = new Date(b.getAttribute("data-date"));
+                return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
             });
 
-            resourceGrid.innerHTML = '';
+            resourceGrid.innerHTML = "";
             filteredCards.forEach(card => resourceGrid.appendChild(card));
         }
 
-        searchInput.addEventListener('input', filterAndSortResources);
-        sortSelect.addEventListener('change', filterAndSortResources);
+        searchInput.addEventListener("input", filterAndSortResources);
+        sortSelect.addEventListener("change", filterAndSortResources);
+
+        // === Inicializar ===
+        loadVideos();
     </script>
 </body>
 </html>
