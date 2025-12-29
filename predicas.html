@@ -3,150 +3,873 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="title">Prédicas - Iglesia Bautista Fundamental Betesda</title>
+    <title>Prédicas - Iglesia Bautista Fundamental Betesda</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Lightbox2 para videos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    
+    <style>
+        /* ===== Ajustes para header fijo ===== */
+        body {
+            padding-top: 100px;
+        }
+        
+        /* ===== Animaciones ===== */
+        .video-card {
+            animation: fadeUp 0.5s ease both;
+            transition: all 0.3s ease;
+        }
+        
+        @keyframes fadeUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* ===== Estilos para iframe responsivo ===== */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* ===== Estilos para filtros ===== */
+        .filter-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active {
+            background-color: black;
+            color: white;
+        }
+        
+        /* ===== Estilos para botones flotantes ===== */
+        .floating-btn {
+            position: fixed;
+            right: 1rem;
+            z-index: 50;
+            background: black;
+            color: white;
+            border-radius: 999px;
+            padding: .7rem .8rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,.3);
+            transition: all 0.3s ease;
+        }
+        
+        .floating-btn:hover {
+            background: #BF9B30;
+            transform: scale(1.1);
+        }
+        
+        #btn-top { 
+            bottom: 1.3rem; 
+        }
+        
+        #btn-back { 
+            bottom: 4.8rem; 
+        }
+        
+        /* ===== Loading spinner ===== */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid #BF9B30;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* ===== Ajustes responsive ===== */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 90px;
+            }
+            
+            .filter-buttons {
+                flex-wrap: wrap;
+            }
+            
+            .filter-btn {
+                margin-bottom: 0.5rem;
+            }
+        }
+        
+        /* ===== Estilos para categorías ===== */
+        .category-tag {
+            display: inline-block;
+            background-color: #f3f4f6;
+            color: #4b5563;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .category-tag.amarillo {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+        
+        .category-tag.azul {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .category-tag.rojo {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .category-tag.verde {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+    </style>
 </head>
-<body class="bg-white">
-    <!-- Header -->
-    <header class="bg-black py-4 px-6 fixed w-full z-50">
-        <nav class="flex items-center justify-between max-w-7xl mx-auto">
-            <div class="flex items-center">
-                <img src="img/1.png" alt="Logo de la Iglesia" class="h-24 w-24 rounded-full">
-                <span class="text-[#BF9B30] ml-3 text-xl font-semibold">IBFB</span>
-            </div>
-            <div class="hidden md:flex space-x-8">
-                <a href="index.html#home" class="text-white hover:text-[#BF9B30]" data-i18n="nav-home">Inicio</a>
-                <a href="index.html#recursos" class="text-white hover:text-[#BF9B30]" data-i18n="nav-resources">Recursos</a>
-                <a href="index.html#services" class="text-white hover:text-[#BF9B30]" data-i18n="nav-services">Servicios</a>
-                <a href="index.html#sermones" class="text-white hover:text-[#BF9B30]" data-i18n="nav-sermons">Sermones</a>
-                <a href="index.html#eventos" class="text-white hover:text-[#BF9B30]" data-i18n="nav-events">Eventos</a>
-                <a href="index.html#contact" class="text-white hover:text-[#BF9B30]" data-i18n="nav-contact">Contacto</a>
-            </div>
-            <button id="lang-toggle" class="text-white border border-[#BF9B30] px-4 py-2 rounded hover:bg-[#BF9B30]" data-i18n="lang-toggle">ES/EN</button>
-        </nav>
-    </header>
 
-    <!-- Main Content -->
-    <section class="pt-32 pb-12 px-6 bg-gray-100">
-        <div class="max-w-7xl mx-auto">
-            <h1 class="text-4xl font-bold text-center mb-8 text-black" data-i18n="sermons-title">Prédicas</h1>
-            <div class="mb-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-4">
-                <input type="text" id="search-input" placeholder="Buscar por nombre..." class="w-full md:w-1/2 p-3 border border-gray-300 rounded focus:outline-none focus:border-[#BF9B30]" data-i18n-placeholder="search-placeholder">
-                <select id="sort-select" class="w-full md:w-1/4 p-3 border border-gray-300 rounded focus:outline-none focus:border-[#BF9B30]">
-                    <option value="desc" data-i18n="sort-recent">Más reciente primero</option>
-                    <option value="asc" data-i18n="sort-oldest">Más antiguo primero</option>
-                </select>
+<body class="bg-white">
+    <!-- Placeholder para Header Global -->
+    <div id="header-placeholder"></div>
+    
+    <!-- MAIN CONTENT -->
+    <section class="min-h-screen bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <!-- Encabezado -->
+            <div class="text-center mb-10">
+                <h1 class="text-4xl font-bold text-black mb-4">Prédicas y Enseñanzas</h1>
+                <p class="text-gray-600 text-lg max-w-3xl mx-auto">
+                    Explora nuestra colección de prédicas bíblicas, estudios y enseñanzas para tu crecimiento espiritual.
+                </p>
             </div>
-            <div id="resource-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Los videos se cargarán aquí dinámicamente -->
+            
+            <!-- Estadísticas -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-10">
+                <div class="bg-white p-4 rounded-lg shadow text-center">
+                    <div class="text-3xl font-bold text-[#BF9B30] mb-2" id="total-videos">0</div>
+                    <div class="text-gray-600">Prédicas Disponibles</div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow text-center">
+                    <div class="text-3xl font-bold text-[#BF9B30] mb-2" id="total-hours">0</div>
+                    <div class="text-gray-600">Horas de Enseñanza</div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow text-center">
+                    <div class="text-3xl font-bold text-[#BF9B30] mb-2" id="this-month">0</div>
+                    <div class="text-gray-600">Este Mes</div>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow text-center">
+                    <div class="text-3xl font-bold text-[#BF9B30] mb-2" id="last-updated">Hoy</div>
+                    <div class="text-gray-600">Actualizado</div>
+                </div>
+            </div>
+            
+            <!-- Filtros y Búsqueda -->
+            <div class="mb-10">
+                <div class="flex flex-col md:flex-row gap-4 mb-6">
+                    <input id="search-input"
+                        type="text"
+                        placeholder="Buscar por título, tema o pasaje bíblico..."
+                        class="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BF9B30] focus:border-transparent">
+                    
+                    <select id="sort-select"
+                        class="w-full md:w-auto p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BF9B30] focus:border-transparent">
+                        <option value="newest">Más recientes primero</option>
+                        <option value="oldest">Más antiguos primero</option>
+                        <option value="popular">Más populares</option>
+                        <option value="duration">Duración (largas primero)</option>
+                    </select>
+                    
+                    <button id="clear-filters" 
+                        class="px-4 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+                        Limpiar Filtros
+                    </button>
+                </div>
+                
+                <!-- Filtros por categoría -->
+                <div class="mb-4">
+                    <h3 class="text-lg font-semibold mb-3 text-gray-700">Filtrar por categoría:</h3>
+                    <div class="flex flex-wrap gap-2 filter-buttons" id="category-filters">
+                        <button class="filter-btn px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200" data-category="all">
+                            Todas
+                        </button>
+                        <!-- Las categorías se llenarán dinámicamente -->
+                    </div>
+                </div>
+                
+                <!-- Contador de resultados -->
+                <div class="flex justify-between items-center mt-6">
+                    <div id="result-count" class="text-gray-600">
+                        Cargando prédicas...
+                    </div>
+                    <div class="text-sm text-gray-500">
+                        <span id="current-page">1</span> de <span id="total-pages">1</span> páginas
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Grid de Videos -->
+            <div id="video-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+                <!-- Las prédicas se cargarán aquí dinámicamente -->
+                <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-10">
+                    <div class="spinner mx-auto mb-4"></div>
+                    <p class="text-gray-500">Cargando prédicas...</p>
+                </div>
+            </div>
+            
+            <!-- Paginación -->
+            <div id="pagination" class="flex justify-center gap-2 flex-wrap mb-10"></div>
+            
+            <!-- Sin resultados -->
+            <div id="no-results" class="hidden text-center py-10">
+                <div class="text-5xl mb-4">📖</div>
+                <h3 class="text-xl font-semibold mb-2">No se encontraron prédicas</h3>
+                <p class="text-gray-600">Intenta con otros términos de búsqueda o selecciona una categoría diferente.</p>
+            </div>
+            
+            <!-- Información de YouTube -->
+            <div class="bg-white rounded-xl shadow p-6 mb-10">
+                <div class="flex flex-col md:flex-row items-center gap-6">
+                    <div class="text-5xl text-red-600">▶️</div>
+                    <div class="flex-grow">
+                        <h3 class="text-xl font-semibold mb-2">Suscríbete a nuestro canal de YouTube</h3>
+                        <p class="text-gray-600 mb-4">No te pierdas ninguna prédica. Suscríbete para recibir notificaciones de nuevos videos.</p>
+                        <a href="https://www.youtube.com/channel/UCLs1hNc80aCzFbhsQAbhHzQ" 
+                           target="_blank"
+                           class="inline-flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition">
+                            <i class="fab fa-youtube"></i>
+                            Visitar Canal
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-black text-white py-12 px-6">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
-            <div>
-                <h3 class="text-[#BF9B30] text-xl font-semibold mb-4" data-i18n="footer-location">Ubicación</h3>
-                <p data-i18n="footer-location-desc">Cuenca, Ecuador</p>
-            </div>
-            <div>
-                <h3 class="text-[#BF9B30] text-xl font-semibold mb-4" data-i18n="footer-contact">Contacto</h3>
-                <p data-i18n="footer-contact-email">Correo: contact@ibfb.org</p>
-                <p data-i18n="footer-contact-phone">Teléfono: +593 123 456 789</p>
-            </div>
-            <div>
-                <h3 class="text-[#BF9B30] text-xl font-semibold mb-4" data-i18n="footer-follow">Síguenos</h3>
-                <div class="flex space-x-4">
-                    <a href="#" class="hover:text-[#BF9B30]" data-i18n="footer-social-facebook">Facebook</a>
-                    <a href="#" class="hover:text-[#BF9B30]" data-i18n="footer-social-youtube">YouTube</a>
-                    <a href="#" class="hover:text-[#BF9B30]" data-i18n="footer-social-instagram">Instagram</a>
-                </div>
-            </div>
-        </div>
-        <div class="mt-8 text-center text-gray-400">
-            <p data-i18n="footer-copyright">&copy; 2025 Iglesia Bautista Fundamental Betesda. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+    <!-- Placeholder para Footer Global -->
+    <div id="footer-placeholder"></div>
 
-    <!-- JavaScript -->
+    <!-- BOTONES FLOTANTES -->
+    <button id="btn-back" class="floating-btn" title="Volver atrás">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+    <button id="btn-top" class="floating-btn" title="Ir al inicio">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- SCRIPTS GLOBALES -->
+    <script src="js/loadComponents.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/excel-functions.js"></script>
+    
+    <!-- Lightbox2 para videos -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    
+    <!-- Script para ajustar padding del header -->
     <script>
-        // === Configuración ===
-        const channelId = "UCLs1hNc80aCzFbhsQAbhHzQ";
-        const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
-        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
-        const resourceGrid = document.getElementById("resource-grid");
-
-        // === Cargar videos ===
-        async function loadVideos() {
-            try {
-                const res = await fetch(apiUrl);
-                const data = await res.json();
-
-                resourceGrid.innerHTML = "";
-
-                data.items.forEach(item => {
-                    const videoId = item.link.split("v=")[1];
-                    const date = new Date(item.pubDate).toISOString().split("T")[0];
-
-                    const card = document.createElement("div");
-                    card.className = "resource-card bg-white rounded-lg shadow-lg p-6";
-                    card.setAttribute("data-name", item.title);
-                    card.setAttribute("data-date", date);
-
-                    card.innerHTML = `
-                        <h3 class="text-xl font-semibold mb-2">${item.title}</h3>
-                        <p class="text-gray-600 mb-4">Fecha: ${date}</p>
-                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
-                        <div class="mt-4 flex space-x-2">
-                            <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" class="inline-block bg-[#BF9B30] text-white px-4 py-2 rounded hover:bg-black">Ver en YouTube</a>
-                            <button onclick="downloadVideo('${videoId}')" class="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-800">Descargar Video</button>
-                        </div>
-                    `;
-                    resourceGrid.appendChild(card);
-                });
-
-                filterAndSortResources();
-            } catch (error) {
-                console.error("Error al cargar videos:", error);
-                resourceGrid.innerHTML = "<p class='text-red-500'>No se pudieron cargar los videos.</p>";
+        function adjustBodyPadding() {
+            const header = document.querySelector('#header-placeholder header');
+            if (header) {
+                const headerHeight = header.offsetHeight;
+                document.body.style.paddingTop = headerHeight + 'px';
             }
         }
-
-        // === Filtrar y ordenar ===
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(adjustBodyPadding, 100);
+            window.addEventListener('resize', adjustBodyPadding);
+        });
+    </script>
+    
+    <!-- SCRIPT ESPECÍFICO PARA PRÉDICAS -->
+    <script>
+        // Configuración del canal de YouTube
+        const YOUTUBE_CHANNEL_ID = "UCLs1hNc80aCzFbhsQAbhHzQ";
+        const YOUTUBE_API_KEY = "AIzaSyDtA8xt8FGGgri1sSJX-RnRhq7tUbfkRxI"; // Necesitarás obtener una clave API de YouTube
+        
+        // URLs alternativas (si no tenemos API key)
+        const RSS_FEED_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`;
+        const PROXY_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_FEED_URL)}`;
+        
+        // Elementos del DOM
+        const videoGrid = document.getElementById("video-grid");
         const searchInput = document.getElementById("search-input");
         const sortSelect = document.getElementById("sort-select");
-
-        function filterAndSortResources() {
-            const searchTerm = searchInput.value.toLowerCase();
-            const sortOrder = sortSelect.value;
-            const cards = Array.from(document.getElementsByClassName("resource-card"));
-
-            let filteredCards = cards.filter(card =>
-                card.getAttribute("data-name").toLowerCase().includes(searchTerm)
+        const pagination = document.getElementById("pagination");
+        const resultCount = document.getElementById("result-count");
+        const currentPageSpan = document.getElementById("current-page");
+        const totalPagesSpan = document.getElementById("total-pages");
+        const noResults = document.getElementById("no-results");
+        const clearFiltersBtn = document.getElementById("clear-filters");
+        const categoryFilters = document.getElementById("category-filters");
+        
+        // Estadísticas
+        const totalVideosEl = document.getElementById("total-videos");
+        const totalHoursEl = document.getElementById("total-hours");
+        const thisMonthEl = document.getElementById("this-month");
+        const lastUpdatedEl = document.getElementById("last-updated");
+        
+        // Variables de estado
+        const ITEMS_POR_PAGINA = 9;
+        let paginaActual = 1;
+        let videos = [];
+        let isLoading = true;
+        let currentCategory = "all";
+        let categories = [];
+        
+        // Categorías predefinidas (se pueden extraer de palabras clave en los títulos)
+        const CATEGORY_KEYWORDS = {
+            "evangelio": ["evangelio", "salvación", "gracia", "fe", "cruz"],
+            "familia": ["familia", "matrimonio", "hijos", "hogar"],
+            "oración": ["oración", "orar", "comunión"],
+            "biblia": ["biblia", "escritura", "palabra", "estudio bíblico"],
+            "vida cristiana": ["santidad", "discipulado", "testimonio", "servicio"],
+            "profecía": ["profecía", "apocalipsis", "fin de los tiempos"],
+            "adoración": ["adoración", "alabanza", "culto"]
+        };
+        
+        // Colores para categorías
+        const CATEGORY_COLORS = {
+            "evangelio": "rojo",
+            "familia": "azul",
+            "oración": "verde",
+            "biblia": "amarillo",
+            "vida cristiana": "azul",
+            "profecía": "rojo",
+            "adoración": "verde"
+        };
+        
+        /* ===== FUNCIONES ===== */
+        
+        // Determinar categoría basada en título
+        function determineCategories(title) {
+            const titleLower = title.toLowerCase();
+            const detectedCategories = [];
+            
+            for (const [category, keywords] of Object.entries(CATEGORY_KEYWORDS)) {
+                if (keywords.some(keyword => titleLower.includes(keyword))) {
+                    detectedCategories.push(category);
+                }
+            }
+            
+            // Si no se detecta categoría, usar "general"
+            if (detectedCategories.length === 0) {
+                detectedCategories.push("general");
+            }
+            
+            return detectedCategories;
+        }
+        
+        // Formatear fecha
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('es-ES', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+        
+        // Extraer ID de video de URL de YouTube
+        function extractVideoId(url) {
+            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+        
+        // Obtener miniatura de YouTube
+        function getThumbnailUrl(videoId, quality = 'hqdefault') {
+            return `https://img.youtube.com/vi/${videoId}/${quality}.jpg`;
+        }
+        
+        // Calcular duración aproximada (simulada - en un caso real necesitarías la API de YouTube)
+        function estimateDuration(title) {
+            // Simulación basada en palabras en el título
+            const wordCount = title.split(' ').length;
+            if (wordCount > 15) return "45-60 min";
+            if (wordCount > 10) return "30-45 min";
+            if (wordCount > 5) return "20-30 min";
+            return "10-20 min";
+        }
+        
+        // Cargar videos desde RSS feed (sin necesidad de API key)
+        async function loadVideosFromRSS() {
+            isLoading = true;
+            showLoading();
+            
+            try {
+                const response = await fetch(PROXY_URL);
+                
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (!data.items || !Array.isArray(data.items)) {
+                    throw new Error("Formato de datos inválido");
+                }
+                
+                videos = data.items.map((item, index) => {
+                    const videoId = extractVideoId(item.link) || `video-${index}`;
+                    const categories = determineCategories(item.title);
+                    
+                    // Agregar categorías a la lista global
+                    categories.forEach(cat => {
+                        if (!categories.includes(cat)) {
+                            categories.push(cat);
+                        }
+                    });
+                    
+                    return {
+                        id: videoId,
+                        title: item.title,
+                        description: item.description || "",
+                        date: item.pubDate,
+                        formattedDate: formatDate(item.pubDate),
+                        url: item.link,
+                        thumbnail: getThumbnailUrl(videoId),
+                        duration: estimateDuration(item.title),
+                        categories: categories,
+                        author: item.author || "Pastor Adolfo Hernandez",
+                        views: Math.floor(Math.random() * 1000) + 100 // Simulado
+                    };
+                });
+                
+                console.log(`Cargados ${videos.length} videos`);
+                updateStatistics();
+                renderCategoryFilters();
+                render();
+                
+            } catch (error) {
+                console.error("Error cargando videos:", error);
+                showError();
+            }
+        }
+        
+        // Método alternativo: cargar videos de ejemplo (si falla la API)
+        function loadSampleVideos() {
+            const sampleVideos = [
+                {
+                    id: "dQw4w9WgXcQ",
+                    title: "La Gracia de Dios en Tiempos Difíciles",
+                    description: "Una enseñanza profunda sobre la gracia de Dios y cómo aplicarla en nuestra vida diaria.",
+                    date: "2024-03-15",
+                    formattedDate: "15 de marzo de 2024",
+                    url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                    thumbnail: "https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg",
+                    duration: "45-60 min",
+                    categories: ["evangelio", "vida cristiana"],
+                    author: "Pastor Adolfo Hernandez",
+                    views: 1245
+                },
+                {
+                    id: "9bZkp7q19f0",
+                    title: "El Poder de la Oración Familiar",
+                    description: "Cómo fortalecer tu familia a través de la oración constante y la palabra de Dios.",
+                    date: "2024-03-08",
+                    formattedDate: "8 de marzo de 2024",
+                    url: "https://www.youtube.com/watch?v=9bZkp7q19f0",
+                    thumbnail: "https://img.youtube.com/vi/9bZkp7q19f0/hqdefault.jpg",
+                    duration: "30-45 min",
+                    categories: ["familia", "oración"],
+                    author: "Pastor Adolfo Hernandez",
+                    views: 987
+                },
+                {
+                    id: "kJQP7kiw5Fk",
+                    title: "Estudio Bíblico: El Libro de Romanos",
+                    description: "Parte 1 de nuestro estudio detallado del libro de Romanos.",
+                    date: "2024-03-01",
+                    formattedDate: "1 de marzo de 2024",
+                    url: "https://www.youtube.com/watch?v=kJQP7kiw5Fk",
+                    thumbnail: "https://img.youtube.com/vi/kJQP7kiw5Fk/hqdefault.jpg",
+                    duration: "60-75 min",
+                    categories: ["biblia"],
+                    author: "Pastor Adolfo Hernandez",
+                    views: 1567
+                },
+                // Agregar más videos de ejemplo...
+            ];
+            
+            videos = sampleVideos;
+            console.log(`Cargados ${videos.length} videos de ejemplo`);
+            updateStatistics();
+            renderCategoryFilters();
+            render();
+        }
+        
+        // Actualizar estadísticas
+        function updateStatistics() {
+            // Total de videos
+            totalVideosEl.textContent = videos.length;
+            
+            // Horas totales (estimado)
+            const totalMinutes = videos.length * 30; // Estimado 30 min por video
+            const totalHours = Math.round(totalMinutes / 60);
+            totalHoursEl.textContent = totalHours;
+            
+            // Videos este mes (simulado)
+            const thisMonthCount = Math.min(videos.length, 4);
+            thisMonthEl.textContent = thisMonthCount;
+            
+            // Última actualización
+            const today = new Date();
+            lastUpdatedEl.textContent = today.toLocaleDateString('es-ES', { 
+                day: '2-digit', 
+                month: 'short' 
+            });
+        }
+        
+        // Renderizar filtros de categoría
+        function renderCategoryFilters() {
+            // Recopilar todas las categorías únicas
+            const allCategories = new Set();
+            videos.forEach(video => {
+                video.categories.forEach(cat => allCategories.add(cat));
+            });
+            
+            categories = Array.from(allCategories);
+            
+            // Limpiar filtros existentes (excepto el botón "Todas")
+            const allBtn = categoryFilters.querySelector('[data-category="all"]');
+            categoryFilters.innerHTML = "";
+            categoryFilters.appendChild(allBtn);
+            
+            // Agregar botones para cada categoría
+            categories.forEach(category => {
+                const btn = document.createElement("button");
+                btn.className = "filter-btn px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200";
+                btn.setAttribute("data-category", category);
+                btn.textContent = category.charAt(0).toUpperCase() + category.slice(1);
+                btn.onclick = () => setCategory(category);
+                categoryFilters.appendChild(btn);
+            });
+        }
+        
+        // Establecer categoría activa
+        function setCategory(category) {
+            currentCategory = category;
+            
+            // Actualizar estado visual de los botones
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if (btn.getAttribute('data-category') === category) {
+                    btn.classList.add('active');
+                    btn.classList.remove('bg-gray-100');
+                    btn.classList.add('bg-black', 'text-white');
+                } else {
+                    btn.classList.remove('active', 'bg-black', 'text-white');
+                    btn.classList.add('bg-gray-100');
+                }
+            });
+            
+            paginaActual = 1;
+            render();
+        }
+        
+        // Mostrar estado de carga
+        function showLoading() {
+            videoGrid.innerHTML = `
+                <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-10">
+                    <div class="spinner mx-auto mb-4"></div>
+                    <p class="text-gray-500">Cargando prédicas...</p>
+                </div>
+            `;
+        }
+        
+        // Mostrar error
+        function showError() {
+            videoGrid.innerHTML = `
+                <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-10">
+                    <div class="text-5xl mb-4">⚠️</div>
+                    <h3 class="text-xl font-semibold mb-2">Error al cargar las prédicas</h3>
+                    <p class="text-gray-600 mb-4">Cargando videos de ejemplo...</p>
+                    <button onclick="loadSampleVideos()" class="bg-[#BF9B30] text-white px-6 py-2 rounded-lg hover:bg-black">
+                        Cargar Videos de Ejemplo
+                    </button>
+                </div>
+            `;
+        }
+        
+        // Renderizar videos
+        function render() {
+            isLoading = false;
+            
+            // Filtrar por búsqueda
+            let filtered = videos.filter(video =>
+                video.title.toLowerCase().includes(searchInput.value.toLowerCase()) ||
+                video.description.toLowerCase().includes(searchInput.value.toLowerCase()) ||
+                video.author.toLowerCase().includes(searchInput.value.toLowerCase())
             );
-
-            filteredCards.sort((a, b) => {
-                const dateA = new Date(a.getAttribute("data-date"));
-                const dateB = new Date(b.getAttribute("data-date"));
-                return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
+            
+            // Filtrar por categoría
+            if (currentCategory !== "all") {
+                filtered = filtered.filter(video => 
+                    video.categories.includes(currentCategory)
+                );
+            }
+            
+            // Ordenar
+            filtered.sort((a, b) => {
+                switch(sortSelect.value) {
+                    case "oldest":
+                        return new Date(a.date) - new Date(b.date);
+                    case "popular":
+                        return b.views - a.views;
+                    case "duration":
+                        // Estimación simple basada en duración
+                        const durA = parseInt(a.duration) || 0;
+                        const durB = parseInt(b.duration) || 0;
+                        return durB - durA;
+                    default: // "newest"
+                        return new Date(b.date) - new Date(a.date);
+                }
+            });
+            
+            // Actualizar contador
+            resultCount.textContent = `${filtered.length} prédica${filtered.length !== 1 ? 's' : ''} encontrada${filtered.length !== 1 ? 's' : ''}`;
+            
+            // Mostrar/ocultar mensaje sin resultados
+            if (filtered.length === 0) {
+                noResults.classList.remove("hidden");
+                videoGrid.innerHTML = "";
+            } else {
+                noResults.classList.add("hidden");
+                
+                // Calcular paginación
+                const totalPaginas = Math.ceil(filtered.length / ITEMS_POR_PAGINA);
+                paginaActual = Math.min(paginaActual, totalPaginas || 1);
+                
+                const inicio = (paginaActual - 1) * ITEMS_POR_PAGINA;
+                const paginaVideos = filtered.slice(inicio, inicio + ITEMS_POR_PAGINA);
+                
+                // Renderizar grid
+                videoGrid.innerHTML = paginaVideos.map(video => `
+                    <div class="video-card bg-white rounded-xl shadow-lg overflow-hidden">
+                        <!-- Miniatura con overlay -->
+                        <div class="relative">
+                            <img src="${video.thumbnail}" 
+                                 alt="${video.title}" 
+                                 class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2 bg-black bg-opacity-75 text-white px-2 py-1 rounded text-sm">
+                                ${video.duration}
+                            </div>
+                            <div class="absolute bottom-2 left-2 bg-red-600 text-white px-2 py-1 rounded text-sm flex items-center">
+                                <i class="fab fa-youtube mr-1"></i> YouTube
+                            </div>
+                        </div>
+                        
+                        <!-- Contenido -->
+                        <div class="p-6">
+                            <!-- Categorías -->
+                            <div class="mb-3">
+                                ${video.categories.map(cat => `
+                                    <span class="category-tag ${CATEGORY_COLORS[cat] || ''}">
+                                        ${cat.charAt(0).toUpperCase() + cat.slice(1)}
+                                    </span>
+                                `).join('')}
+                            </div>
+                            
+                            <!-- Título -->
+                            <h3 class="text-lg font-semibold mb-2 line-clamp-2 h-14">
+                                ${video.title}
+                            </h3>
+                            
+                            <!-- Metadatos -->
+                            <div class="text-sm text-gray-600 mb-3">
+                                <div class="flex items-center mb-1">
+                                    <i class="fas fa-user mr-2"></i>
+                                    <span>${video.author}</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-calendar mr-2"></i>
+                                    <span>${video.formattedDate}</span>
+                                    <span class="mx-2">•</span>
+                                    <i class="fas fa-eye mr-2"></i>
+                                    <span>${video.views.toLocaleString()} vistas</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Descripción -->
+                            <p class="text-gray-700 text-sm mb-4 line-clamp-3 h-16">
+                                ${video.description}
+                            </p>
+                            
+                            <!-- Botones -->
+                            <div class="flex flex-col gap-2">
+                                <a href="${video.url}" 
+                                   target="_blank"
+                                   class="flex items-center justify-center gap-2 bg-[#BF9B30] text-white px-4 py-2 rounded-lg hover:bg-black transition">
+                                    <i class="fab fa-youtube"></i>
+                                    Ver en YouTube
+                                </a>
+                                
+                                <button onclick="shareVideo('${video.id}', '${video.title}')"
+                                   class="flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+                                    <i class="fas fa-share-alt"></i>
+                                    Compartir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                
+                // Actualizar paginación
+                renderPagination(totalPaginas);
+                currentPageSpan.textContent = paginaActual;
+                totalPagesSpan.textContent = totalPaginas;
+            }
+        }
+        
+        // Renderizar paginación
+        function renderPagination(total) {
+            pagination.innerHTML = "";
+            
+            if (total <= 1) return;
+            
+            // Botón Anterior
+            if (paginaActual > 1) {
+                pagination.innerHTML += `
+                    <button onclick="goPage(${paginaActual - 1})"
+                        class="flex items-center gap-1 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50">
+                        <i class="fas fa-chevron-left"></i>
+                        Anterior
+                    </button>
+                `;
+            }
+            
+            // Números de página
+            const maxVisible = 5;
+            let start = Math.max(1, paginaActual - Math.floor(maxVisible / 2));
+            let end = Math.min(total, start + maxVisible - 1);
+            
+            if (end - start + 1 < maxVisible) {
+                start = Math.max(1, end - maxVisible + 1);
+            }
+            
+            for (let i = start; i <= end; i++) {
+                pagination.innerHTML += `
+                    <button onclick="goPage(${i})"
+                        class="px-4 py-2 rounded-lg ${i === paginaActual 
+                            ? 'bg-black text-white' 
+                            : 'border border-gray-300 hover:bg-gray-50'}">
+                        ${i}
+                    </button>
+                `;
+            }
+            
+            // Botón Siguiente
+            if (paginaActual < total) {
+                pagination.innerHTML += `
+                    <button onclick="goPage(${paginaActual + 1})"
+                        class="flex items-center gap-1 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50">
+                        Siguiente
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                `;
+            }
+        }
+        
+        // Ir a página específica
+        function goPage(n) {
+            paginaActual = n;
+            render();
+            window.scrollTo({ 
+                top: videoGrid.offsetTop - 120, 
+                behavior: "smooth" 
+            });
+        }
+        
+        // Compartir video
+        function shareVideo(videoId, title) {
+            const shareUrl = `https://www.youtube.com/watch?v=${videoId}`;
+            const shareText = `Mira esta prédica: "${title}" - Iglesia Bautista Fundamental Betesda`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    text: shareText,
+                    url: shareUrl
+                });
+            } else {
+                // Fallback: copiar al portapapeles
+                navigator.clipboard.writeText(`${shareText}\n${shareUrl}`);
+                alert("Enlace copiado al portapapeles");
+            }
+        }
+        
+        /* ===== EVENTOS ===== */
+        document.addEventListener('DOMContentLoaded', function() {
+            // Intentar cargar videos del canal de YouTube
+            loadVideosFromRSS();
+            
+            // Eventos de filtros
+            searchInput.addEventListener("input", () => {
+                paginaActual = 1;
+                render();
             });
 
-            resourceGrid.innerHTML = "";
-            filteredCards.forEach(card => resourceGrid.appendChild(card));
-        }
+            sortSelect.addEventListener("change", () => {
+                paginaActual = 1;
+                render();
+            });
 
-        searchInput.addEventListener("input", filterAndSortResources);
-        sortSelect.addEventListener("change", filterAndSortResources);
+            // Limpiar filtros
+            clearFiltersBtn.addEventListener("click", () => {
+                searchInput.value = "";
+                sortSelect.value = "newest";
+                setCategory("all");
+                paginaActual = 1;
+                render();
+            });
 
-        // === Función de descarga ===
-        function downloadVideo(videoId) {
-            // Redirige al backend que descarga el MP4
-            window.location.href = `/download?videoId=${videoId}`;
-        }
+            // Botones flotantes
+            document.getElementById("btn-top").onclick = () =>
+                window.scrollTo({ top: 0, behavior: "smooth" });
 
-        // === Inicializar ===
-        loadVideos();
+            document.getElementById("btn-back").onclick = () =>
+                window.history.back();
+                
+            // Soporte para tecla Enter en búsqueda
+            searchInput.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") {
+                    paginaActual = 1;
+                    render();
+                }
+            });
+        });
     </script>
 </body>
 </html>
