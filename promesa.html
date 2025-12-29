@@ -9,104 +9,140 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-.fade { animation: fade .6s ease both }
+.fade {
+  animation: fade .5s ease both;
+}
 @keyframes fade {
-  from { opacity:0; transform:translateY(15px) }
-  to { opacity:1; transform:translateY(0) }
+  from { opacity:0; transform:translateY(10px); }
+  to { opacity:1; transform:translateY(0); }
 }
 </style>
 </head>
 
-<body class="bg-gray-100 min-h-screen p-4">
+<body class="bg-gray-100 min-h-screen p-6">
 
-<div class="max-w-7xl mx-auto space-y-6 fade">
+<div class="max-w-7xl mx-auto space-y-8 fade">
 
 <!-- HEADER -->
-<div class="bg-white rounded-xl shadow p-6 flex flex-col md:flex-row justify-between items-center">
+<header class="bg-white rounded-xl shadow p-6 flex flex-col md:flex-row justify-between items-center gap-4">
   <div>
-    <h1 class="text-3xl font-bold">Promesa de Fe</h1>
-    <p class="text-gray-600">Dashboard mensual – Misiones</p>
+    <h1 class="text-3xl font-bold text-gray-800">Promesa de Fe</h1>
+    <p class="text-gray-500">Ofrenda misionera · Dashboard mensual</p>
   </div>
-
-  <input id="mes"
-    type="month"
-    class="p-2 border rounded-lg">
-</div>
+  <input id="mes" type="month" class="border rounded-lg p-2 text-lg">
+</header>
 
 <!-- KPIs -->
-<div class="grid md:grid-cols-4 gap-4">
-  <div class="bg-white p-6 rounded-xl shadow text-center">
-    <div class="text-3xl font-bold text-[#BF9B30]" id="total">$0</div>
-    <div class="text-gray-600">Total mensual</div>
+<section class="grid grid-cols-1 md:grid-cols-4 gap-4">
+  <div class="bg-white rounded-xl shadow p-6 text-center">
+    <div id="total" class="text-3xl font-bold text-[#BF9B30]">$0</div>
+    <p class="text-gray-500 mt-1">Total Recolectado</p>
   </div>
 
-  <div class="bg-white p-6 rounded-xl shadow text-center">
-    <div class="text-3xl font-bold" id="meta">$0</div>
-    <div class="text-gray-600">Meta</div>
+  <div class="bg-white rounded-xl shadow p-6 text-center">
+    <div id="meta" class="text-3xl font-bold text-gray-800">$0</div>
+    <p class="text-gray-500 mt-1">Meta Mensual</p>
   </div>
 
-  <div class="bg-white p-6 rounded-xl shadow text-center">
-    <div class="text-3xl font-bold" id="porcentaje">0%</div>
-    <div class="text-gray-600">Avance</div>
+  <div class="bg-white rounded-xl shadow p-6 text-center">
+    <div id="porcentaje" class="text-3xl font-bold text-gray-800">0%</div>
+    <p class="text-gray-500 mt-1">Progreso</p>
   </div>
 
-  <div class="bg-white p-6 rounded-xl shadow p-4">
+  <div class="bg-white rounded-xl shadow p-6">
     <div class="w-full bg-gray-200 rounded-full h-4">
-      <div id="barra"
-        class="bg-[#BF9B30] h-4 rounded-full transition-all"></div>
+      <div id="barra" class="bg-[#BF9B30] h-4 rounded-full transition-all"></div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- INGRESO -->
-<div class="bg-white rounded-xl shadow p-6 grid md:grid-cols-5 gap-4">
-  <input id="monto" type="number" placeholder="Monto" class="p-3 border rounded">
-  <select id="dia" class="p-3 border rounded">
-    <option>Jueves</option>
-    <option>Domingo</option>
-  </select>
-  <input id="metaInput" type="number" placeholder="Meta mensual" class="p-3 border rounded">
-  <button onclick="guardarMeta()" class="bg-gray-800 text-white rounded">Guardar Meta</button>
-  <button onclick="agregar()" class="bg-[#BF9B30] text-white rounded">Agregar</button>
-</div>
+<!-- FORMULARIO -->
+<section class="bg-white rounded-xl shadow p-6">
+  <h2 class="text-xl font-semibold mb-4">Registrar Ofrenda</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+    <input id="monto" type="number" placeholder="Monto ($)" class="border p-3 rounded-lg">
+    
+    <select id="dia" class="border p-3 rounded-lg">
+      <option value="Jueves">Jueves</option>
+      <option value="Domingo">Domingo</option>
+    </select>
+
+    <input id="metaInput" type="number" placeholder="Meta mensual" class="border p-3 rounded-lg">
+
+    <button id="btnMeta"
+      class="bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition">
+      Guardar Meta
+    </button>
+
+    <button id="btnAgregar"
+      class="bg-[#BF9B30] text-white rounded-lg hover:bg-yellow-600 transition">
+      Agregar Ofrenda
+    </button>
+  </div>
+</section>
 
 <!-- GRAFICOS -->
-<div class="grid md:grid-cols-2 gap-6">
-  <div class="bg-white p-6 rounded-xl shadow">
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="bg-white rounded-xl shadow p-6">
+    <h3 class="font-semibold mb-3">Ofrendas por Día</h3>
     <canvas id="graficoDias"></canvas>
   </div>
-  <div class="bg-white p-6 rounded-xl shadow">
+
+  <div class="bg-white rounded-xl shadow p-6">
+    <h3 class="font-semibold mb-3">Progreso Mensual</h3>
     <canvas id="graficoProgreso"></canvas>
   </div>
-</div>
+</section>
 
 <!-- EXPORT -->
-<div class="text-right">
-  <button onclick="exportarCSV()"
-    class="bg-black text-white px-6 py-2 rounded hover:bg-gray-700">
+<section class="text-right">
+  <button id="btnExport"
+    class="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition">
     Exportar CSV
   </button>
-</div>
+</section>
 
 </div>
 
 <script>
-const storage = JSON.parse(localStorage.getItem("promesaFE")) || {};
+/* =======================
+   ESTADO GLOBAL
+======================= */
+const STORAGE_KEY = "promesaFE";
+const data = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+
 const mesInput = document.getElementById("mes");
+const totalEl = document.getElementById("total");
+const metaEl = document.getElementById("meta");
+const porcentajeEl = document.getElementById("porcentaje");
+const barra = document.getElementById("barra");
+const metaInput = document.getElementById("metaInput");
 
-const hoy = new Date().toISOString().slice(0,7);
-mesInput.value = hoy;
+let chartDias, chartProgreso;
 
-let chart1, chart2;
+/* =======================
+   INIT
+======================= */
+mesInput.value = new Date().toISOString().slice(0,7);
+mesInput.addEventListener("change", render);
+document.getElementById("btnAgregar").onclick = agregar;
+document.getElementById("btnMeta").onclick = guardarMeta;
+document.getElementById("btnExport").onclick = exportarCSV;
 
+render();
+
+/* =======================
+   FUNCIONES
+======================= */
 function getMes() {
-  if (!storage[mesInput.value])
-    storage[mesInput.value] = { meta: 0, registros: [] };
-  return storage[mesInput.value];
+  const mes = mesInput.value;
+  if (!data[mes]) data[mes] = { meta: 0, registros: [] };
+  return data[mes];
 }
 
 function guardarMeta() {
-  getMes().meta = Number(metaInput.value);
+  getMes().meta = Number(metaInput.value || 0);
   persistir();
   render();
 }
@@ -118,7 +154,8 @@ function agregar() {
 
   getMes().registros.push({
     fecha: new Date().toISOString().slice(0,10),
-    dia, monto
+    dia,
+    monto
   });
 
   document.getElementById("monto").value = "";
@@ -129,43 +166,50 @@ function agregar() {
 function render() {
   const { meta, registros } = getMes();
   const total = registros.reduce((a,b)=>a+b.monto,0);
-  const porcentaje = meta ? Math.min(total/meta*100,100) : 0;
+  const porcentaje = meta ? Math.min(total / meta * 100, 100) : 0;
 
   totalEl.textContent = `$${total.toFixed(2)}`;
   metaEl.textContent = `$${meta.toFixed(2)}`;
-  porcentajeEl.textContent = porcentaje.toFixed(1)+"%";
-  barra.style.width = porcentaje+"%";
+  porcentajeEl.textContent = porcentaje.toFixed(1) + "%";
+  barra.style.width = porcentaje + "%";
   metaInput.value = meta || "";
 
   const jueves = registros.filter(r=>r.dia==="Jueves").reduce((a,b)=>a+b.monto,0);
   const domingo = registros.filter(r=>r.dia==="Domingo").reduce((a,b)=>a+b.monto,0);
 
-  if (chart1) chart1.destroy();
-  chart1 = new Chart(graficoDias, {
+  if (chartDias) chartDias.destroy();
+  chartDias = new Chart(graficoDias, {
     type:"bar",
     data:{
       labels:["Jueves","Domingo"],
-      datasets:[{ data:[jueves,domingo], backgroundColor:["#BF9B30","#111827"] }]
-    }
+      datasets:[{
+        data:[jueves,domingo],
+        backgroundColor:["#BF9B30","#1f2937"]
+      }]
+    },
+    options:{ responsive:true }
   });
 
-  if (chart2) chart2.destroy();
-  chart2 = new Chart(graficoProgreso, {
+  if (chartProgreso) chartProgreso.destroy();
+  chartProgreso = new Chart(graficoProgreso, {
     type:"doughnut",
     data:{
-      labels:["Alcanzado","Faltante"],
-      datasets:[{ data:[total, Math.max(meta-total,0)],
-        backgroundColor:["#BF9B30","#e5e7eb"] }]
-    }
+      labels:["Recolectado","Faltante"],
+      datasets:[{
+        data:[total, Math.max(meta-total,0)],
+        backgroundColor:["#BF9B30","#e5e7eb"]
+      }]
+    },
+    options:{ responsive:true }
   });
 }
 
 function exportarCSV() {
   const { registros } = getMes();
   let csv = "Fecha,Dia,Monto\n";
-  registros.forEach(r=>csv+=`${r.fecha},${r.dia},${r.monto}\n`);
+  registros.forEach(r => csv += `${r.fecha},${r.dia},${r.monto}\n`);
 
-  const blob = new Blob([csv],{type:"text/csv"});
+  const blob = new Blob([csv], { type:"text/csv" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = `promesa-fe-${mesInput.value}.csv`;
@@ -173,11 +217,8 @@ function exportarCSV() {
 }
 
 function persistir() {
-  localStorage.setItem("promesaFE", JSON.stringify(storage));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
-
-mesInput.onchange = render;
-render();
 </script>
 
 </body>
