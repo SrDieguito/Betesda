@@ -1,4 +1,4 @@
-// Cargar componentes globales
+// loadComponents.js - Versión mejorada
 function loadComponents() {
     // Cargar Header
     fetch('components/header.html')
@@ -6,6 +6,8 @@ function loadComponents() {
         .then(data => {
             document.getElementById('header-placeholder').innerHTML = data;
             setupMobileMenu();
+            // Disparar evento personalizado cuando el header se carga
+            window.dispatchEvent(new Event('headerLoaded'));
         })
         .catch(error => console.error('Error loading header:', error));
 
@@ -44,6 +46,23 @@ function closeMenu() {
         mobileMenu.classList.add("-translate-y-full");
     }
 }
+
+// Ajustar padding cuando el header se carga
+window.addEventListener('headerLoaded', function() {
+    adjustBodyPadding();
+});
+
+function adjustBodyPadding() {
+    const header = document.querySelector('#header-placeholder header');
+    if (header) {
+        const headerHeight = header.offsetHeight;
+        document.body.style.paddingTop = headerHeight + 'px';
+        console.log('Header height adjusted to:', headerHeight + 'px');
+    }
+}
+
+// Ajustar también cuando cambie el tamaño de la ventana
+window.addEventListener('resize', adjustBodyPadding);
 
 // Cargar componentes cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', loadComponents);

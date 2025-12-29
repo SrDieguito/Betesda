@@ -41,8 +41,18 @@
             transform: translateY(-2px);
         }
 
-        /* ===== Mobile ajustes ===== */
+        /* ===== Ajustes para header fijo ===== */
+        /* IMPORTANTE: Agregar padding-top al body para evitar que el header tape contenido */
+        body {
+            padding-top: 100px; /* Ajusta según la altura de tu header */
+        }
+        
+        /* Para pantallas pequeñas, ajustar el padding */
         @media (max-width: 768px) {
+            body {
+                padding-top: 90px;
+            }
+            
             header img {
                 width: 56px;
                 height: 56px;
@@ -58,11 +68,6 @@
 
             .card {
                 padding: 1rem;
-            }
-            
-            /* Ajuste para el header fijo */
-            .main-content {
-                padding-top: 120px;
             }
         }
 
@@ -92,9 +97,13 @@
             bottom: 4.8rem; 
         }
         
-        /* Ajuste para el header global */
-        body {
-            padding-top: 80px; /* Ajusta según la altura de tu header */
+        /* Asegurar que el header esté por encima de todo */
+        #header-placeholder {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
         }
     </style>
 </head>
@@ -104,8 +113,9 @@
     <div id="header-placeholder"></div>
     
     <!-- MAIN CONTENT -->
-    <section class="min-h-screen bg-gray-100 main-content">
-        <div class="max-w-7xl mx-auto px-4 py-12">
+    <!-- NOTA: No necesitamos pt-28 aquí porque el body ya tiene padding-top -->
+    <section class="min-h-screen bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 py-8">
             <h1 class="text-4xl font-bold text-center mb-8 text-black">Música Cristiana</h1>
             
             <!-- Descripción de la sección -->
@@ -146,7 +156,7 @@
             <!-- GRID DE CANCIONES -->
             <div id="resource-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
                 <!-- Las canciones se cargarán aquí dinámicamente -->
-                <div class="text-center py-10">
+                <div class="text-center py-10 col-span-3">
                     <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#BF9B30] mx-auto mb-4"></div>
                     <p class="text-gray-500">Cargando música cristiana...</p>
                 </div>
@@ -175,6 +185,27 @@
     <script src="js/loadComponents.js"></script>
     <script src="js/language.js"></script>
     <script src="js/excel-functions.js"></script>
+    
+    <!-- Script para ajustar dinámicamente el padding según la altura del header -->
+    <script>
+        function adjustBodyPadding() {
+            const header = document.querySelector('#header-placeholder header');
+            if (header) {
+                const headerHeight = header.offsetHeight;
+                document.body.style.paddingTop = headerHeight + 'px';
+                console.log('Header height adjusted to:', headerHeight + 'px');
+            }
+        }
+        
+        // Ajustar cuando se cargue el DOM
+        document.addEventListener('DOMContentLoaded', function() {
+            // Esperar un momento para que el header se cargue completamente
+            setTimeout(adjustBodyPadding, 100);
+            
+            // Ajustar también cuando cambie el tamaño de la ventana
+            window.addEventListener('resize', adjustBodyPadding);
+        });
+    </script>
     
     <!-- SCRIPT ESPECÍFICO PARA MÚSICA -->
     <script>
