@@ -1,181 +1,191 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="title">Música Cristiana - Iglesia Bautista Fundamental Betesda</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Música Cristiana - IBFB</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+/* ===== Animaciones ===== */
+.card {
+  animation: fadeUp .5s ease both;
+}
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card:hover {
+  transform: translateY(-4px) scale(1.01);
+  transition: .3s ease;
+}
+
+#pagination button {
+  transition: all .25s ease;
+}
+
+#pagination button:hover {
+  transform: translateY(-2px);
+}
+</style>
 </head>
 
 <body class="bg-white">
 
-<!-- ================= HEADER ================= -->
+<!-- HEADER -->
 <header class="bg-black py-4 px-6 fixed w-full z-50">
-    <nav class="flex items-center justify-between max-w-7xl mx-auto">
-        <div class="flex items-center">
-            <img src="img/1.png" alt="Logo Iglesia" class="h-24 w-24 rounded-full">
-            <span class="text-[#BF9B30] ml-3 text-xl font-semibold">IBFB</span>
-        </div>
-
-        <div class="hidden md:flex space-x-8">
-            <a href="index.html#home" class="text-white hover:text-[#BF9B30]" data-i18n="nav-home">Inicio</a>
-            <a href="index.html#recursos" class="text-white hover:text-[#BF9B30]" data-i18n="nav-resources">Recursos</a>
-            <a href="index.html#services" class="text-white hover:text-[#BF9B30]" data-i18n="nav-services">Servicios</a>
-            <a href="index.html#sermones" class="text-white hover:text-[#BF9B30]" data-i18n="nav-sermons">Sermones</a>
-            <a href="index.html#eventos" class="text-white hover:text-[#BF9B30]" data-i18n="nav-events">Eventos</a>
-            <a href="index.html#contact" class="text-white hover:text-[#BF9B30]" data-i18n="nav-contact">Contacto</a>
-        </div>
-
-        <button id="lang-toggle" class="text-white border border-[#BF9B30] px-4 py-2 rounded hover:bg-[#BF9B30]">
-            ES/EN
-        </button>
-    </nav>
+<nav class="flex items-center justify-between max-w-7xl mx-auto">
+<div class="flex items-center">
+<img src="img/1.png" class="h-20 w-20 rounded-full">
+<span class="text-[#BF9B30] ml-3 text-xl font-semibold">IBFB</span>
+</div>
+</nav>
 </header>
 
-<!-- ================= MAIN ================= -->
-<section class="pt-32 pb-12 px-6 bg-gray-100">
-    <div class="max-w-7xl mx-auto">
+<!-- MAIN -->
+<section class="pt-32 pb-12 px-6 bg-gray-100 min-h-screen">
+<div class="max-w-7xl mx-auto">
 
-        <h1 class="text-4xl font-bold text-center mb-8 text-black" data-i18n="music-title">
-            Música Cristiana
-        </h1>
+<h1 class="text-4xl font-bold text-center mb-8">Música Cristiana</h1>
 
-        <div class="mb-8 flex flex-col md:flex-row gap-4 justify-between items-center">
-            <input id="search-input"
-                   type="text"
-                   placeholder="Buscar por nombre..."
-                   class="w-full md:w-1/2 p-3 border border-gray-300 rounded focus:outline-none focus:border-[#BF9B30]">
+<!-- FILTROS -->
+<div class="mb-8 flex flex-col md:flex-row gap-4 justify-between items-center">
+<input id="search-input"
+type="text"
+placeholder="Buscar por nombre..."
+class="w-full md:w-1/2 p-3 border rounded focus:border-[#BF9B30]">
 
-            <select id="sort-select"
-                    class="w-full md:w-1/4 p-3 border border-gray-300 rounded focus:outline-none focus:border-[#BF9B30]">
-                <option value="desc">Más reciente primero</option>
-                <option value="asc">Más antiguo primero</option>
-            </select>
-        </div>
+<select id="sort-select"
+class="w-full md:w-1/4 p-3 border rounded focus:border-[#BF9B30]">
+<option value="desc">Más reciente</option>
+<option value="asc">Más antiguo</option>
+</select>
+</div>
 
-        <div id="resource-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Música desde Google Drive -->
-        </div>
+<!-- GRID -->
+<div id="resource-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
 
-    </div>
+<!-- PAGINACIÓN -->
+<div id="pagination" class="flex justify-center mt-10 gap-2 flex-wrap"></div>
+
+</div>
 </section>
 
-<!-- ================= FOOTER ================= -->
-<footer class="bg-black text-white py-12 px-6">
-    <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
-
-        <div>
-            <h3 class="text-[#BF9B30] text-xl font-semibold mb-4">Ubicación</h3>
-            <p>Cuenca, Ecuador</p>
-        </div>
-
-        <div>
-            <h3 class="text-[#BF9B30] text-xl font-semibold mb-4">Contacto</h3>
-            <p>Correo: contact@ibfb.org</p>
-            <p>Teléfono: +593 123 456 789</p>
-        </div>
-
-        <div>
-            <h3 class="text-[#BF9B30] text-xl font-semibold mb-4">Síguenos</h3>
-            <div class="flex space-x-4">
-                <a href="#" class="hover:text-[#BF9B30]">Facebook</a>
-                <a href="#" class="hover:text-[#BF9B30]">YouTube</a>
-                <a href="#" class="hover:text-[#BF9B30]">Instagram</a>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="mt-8 text-center text-gray-400">
-        © 2025 Iglesia Bautista Fundamental Betesda. Todos los derechos reservados.
-    </div>
+<!-- FOOTER -->
+<footer class="bg-black text-white py-6 text-center">
+© 2025 Iglesia Bautista Fundamental Betesda
 </footer>
 
-<!-- ================= SCRIPT ================= -->
+<!-- SCRIPT -->
 <script>
 const USUARIO = "SrDieguito";
 const REPO = "ibfb-himnos";
 const CARPETA = "musica";
-
 const BASE = `https://raw.githubusercontent.com/${USUARIO}/${REPO}/main/${CARPETA}/`;
 
 const grid = document.getElementById("resource-grid");
 const searchInput = document.getElementById("search-input");
 const sortSelect = document.getElementById("sort-select");
+const pagination = document.getElementById("pagination");
 
+const ITEMS_POR_PAGINA = 9;
+let paginaActual = 1;
 let songs = [];
 
-/* ===== CARGAR DESDE GITHUB ===== */
+/* ===== CARGAR MP3 ===== */
 fetch(`https://api.github.com/repos/${USUARIO}/${REPO}/contents/${CARPETA}`)
-  .then(res => res.json())
-  .then(files => {
+.then(r => r.json())
+.then(files => {
+  songs = files
+    .filter(f => f.name.endsWith(".mp3"))
+    .map(file => ({
+      name: file.name.replace(".mp3","").replace(/^\d+-?/,"").replace(/-/g," "),
+      file: file.name,
+      url: BASE + file.name
+    }));
+  render();
+});
 
-    songs = files
-      .filter(f => f.name.endsWith(".mp3"))
-      .map(file => {
-        const nombre = file.name
-          .replace(".mp3","")
-          .replace(/^\d+-?/,"")
-          .replace(/-/g," ");
-
-        return {
-          name: nombre,
-          filename: file.name,
-          url: BASE + file.name,
-          date: file.sha   // usamos sha solo para ordenar (consistente)
-        };
-      });
-
-    renderSongs();
-  })
-  .catch(err => {
-    console.error("Error cargando himnos:", err);
-  });
-
-/* ===== RENDER ===== */
-function renderSongs() {
-  grid.innerHTML = "";
-
-  const term = searchInput.value.toLowerCase();
-  const order = sortSelect.value;
-
+/* ===== RENDER GENERAL ===== */
+function render() {
   let filtered = songs.filter(s =>
-    s.name.toLowerCase().includes(term)
+    s.name.toLowerCase().includes(searchInput.value.toLowerCase())
   );
 
-  filtered.sort((a, b) => {
-    return order === "asc"
-      ? a.filename.localeCompare(b.filename)
-      : b.filename.localeCompare(a.filename);
+  filtered.sort((a,b) => {
+    return sortSelect.value === "asc"
+      ? a.file.localeCompare(b.file)
+      : b.file.localeCompare(a.file);
   });
 
-  filtered.forEach(song => {
-    const card = document.createElement("div");
-    card.className = "bg-white rounded-lg shadow-lg p-6";
+  const totalPaginas = Math.ceil(filtered.length / ITEMS_POR_PAGINA);
+  paginaActual = Math.min(paginaActual, totalPaginas || 1);
 
-    card.innerHTML = `
-      <h3 class="text-xl font-semibold mb-2">${song.name}</h3>
+  const inicio = (paginaActual - 1) * ITEMS_POR_PAGINA;
+  const pagina = filtered.slice(inicio, inicio + ITEMS_POR_PAGINA);
 
-      <audio controls preload="metadata" class="w-full mb-4">
+  grid.innerHTML = "";
+
+  pagina.forEach(song => {
+    grid.innerHTML += `
+    <div class="card bg-white rounded-lg shadow-lg p-6">
+      <h3 class="text-xl font-semibold mb-3">${song.name}</h3>
+
+      <audio controls class="w-full mb-4">
         <source src="${song.url}" type="audio/mpeg">
       </audio>
 
       <a href="${song.url}" download
-         class="inline-block bg-[#BF9B30] text-white px-4 py-2 rounded hover:bg-black">
-         Descargar MP3
+      class="inline-block bg-[#BF9B30] text-white px-4 py-2 rounded hover:bg-black">
+      Descargar MP3
       </a>
+    </div>
     `;
-
-    grid.appendChild(card);
   });
+
+  renderPagination(totalPaginas);
+}
+
+/* ===== PAGINACIÓN ===== */
+function renderPagination(total) {
+  pagination.innerHTML = "";
+
+  for (let i = 1; i <= total; i++) {
+    pagination.innerHTML += `
+    <button onclick="goPage(${i})"
+    class="px-4 py-2 rounded ${i===paginaActual ? 'bg-black text-white' : 'bg-gray-300'}">
+    ${i}
+    </button>
+    `;
+  }
+}
+
+function goPage(n) {
+  paginaActual = n;
+  render();
+  window.scrollTo({top: 0, behavior: "smooth"});
 }
 
 /* ===== EVENTOS ===== */
-searchInput.addEventListener("input", renderSongs);
-sortSelect.addEventListener("change", renderSongs);
+searchInput.addEventListener("input", () => {
+  paginaActual = 1;
+  render();
+});
+
+sortSelect.addEventListener("change", () => {
+  paginaActual = 1;
+  render();
+});
 </script>
-
-
 
 </body>
 </html>
