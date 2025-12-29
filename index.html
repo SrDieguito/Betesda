@@ -1,209 +1,459 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="title">Iglesia Bautista Fundamental Betesda</title>
-
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Animaciones personalizadas -->
-  <style>
-    .fade-up {
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeUp 1s ease forwards;
-    }
-
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="title">Iglesia Bautista Fundamental Betesda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<body class="bg-white">
+    <!-- Header -->
+    <header class="bg-black py-4 px-6 fixed w-full z-50">
+        <nav class="flex items-center justify-between max-w-7xl mx-auto">
+            <div class="flex items-center">
+                <img src="img/1.png" alt="Logo de la Iglesia" class="h-24 w-24 rounded-full">
+                <span class="text-[#BF9B30] ml-3 text-xl font-semibold">IBFB</span>
+            </div>
+            
+            <!-- Menú Desktop -->
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-white hover:text-[#BF9B30]" data-i18n="nav-home">Inicio</a>
+                <a href="#recursos" class="text-white hover:text-[#BF9B30]" data-i18n="nav-resources">Recursos</a>
+                <a href="#services" class="text-white hover:text-[#BF9B30]" data-i18n="nav-services">Servicios</a>
+                <a href="#sermones" class="text-white hover:text-[#BF9B30]" data-i18n="nav-sermons">Sermones</a>
+                <a href="#eventos" class="text-white hover:text-[#BF9B30]" data-i18n="nav-events">Eventos</a>
+                <a href="#contact" class="text-white hover:text-[#BF9B30]" data-i18n="nav-contact">Contacto</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <button id="lang-toggle" class="text-white border border-[#BF9B30] px-4 py-2 rounded hover:bg-[#BF9B30]" data-i18n="lang-toggle">ES/EN</button>
+                <!-- Botón Menú Móvil -->
+                <button id="menu-btn" class="md:hidden text-white text-2xl">☰</button>
+            </div>
+        </nav>
+    </header>
 
-<body class="bg-white scroll-smooth">
+    <!-- MENÚ MÓVIL -->
+    <div id="mobile-menu"
+        class="fixed top-0 left-0 w-full h-full bg-black text-white z-40
+        flex flex-col items-center justify-center space-y-6 text-xl
+        transform -translate-y-full transition-transform duration-300">
 
-<!-- HEADER -->
-<header class="bg-black fixed w-full z-50">
-  <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-    <div class="flex items-center gap-3">
-      <img src="img/1.png" class="h-16 w-16 rounded-full" />
-      <span class="text-[#BF9B30] font-bold text-xl">IBFB</span>
+        <a href="#home" onclick="closeMenu()" data-i18n="nav-home">Inicio</a>
+        <a href="#recursos" onclick="closeMenu()" data-i18n="nav-resources">Recursos</a>
+        <a href="#services" onclick="closeMenu()" data-i18n="nav-services">Servicios</a>
+        <a href="#sermones" onclick="closeMenu()" data-i18n="nav-sermons">Sermones</a>
+        <a href="#eventos" onclick="closeMenu()" data-i18n="nav-events">Eventos</a>
+        <a href="#contact" onclick="closeMenu()" data-i18n="nav-contact">Contacto</a>
+
+        <button id="lang-toggle-mobile"
+            class="mt-6 border border-[#BF9B30] px-6 py-2 rounded">
+            ES/EN
+        </button>
+
+        <button onclick="closeMenu()" class="absolute top-6 right-6 text-3xl">✕</button>
     </div>
 
-    <div class="hidden md:flex gap-8 text-white">
-      <a href="#home" class="hover:text-[#BF9B30]" data-i18n="nav-home">Inicio</a>
-      <a href="#recursos" class="hover:text-[#BF9B30]" data-i18n="nav-resources">Recursos</a>
-      <a href="#services" class="hover:text-[#BF9B30]" data-i18n="nav-services">Servicios</a>
-      <a href="#sermones" class="hover:text-[#BF9B30]" data-i18n="nav-sermons">Sermones</a>
-      <a href="#eventos" class="hover:text-[#BF9B30]" data-i18n="nav-events">Eventos</a>
-      <a href="#contact" class="hover:text-[#BF9B30]" data-i18n="nav-contact">Contacto</a>
-    </div>
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-12 px-6 bg-black text-white">
+        <div class="max-w-7xl mx-auto text-center py-20">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6" data-i18n="hero-title">Iglesia Bautista Fundamental Betesda</h1>
+            <h2 class="text-2xl md:text-3xl text-[#BF9B30] mb-4" data-i18n="hero-pastor">Pastor Adolfo Hernandez</h2>
+            <p class="text-xl mb-8" data-i18n="hero-location">Cuenca, Ecuador</p>
+            <p class="text-lg max-w-2xl mx-auto" data-i18n="hero-welcome">Bienvenidos a nuestra familia en Cristo donde adoramos a Dios en espíritu y en verdad.</p>
+        </div>
+    </section>
 
-    <div class="flex items-center gap-4">
-      <button id="lang-toggle"
-        class="border border-[#BF9B30] text-white px-4 py-2 rounded hover:bg-[#BF9B30] transition">
-        ES/EN
-      </button>
+    <!-- Services Schedule -->
+    <section id="services" class="py-16 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 text-black" data-i18n="services-title">Horarios de Servicios</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-black p-8 rounded-lg text-center">
+                    <h3 class="text-[#BF9B30] text-2xl font-semibold mb-4" data-i18n="services-sunday-school">Escuela Dominical</h3>
+                    <p class="text-white text-xl">10:00 AM</p>
+                </div>
+                <div class="bg-black p-8 rounded-lg text-center">
+                    <h3 class="text-[#BF9B30] text-2xl font-semibold mb-4" data-i18n="services-sunday-preaching">Predicación Dominical</h3>
+                    <p class="text-white text-xl">11:00 AM</p>
+                </div>
+                <div class="bg-black p-8 rounded-lg text-center">
+                    <h3 class="text-[#BF9B30] text-2xl font-semibold mb-4" data-i18n="services-thursday-prayer">Oración Jueves</h3>
+                    <p class="text-white text-xl">7:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <button id="menu-btn" class="md:hidden text-white text-3xl">☰</button>
-    </div>
-  </nav>
-</header>
+    <!-- Recursos Section -->
+    <section id="recursos" class="py-16 px-6 bg-gray-100">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 text-black" data-i18n="resources-title">Recursos para la Iglesia</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Música Cristiana -->
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <h3 class="text-2xl font-semibold text-[#BF9B30] mb-4" data-i18n="resources-music">Música Cristiana</h3>
+                    <p class="text-gray-600 mb-4" data-i18n="resources-music-desc">Escucha y descarga música cristiana para adoración y edificación.</p>
+                    <a href="musica.html" class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]" data-i18n="resources-explore">Explorar</a>
+                </div>
+                <!-- Himnos -->
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <h3 class="text-2xl font-semibold text-[#BF9B30] mb-4" data-i18n="resources-hymns">Himnos</h3>
+                    <p class="text-gray-600 mb-4" data-i18n="resources-hymns-desc">Accede a nuestra colección de himnos tradicionales.</p>
+                    <a href="himnos.html" class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]" data-i18n="resources-explore">Explorar</a>
+                </div>
+                <!-- Letras -->
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <h3 class="text-2xl font-semibold text-[#BF9B30] mb-4" data-i18n="resources-lyrics">Letras</h3>
+                    <p class="text-gray-600 mb-4" data-i18n="resources-lyrics-desc">Encuentra letras de himnos y canciones para tus devocionales.</p>
+                    <a href="letras.html" class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]" data-i18n="resources-explore">Explorar</a>
+                </div>
+                <!-- Prédicas -->
+                <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                    <h3 class="text-2xl font-semibold text-[#BF9B30] mb-4" data-i18n="resources-sermons">Prédicas</h3>
+                    <p class="text-gray-600 mb-4" data-i18n="resources-sermons-desc">Escucha prédicas grabadas para fortalecer tu fe.</p>
+                    <a href="predicas.html" class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]" data-i18n="resources-explore">Explorar</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- MENÚ MÓVIL -->
-<div id="mobile-menu"
-  class="fixed inset-0 bg-black text-white z-40 flex flex-col items-center justify-center gap-6 text-xl
-  transform -translate-y-full transition-transform duration-300">
+    <!-- Recorded Sermons -->
+    <section id="sermones" class="py-16 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 text-black" data-i18n="sermons-title">Sermones Grabados</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1544427920-c49ccfb85579" alt="Sermón" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2" data-i18n="sermon-grace">La Gracia de Dios</h3>
+                        <p class="text-gray-600 mb-4" data-i18n="sermon-pastor-date">Pastor Adolfo Hernandez - 12/03/2024</p>
+                        <a href="#sermon" class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]" data-i18n="sermon-view">Ver Sermón</a>
+                    </div>
+                </div>
+                <!-- More sermon cards can be added here -->
+            </div>
+        </div>
+    </section>
 
-  <a href="#home" onclick="closeMenu()" data-i18n="nav-home">Inicio</a>
-  <a href="#recursos" onclick="closeMenu()" data-i18n="nav-resources">Recursos</a>
-  <a href="#services" onclick="closeMenu()" data-i18n="nav-services">Servicios</a>
-  <a href="#sermones" onclick="closeMenu()" data-i18n="nav-sermons">Sermones</a>
-  <a href="#eventos" onclick="closeMenu()" data-i18n="nav-events">Eventos</a>
-  <a href="#contact" onclick="closeMenu()" data-i18n="nav-contact">Contacto</a>
+    <!-- Events Calendar -->
+    <section id="eventos" class="py-16 px-6 bg-gray-100">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 text-black" data-i18n="events-title">Calendario de Eventos</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-100 p-6 rounded-lg">
+                    <h3 class="text-2xl font-semibold mb-4" data-i18n="events-upcoming">Próximos Eventos</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded shadow">
+                            <h4 class="text-lg font-semibold" data-i18n="event-campaign">Campaña Evangelística</h4>
+                            <p class="text-gray-600" data-i18n="event-campaign-date">15-17 Abril, 2024</p>
+                            <p data-i18n="event-campaign-desc">Tres días de predicación especial</p>
+                        </div>
+                        <!-- More events can be added here -->
+                    </div>
+                </div>
+                <div class="bg-gray-100 p-6 rounded-lg">
+                    <h3 class="text-2xl font-semibold mb-4" data-i18n="events-bulletin">Boletín Semanal</h3>
+                    <div class="bg-white p-4 rounded shadow">
+                        <h4 class="text-lg font-semibold mb-2" data-i18n="bulletin-title">Boletín - Semana 12</h4>
+                        <p class="text-gray-600 mb-4" data-i18n="bulletin-date">18-24 Marzo, 2024</p>
+                        <a href="#boletin" class="bg-black text-white px-4 py-2 rounded hover:bg-[#BF9B30]" data-i18n="bulletin-download">Descargar PDF</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <button id="lang-toggle-mobile"
-    class="border border-[#BF9B30] px-6 py-2 rounded mt-4">
-    ES/EN
-  </button>
+    <!-- Contact Form -->
+    <section id="contact" class="py-16 px-6 bg-white">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 text-black" data-i18n="contact-title">Contáctenos</h2>
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-gray-700 mb-2" for="name" data-i18n="contact-name">Nombre</label>
+                    <input type="text" id="name" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-[#BF9B30]" required>
+                </div>
+                <div>
+                    <label class="block text-gray-700 mb-2" for="email" data-i18n="contact-email">Correo Electrónico</label>
+                    <input type="email" id="email" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-[#BF9B30]" required>
+                </div>
+                <div>
+                    <label class="block text-gray-700 mb-2" for="message" data-i18n="contact-message">Mensaje</label>
+                    <textarea id="message" rows="4" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-[#BF9B30]" required></textarea>
+                </div>
+                <button id="contact-submit" class="w-full bg-black text-white py-3 px-6 rounded hover:bg-[#BF9B30] transition duration-300" data-i18n="contact-submit">Enviar Mensaje</button>
+            </div>
+        </div>
+    </section>
 
-  <button onclick="closeMenu()" class="absolute top-6 right-6 text-3xl">✕</button>
-</div>
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
+            <div>
+                <h3 class="text-[#BF9B30] text-xl font-semibold mb-4" data-i18n="footer-location">Ubicación</h3>
+                <p data-i18n="footer-location-desc">Cuenca, Ecuador</p>
+            </div>
+            <div>
+                <h3 class="text-[#BF9B30] text-xl font-semibold mb-4" data-i18n="footer-contact">Contacto</h3>
+                <p data-i18n="footer-contact-email">Correo: contact@ibfb.org</p>
+                <p data-i18n="footer-contact-phone">Teléfono: +593 123 456 789</p>
+            </div>
+            <div>
+                <h3 class="text-[#BF9B30] text-xl font-semibold mb-4" data-i18n="footer-follow">Síguenos</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-[#BF9B30]" data-i18n="footer-social-facebook">Facebook</a>
+                    <a href="#" class="hover:text-[#BF9B30]" data-i18n="footer-social-youtube">YouTube</a>
+                    <a href="#" class="hover:text-[#BF9B30]" data-i18n="footer-social-instagram">Instagram</a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-8 text-center text-gray-400">
+            <p data-i18n="footer-copyright">&copy; 2025 Iglesia Bautista Fundamental Betesda. Todos los derechos reservados.</p>
+        </div>
+    </footer>
 
-<!-- HERO -->
-<section id="home" class="pt-32 bg-black text-white text-center">
-  <div class="max-w-4xl mx-auto py-24 fade-up">
-    <h1 class="text-5xl md:text-7xl font-bold mb-6" data-i18n="hero-title">
-      Iglesia Bautista Fundamental Betesda
-    </h1>
-    <h2 class="text-2xl text-[#BF9B30] mb-4" data-i18n="hero-pastor">
-      Pastor Adolfo Hernandez
-    </h2>
-    <p data-i18n="hero-location">Cuenca, Ecuador</p>
-  </div>
-</section>
+    <!-- JavaScript -->
+    <script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        
+        function filledCell(cell) {
+            return cell !== '' && cell != null;
+        }
+        
+        function loadFileData(filename) {
+            if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+                try {
+                    var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                    var firstSheetName = workbook.SheetNames[0];
+                    var worksheet = workbook.Sheets[firstSheetName];
 
-<!-- SERVICIOS -->
-<section id="services" class="py-20">
-  <h2 class="text-4xl font-bold text-center mb-12 fade-up" data-i18n="services-title">
-    Horarios de Servicios
-  </h2>
+                    // Convert sheet to JSON to filter blank rows
+                    var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                    // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                    var filteredData = jsonData.filter(row => row.some(filledCell));
 
-  <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6">
-    <div class="bg-black text-white p-8 rounded-lg hover:scale-105 transition fade-up">
-      <h3 class="text-[#BF9B30] text-xl mb-2" data-i18n="services-sunday-school">Escuela Dominical</h3>
-      <p>10:00 AM</p>
-    </div>
+                    // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                    var headerRowIndex = filteredData.findIndex((row, index) =>
+                        row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                    );
+                    // Fallback
+                    if (headerRowIndex === -1 || headerRowIndex > 25) {
+                        headerRowIndex = 0;
+                    }
 
-    <div class="bg-black text-white p-8 rounded-lg hover:scale-105 transition fade-up">
-      <h3 class="text-[#BF9B30] text-xl mb-2" data-i18n="services-sunday-preaching">Predicación</h3>
-      <p>11:00 AM</p>
-    </div>
+                    // Convert filtered JSON back to CSV
+                    var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                    csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                    return csv;
+                } catch (e) {
+                    console.error(e);
+                    return "";
+                }
+            }
+            return gk_fileData[filename] || "";
+        }
+    </script>
 
-    <div class="bg-black text-white p-8 rounded-lg hover:scale-105 transition fade-up">
-      <h3 class="text-[#BF9B30] text-xl mb-2" data-i18n="services-thursday-prayer">Oración Jueves</h3>
-      <p>7:00 PM</p>
-    </div>
-  </div>
-</section>
+    <script>
+        // Traducciones
+        const translations = {
+            es: {
+                'title': 'Iglesia Bautista Fundamental Betesda',
+                'nav-home': 'Inicio',
+                'nav-resources': 'Recursos',
+                'nav-services': 'Servicios',
+                'nav-sermons': 'Sermones',
+                'nav-events': 'Eventos',
+                'nav-contact': 'Contacto',
+                'lang-toggle': 'ES/EN',
+                'hero-title': 'Iglesia Bautista Fundamental Betesda',
+                'hero-pastor': 'Pastor Adolfo Hernandez',
+                'hero-location': 'Cuenca, Ecuador',
+                'hero-welcome': 'Bienvenidos a nuestra familia en Cristo donde adoramos a Dios en espíritu y en verdad.',
+                'services-title': 'Horarios de Servicios',
+                'services-sunday-school': 'Escuela Dominical',
+                'services-sunday-preaching': 'Predicación Dominical',
+                'services-thursday-prayer': 'Oración Jueves',
+                'resources-title': 'Recursos para la Iglesia',
+                'resources-music': 'Música Cristiana',
+                'resources-music-desc': 'Escucha y descarga música cristiana para adoración y edificación.',
+                'resources-hymns': 'Himnos',
+                'resources-hymns-desc': 'Accede a nuestra colección de himnos tradicionales.',
+                'resources-lyrics': 'Letras',
+                'resources-lyrics-desc': 'Encuentra letras de himnos y canciones para tus devocionales.',
+                'resources-sermons': 'Prédicas',
+                'resources-sermons-desc': 'Escucha prédicas grabadas para fortalecer tu fe.',
+                'resources-explore': 'Explorar',
+                'sermons-title': 'Sermones Grabados',
+                'sermon-grace': 'La Gracia de Dios',
+                'sermon-pastor-date': 'Pastor Adolfo Hernandez - 12/03/2024',
+                'sermon-view': 'Ver Sermón',
+                'events-title': 'Calendario de Eventos',
+                'events-upcoming': 'Próximos Eventos',
+                'event-campaign': 'Campaña Evangelística',
+                'event-campaign-date': '15-17 Abril, 2024',
+                'event-campaign-desc': 'Tres días de predicación especial',
+                'events-bulletin': 'Boletín Semanal',
+                'bulletin-title': 'Boletín - Semana 12',
+                'bulletin-date': '18-24 Marzo, 2024',
+                'bulletin-download': 'Descargar PDF',
+                'contact-title': 'Contáctenos',
+                'contact-name': 'Nombre',
+                'contact-email': 'Correo Electrónico',
+                'contact-message': 'Mensaje',
+                'contact-submit': 'Enviar Mensaje',
+                'footer-location': 'Ubicación',
+                'footer-location-desc': 'Cuenca, Ecuador',
+                'footer-contact': 'Contacto',
+                'footer-contact-email': 'Correo: contact@ibfb.org',
+                'footer-contact-phone': 'Teléfono: +593 123 456 789',
+                'footer-follow': 'Síguenos',
+                'footer-social-facebook': 'Facebook',
+                'footer-social-youtube': 'YouTube',
+                'footer-social-instagram': 'Instagram',
+                'footer-copyright': '&copy; 2025 Iglesia Bautista Fundamental Betesda. Todos los derechos reservados.'
+            },
+            en: {
+                'title': 'Fundamental Baptist Church Bethesda',
+                'nav-home': 'Home',
+                'nav-resources': 'Resources',
+                'nav-services': 'Services',
+                'nav-sermons': 'Sermons',
+                'nav-events': 'Events',
+                'nav-contact': 'Contact',
+                'lang-toggle': 'EN/ES',
+                'hero-title': 'Fundamental Baptist Church Bethesda',
+                'hero-pastor': 'Pastor Adolfo Hernandez',
+                'hero-location': 'Cuenca, Ecuador',
+                'hero-welcome': 'Welcome to our family in Christ where we worship God in spirit and truth.',
+                'services-title': 'Service Schedule',
+                'services-sunday-school': 'Sunday School',
+                'services-sunday-preaching': 'Sunday Preaching',
+                'services-thursday-prayer': 'Thursday Prayer',
+                'resources-title': 'Church Resources',
+                'resources-music': 'Christian Music',
+                'resources-music-desc': 'Listen to and download Christian music for worship and edification.',
+                'resources-hymns': 'Hymns',
+                'resources-hymns-desc': 'Access our collection of traditional hymns.',
+                'resources-lyrics': 'Lyrics',
+                'resources-lyrics-desc': 'Find lyrics for hymns and songs for your devotionals.',
+                'resources-sermons': 'Sermons',
+                'resources-sermons-desc': 'Listen to recorded sermons to strengthen your faith.',
+                'resources-explore': 'Explore',
+                'sermons-title': 'Recorded Sermons',
+                'sermon-grace': 'The Grace of God',
+                'sermon-pastor-date': 'Pastor Adolfo Hernandez - 03/12/2024',
+                'sermon-view': 'View Sermon',
+                'events-title': 'Events Calendar',
+                'events-upcoming': 'Upcoming Events',
+                'event-campaign': 'Evangelistic Campaign',
+                'event-campaign-date': 'April 15-17, 2024',
+                'event-campaign-desc': 'Three days of special preaching',
+                'events-bulletin': 'Weekly Bulletin',
+                'bulletin-title': 'Bulletin - Week 12',
+                'bulletin-date': 'March 18-24, 2024',
+                'bulletin-download': 'Download PDF',
+                'contact-title': 'Contact Us',
+                'contact-name': 'Name',
+                'contact-email': 'Email',
+                'contact-message': 'Message',
+                'contact-submit': 'Send Message',
+                'footer-location': 'Location',
+                'footer-location-desc': 'Cuenca, Ecuador',
+                'footer-contact': 'Contact',
+                'footer-contact-email': 'Email: contact@ibfb.org',
+                'footer-contact-phone': 'Phone: +593 123 456 789',
+                'footer-follow': 'Follow Us',
+                'footer-social-facebook': 'Facebook',
+                'footer-social-youtube': 'YouTube',
+                'footer-social-instagram': 'Instagram',
+                'footer-copyright': '&copy; 2025 Fundamental Baptist Church Bethesda. All rights reserved.'
+            }
+        };
 
-<!-- CONTACTO -->
-<section id="contact" class="py-20 bg-gray-100">
-  <h2 class="text-4xl font-bold text-center mb-12 fade-up" data-i18n="contact-title">Contáctenos</h2>
+        // Función para cambiar el idioma
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+            // Actualizar el atributo lang del HTML
+            document.documentElement.lang = lang;
+            // Guardar el idioma en localStorage
+            localStorage.setItem('language', lang);
+            // Actualizar el texto del botón
+            document.getElementById('lang-toggle').textContent = lang === 'es' ? 'ES/EN' : 'EN/ES';
+            document.getElementById('lang-toggle-mobile').textContent = lang === 'es' ? 'ES/EN' : 'EN/ES';
+        }
 
-  <form class="max-w-xl mx-auto space-y-4 px-6 fade-up">
-    <input class="w-full p-3 border rounded" placeholder="Nombre" />
-    <input class="w-full p-3 border rounded" placeholder="Email" />
-    <textarea class="w-full p-3 border rounded" rows="4" placeholder="Mensaje"></textarea>
-    <button class="w-full bg-black text-white py-3 rounded hover:bg-[#BF9B30] transition">
-      Enviar
-    </button>
-  </form>
-</section>
+        // Cargar idioma inicial
+        const savedLang = localStorage.getItem('language') || 'es';
+        setLanguage(savedLang);
 
-<!-- FOOTER -->
-<footer class="bg-black text-white py-10 text-center">
-  <p id="copyright"></p>
-</footer>
+        // Evento para cambiar idioma
+        document.getElementById('lang-toggle').addEventListener('click', () => {
+            const currentLang = localStorage.getItem('language') || 'es';
+            const newLang = currentLang === 'es' ? 'en' : 'es';
+            setLanguage(newLang);
+        });
 
-<!-- JS -->
-<script>
-const translations = {
-  es: {
-    title: "Iglesia Bautista Fundamental Betesda",
-    "nav-home": "Inicio",
-    "nav-resources": "Recursos",
-    "nav-services": "Servicios",
-    "nav-sermons": "Sermones",
-    "nav-events": "Eventos",
-    "nav-contact": "Contacto",
-    "hero-title": "Iglesia Bautista Fundamental Betesda",
-    "hero-pastor": "Pastor Adolfo Hernandez",
-    "hero-location": "Cuenca, Ecuador",
-    "services-title": "Horarios de Servicios",
-    "services-sunday-school": "Escuela Dominical",
-    "services-sunday-preaching": "Predicación Dominical",
-    "services-thursday-prayer": "Oración Jueves",
-    "contact-title": "Contáctenos"
-  },
-  en: {
-    title: "Fundamental Baptist Church Bethesda",
-    "nav-home": "Home",
-    "nav-resources": "Resources",
-    "nav-services": "Services",
-    "nav-sermons": "Sermons",
-    "nav-events": "Events",
-    "nav-contact": "Contact",
-    "hero-title": "Fundamental Baptist Church Bethesda",
-    "hero-pastor": "Pastor Adolfo Hernandez",
-    "hero-location": "Cuenca, Ecuador",
-    "services-title": "Service Schedule",
-    "services-sunday-school": "Sunday School",
-    "services-sunday-preaching": "Sunday Preaching",
-    "services-thursday-prayer": "Thursday Prayer",
-    "contact-title": "Contact Us"
-  }
-};
+        // Form submission (placeholder due to sandbox restrictions)
+        document.getElementById('contact-submit').addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Form submission is disabled in this environment. Please implement server-side handling for production.');
+        });
 
-function setLanguage(lang) {
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    const key = el.dataset.i18n;
-    el.textContent = translations[lang][key];
-  });
+        // Menú móvil
+        const menuBtn = document.getElementById("menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const langToggleMobile = document.getElementById("lang-toggle-mobile");
 
-  document.getElementById("lang-toggle").textContent = lang === "es" ? "ES/EN" : "EN/ES";
-  document.getElementById("lang-toggle-mobile").textContent = lang === "es" ? "ES/EN" : "EN/ES";
+        if (menuBtn) {
+            menuBtn.onclick = () => {
+                mobileMenu.classList.remove("-translate-y-full");
+            };
+        }
 
-  localStorage.setItem("lang", lang);
-}
+        function closeMenu() {
+            mobileMenu.classList.add("-translate-y-full");
+        }
 
-setLanguage(localStorage.getItem("lang") || "es");
+        /* SINCRONIZAR BOTÓN DE IDIOMA */
+        if (langToggleMobile) {
+            langToggleMobile.onclick = () => {
+                document.getElementById("lang-toggle").click();
+            };
+        }
 
-document.getElementById("lang-toggle").onclick = () => {
-  setLanguage(localStorage.getItem("lang") === "es" ? "en" : "es");
-};
+        // Cerrar menú al hacer clic en enlaces
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
 
-document.getElementById("lang-toggle-mobile").onclick = () => {
-  document.getElementById("lang-toggle").click();
-};
-
-const mobileMenu = document.getElementById("mobile-menu");
-document.getElementById("menu-btn").onclick = () => {
-  mobileMenu.classList.remove("-translate-y-full");
-};
-
-function closeMenu() {
-  mobileMenu.classList.add("-translate-y-full");
-}
-
-document.getElementById("copyright").innerHTML =
-  "&copy; 2025 Iglesia Bautista Fundamental Betesda";
-</script>
-
+        // Suavizar scroll para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
