@@ -125,8 +125,8 @@ async function cargarMusicaDrive() {
             <h3 class="text-xl font-semibold mb-2">${file.name.replace(".mp3","")}</h3>
             <p class="text-gray-600 mb-4">Subido: ${fecha}</p>
 
-            <audio controls class="w-full mb-4">
-                <source src="https://www.googleapis.com/drive/v3/files/${file.id}?alt=media&key=${API_KEY}" type="audio/mpeg">
+            <audio controls preload="metadata" class="w-full mb-4">
+                <source src="https://drive.google.com/uc?id=${file.id}" type="audio/mpeg">
             </audio>
 
             <a href="https://drive.google.com/uc?id=${file.id}&export=download"
