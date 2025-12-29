@@ -93,76 +93,54 @@
 
 <!-- ================= SCRIPT ================= -->
 <script>
-/* ===== CONFIG DRIVE ===== */
-const API_KEY = "AIzaSyCGKNeb-D9-y7Ev1BdZGGq-lVmRViAB3VM";
-const FOLDER_ID = "1Kvl7dYk9u4egds-VlYvP2jyhuxTG9v9-";
 
-const resourceGrid = document.getElementById("resource-grid");
-const searchInput = document.getElementById("search-input");
-const sortSelect = document.getElementById("sort-select");
+const USUARIO = "SrDieguito";
+const REPO = "ibfb-himnos";
+const CARPETA = "musica";
 
-let resourceCards = [];
+const BASE = `https://cdn.jsdelivr.net/gh/${USUARIO}/${REPO}/${CARPETA}/`;
+const grid = document.getElementById("resource-grid");
 
-/* ===== CARGAR MP3 ===== */
-async function cargarMusicaDrive() {
-    const url = `https://www.googleapis.com/drive/v3/files?q='${FOLDER_ID}'+in+parents+and+mimeType='audio/mpeg'&fields=files(id,name,createdTime)&orderBy=createdTime desc&key=${API_KEY}`;
+fetch(`https://api.github.com/repos/${USUARIO}/${REPO}/contents/${CARPETA}`)
+  .then(res => res.json())
+  .then(files => {
 
-    const res = await fetch(url);
-    const data = await res.json();
+    files
+      .filter(f => f.name.endsWith(".mp3"))
+      .sort((a,b) => a.name.localeCompare(b.name))
+      .forEach(file => {
 
-    resourceGrid.innerHTML = "";
-    resourceCards = [];
+        const nombre = file.name
+          .replace(".mp3","")
+          .replace(/^\d+-?/,"")
+          .replace(/-/g," ");
 
-    data.files.forEach(file => {
-        const fecha = new Date(file.createdTime).toLocaleDateString("es-EC");
+        const url = BASE + file.name;
 
         const card = document.createElement("div");
-        card.className = "resource-card bg-white rounded-lg shadow-lg p-6";
-        card.dataset.name = file.name.toLowerCase();
-        card.dataset.date = file.createdTime;
+        card.className = "bg-white rounded-lg shadow-lg p-6";
 
         card.innerHTML = `
-            <h3 class="text-xl font-semibold mb-2">${file.name.replace(".mp3","")}</h3>
-            <p class="text-gray-600 mb-4">Subido: ${fecha}</p>
+          <h3 class="text-xl font-semibold mb-2">${nombre}</h3>
 
-            <audio controls preload="metadata" class="w-full mb-4">
-                <source src="https://drive.google.com/uc?id=${file.id}" type="audio/mpeg">
-            </audio>
+          <audio controls preload="metadata" class="w-full mb-4">
+            <source src="${url}" type="audio/mpeg">
+          </audio>
 
-            <a href="https://drive.google.com/uc?id=${file.id}&export=download"
-               class="inline-block bg-[#BF9B30] text-white px-4 py-2 rounded hover:bg-black">
-               Descargar MP3
-            </a>
+          <a href="${url}" download
+             class="inline-block bg-[#BF9B30] text-white px-4 py-2 rounded hover:bg-black">
+             Descargar MP3
+          </a>
         `;
 
-        resourceGrid.appendChild(card);
-        resourceCards.push(card);
-    });
-}
-
-/* ===== FILTRAR / ORDENAR ===== */
-function filterAndSort() {
-    const term = searchInput.value.toLowerCase();
-    const order = sortSelect.value;
-
-    let filtered = resourceCards.filter(c => c.dataset.name.includes(term));
-
-    filtered.sort((a,b) => {
-        const da = new Date(a.dataset.date);
-        const db = new Date(b.dataset.date);
-        return order === "asc" ? da - db : db - da;
-    });
-
-    resourceGrid.innerHTML = "";
-    filtered.forEach(c => resourceGrid.appendChild(c));
-}
-
-searchInput.addEventListener("input", filterAndSort);
-sortSelect.addEventListener("change", filterAndSort);
-
-/* ===== INIT ===== */
-cargarMusicaDrive();
+        grid.appendChild(card);
+      });
+  })
+  .catch(err => {
+    console.error("Error cargando himnos:", err);
+  });
 </script>
+
 
 </body>
 </html>
