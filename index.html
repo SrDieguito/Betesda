@@ -1,144 +1,144 @@
+<script type="text/javascript">
+var gk_isXlsx = false;
+var gk_xlsxFileLookup = {};
+var gk_fileData = {};
+function filledCell(cell) {
+  return cell !== '' && cell != null;
+}
+function loadFileData(filename) {
+  return gk_fileData[filename] || "";
+}
+</script>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n="title">Iglesia Bautista Fundamental Betesda</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="title">Iglesia Bautista Fundamental Betesda</title>
+<script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-white">
 
 <!-- HEADER -->
 <header class="bg-black py-4 px-6 fixed w-full z-50">
-  <nav class="flex items-center justify-between max-w-7xl mx-auto">
-    <div class="flex items-center">
-      <img src="img/1.png" alt="Logo" class="h-16 w-16 rounded-full">
-      <span class="text-[#BF9B30] ml-3 text-xl font-semibold">IBFB</span>
-    </div>
+<nav class="flex items-center justify-between max-w-7xl mx-auto">
 
-    <!-- NAV DESKTOP -->
-    <div class="hidden md:flex space-x-8">
-      <a href="#home" class="text-white hover:text-[#BF9B30]" data-i18n="nav-home">Inicio</a>
-      <a href="#recursos" class="text-white hover:text-[#BF9B30]" data-i18n="nav-resources">Recursos</a>
-      <a href="#services" class="text-white hover:text-[#BF9B30]" data-i18n="nav-services">Servicios</a>
-      <a href="#sermones" class="text-white hover:text-[#BF9B30]" data-i18n="nav-sermons">Sermones</a>
-      <a href="#eventos" class="text-white hover:text-[#BF9B30]" data-i18n="nav-events">Eventos</a>
-      <a href="#contact" class="text-white hover:text-[#BF9B30]" data-i18n="nav-contact">Contacto</a>
-    </div>
+<div class="flex items-center">
+<img src="img/1.png" class="h-24 w-24 rounded-full">
+<span class="text-[#BF9B30] ml-3 text-xl font-semibold">IBFB</span>
+</div>
 
-    <!-- BOTONES -->
-    <div class="flex items-center gap-4">
-      <button id="lang-toggle"
-        class="hidden md:block text-white border border-[#BF9B30] px-4 py-2 rounded hover:bg-[#BF9B30]">
-        ES/EN
-      </button>
+<!-- BOTÓN MENÚ MÓVIL -->
+<button id="menu-btn" class="md:hidden text-white text-3xl">☰</button>
 
-      <!-- HAMBURGUESA -->
-      <button id="menu-btn" class="md:hidden text-white text-3xl">☰</button>
-    </div>
-  </nav>
+<div class="hidden md:flex space-x-8">
+<a href="#home" class="text-white hover:text-[#BF9B30]" data-i18n="nav-home">Inicio</a>
+<a href="#recursos" class="text-white hover:text-[#BF9B30]" data-i18n="nav-resources">Recursos</a>
+<a href="#services" class="text-white hover:text-[#BF9B30]" data-i18n="nav-services">Servicios</a>
+<a href="#sermones" class="text-white hover:text-[#BF9B30]" data-i18n="nav-sermons">Sermones</a>
+<a href="#eventos" class="text-white hover:text-[#BF9B30]" data-i18n="nav-events">Eventos</a>
+<a href="#contact" class="text-white hover:text-[#BF9B30]" data-i18n="nav-contact">Contacto</a>
+</div>
+
+<button id="lang-toggle"
+class="hidden md:block text-white border border-[#BF9B30] px-4 py-2 rounded hover:bg-[#BF9B30]">
+ES/EN
+</button>
+
+</nav>
 </header>
 
 <!-- MENÚ MÓVIL -->
 <div id="mobile-menu"
-  class="fixed inset-0 bg-black text-white z-40 flex flex-col items-center justify-center
-  space-y-6 text-xl transform -translate-y-full transition-transform duration-300">
+class="fixed top-0 left-0 w-full h-full bg-black text-white z-40
+flex flex-col items-center justify-center space-y-6 text-xl
+transform -translate-y-full transition-transform duration-300">
 
-  <a href="#home" onclick="closeMenu()" data-i18n="nav-home">Inicio</a>
-  <a href="#recursos" onclick="closeMenu()" data-i18n="nav-resources">Recursos</a>
-  <a href="#services" onclick="closeMenu()" data-i18n="nav-services">Servicios</a>
-  <a href="#sermones" onclick="closeMenu()" data-i18n="nav-sermons">Sermones</a>
-  <a href="#eventos" onclick="closeMenu()" data-i18n="nav-events">Eventos</a>
-  <a href="#contact" onclick="closeMenu()" data-i18n="nav-contact">Contacto</a>
+<a href="#home" onclick="closeMenu()" data-i18n="nav-home">Inicio</a>
+<a href="#recursos" onclick="closeMenu()" data-i18n="nav-resources">Recursos</a>
+<a href="#services" onclick="closeMenu()" data-i18n="nav-services">Servicios</a>
+<a href="#sermones" onclick="closeMenu()" data-i18n="nav-sermons">Sermones</a>
+<a href="#eventos" onclick="closeMenu()" data-i18n="nav-events">Eventos</a>
+<a href="#contact" onclick="closeMenu()" data-i18n="nav-contact">Contacto</a>
 
-  <button id="lang-toggle-mobile"
-    class="mt-6 border border-[#BF9B30] px-6 py-2 rounded">
-    ES/EN
-  </button>
+<button id="lang-toggle-mobile"
+class="mt-6 border border-[#BF9B30] px-6 py-2 rounded">
+ES/EN
+</button>
 
-  <button onclick="closeMenu()" class="absolute top-6 right-6 text-3xl">✕</button>
+<button onclick="closeMenu()" class="absolute top-6 right-6 text-3xl">✕</button>
 </div>
 
 <!-- HERO -->
-<section id="home" class="pt-28 pb-20 px-6 bg-black text-white text-center">
-  <h1 class="text-4xl md:text-6xl font-bold mb-4" data-i18n="hero-title">
-    Iglesia Bautista Fundamental Betesda
-  </h1>
-  <h2 class="text-xl md:text-2xl text-[#BF9B30]" data-i18n="hero-pastor">
-    Pastor Adolfo Hernandez
-  </h2>
-  <p class="mt-2" data-i18n="hero-location">Cuenca, Ecuador</p>
+<section id="home" class="pt-32 pb-20 bg-black text-white text-center px-6">
+<h1 class="text-5xl md:text-7xl font-bold mb-6" data-i18n="hero-title">
+Iglesia Bautista Fundamental Betesda
+</h1>
+<h2 class="text-2xl text-[#BF9B30]" data-i18n="hero-pastor">
+Pastor Adolfo Hernandez
+</h2>
+<p class="mt-4" data-i18n="hero-location">Cuenca, Ecuador</p>
 </section>
 
-<!-- (EL RESTO DE SECCIONES QUEDA IGUAL QUE LAS QUE YA TENÍAS) -->
+<!-- SERVICIOS -->
+<section id="services" class="py-16 px-6">
+<h2 class="text-4xl font-bold text-center mb-10" data-i18n="services-title">
+Horarios de Servicios
+</h2>
+<div class="grid md:grid-cols-3 gap-6 max-w-7xl mx-auto">
+<div class="bg-black text-white p-6 rounded text-center">
+<h3 class="text-[#BF9B30]" data-i18n="services-sunday-school">Escuela Dominical</h3>
+<p>10:00 AM</p>
+</div>
+<div class="bg-black text-white p-6 rounded text-center">
+<h3 class="text-[#BF9B30]" data-i18n="services-sunday-preaching">Predicación</h3>
+<p>11:00 AM</p>
+</div>
+<div class="bg-black text-white p-6 rounded text-center">
+<h3 class="text-[#BF9B30]" data-i18n="services-thursday-prayer">Oración Jueves</h3>
+<p>7:00 PM</p>
+</div>
+</div>
+</section>
 
 <!-- FOOTER -->
-<footer class="bg-black text-white py-6 text-center">
-  <p data-i18n="footer-copyright">
-    © 2025 Iglesia Bautista Fundamental Betesda
-  </p>
+<footer class="bg-black text-white py-10 text-center">
+<p>&copy; 2025 Iglesia Bautista Fundamental Betesda</p>
 </footer>
 
 <!-- JS -->
 <script>
 const translations = {
-  es: {
-    title: "Iglesia Bautista Fundamental Betesda",
-    "nav-home": "Inicio",
-    "nav-resources": "Recursos",
-    "nav-services": "Servicios",
-    "nav-sermons": "Sermones",
-    "nav-events": "Eventos",
-    "nav-contact": "Contacto",
-    "hero-title": "Iglesia Bautista Fundamental Betesda",
-    "hero-pastor": "Pastor Adolfo Hernandez",
-    "hero-location": "Cuenca, Ecuador"
-  },
-  en: {
-    title: "Fundamental Baptist Church Bethesda",
-    "nav-home": "Home",
-    "nav-resources": "Resources",
-    "nav-services": "Services",
-    "nav-sermons": "Sermons",
-    "nav-events": "Events",
-    "nav-contact": "Contact",
-    "hero-title": "Fundamental Baptist Church Bethesda",
-    "hero-pastor": "Pastor Adolfo Hernandez",
-    "hero-location": "Cuenca, Ecuador"
-  }
+es:{title:"Iglesia Bautista Fundamental Betesda","nav-home":"Inicio","nav-resources":"Recursos","nav-services":"Servicios","nav-sermons":"Sermones","nav-events":"Eventos","nav-contact":"Contacto","hero-title":"Iglesia Bautista Fundamental Betesda","hero-pastor":"Pastor Adolfo Hernandez","hero-location":"Cuenca, Ecuador","services-title":"Horarios de Servicios","services-sunday-school":"Escuela Dominical","services-sunday-preaching":"Predicación Dominical","services-thursday-prayer":"Oración Jueves"},
+en:{title:"Fundamental Baptist Church Bethesda","nav-home":"Home","nav-resources":"Resources","nav-services":"Services","nav-sermons":"Sermons","nav-events":"Events","nav-contact":"Contact","hero-title":"Fundamental Baptist Church Bethesda","hero-pastor":"Pastor Adolfo Hernandez","hero-location":"Cuenca, Ecuador","services-title":"Service Schedule","services-sunday-school":"Sunday School","services-sunday-preaching":"Sunday Preaching","services-thursday-prayer":"Thursday Prayer"}
 };
 
-function setLanguage(lang) {
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    const key = el.dataset.i18n;
-    if (translations[lang][key]) el.textContent = translations[lang][key];
-  });
-
-  document.documentElement.lang = lang;
-  localStorage.setItem("lang", lang);
-
-  document.getElementById("lang-toggle").textContent = lang === "es" ? "ES/EN" : "EN/ES";
-  document.getElementById("lang-toggle-mobile").textContent =
-    lang === "es" ? "ES/EN" : "EN/ES";
+function setLanguage(lang){
+document.querySelectorAll("[data-i18n]").forEach(el=>{
+const key=el.getAttribute("data-i18n");
+if(translations[lang][key]) el.textContent=translations[lang][key];
+});
+document.documentElement.lang=lang;
+localStorage.setItem("language",lang);
+document.getElementById("lang-toggle").textContent=lang==="es"?"ES/EN":"EN/ES";
+document.getElementById("lang-toggle-mobile").textContent=document.getElementById("lang-toggle").textContent;
 }
 
-const currentLang = localStorage.getItem("lang") || "es";
-setLanguage(currentLang);
+setLanguage(localStorage.getItem("language")||"es");
 
-document.getElementById("lang-toggle").onclick = () =>
-  setLanguage(currentLang === "es" ? "en" : "es");
+document.getElementById("lang-toggle").onclick=()=>{
+setLanguage(localStorage.getItem("language")==="es"?"en":"es");
+};
 
-document.getElementById("lang-toggle-mobile").onclick = () =>
-  document.getElementById("lang-toggle").click();
+const menuBtn=document.getElementById("menu-btn");
+const mobileMenu=document.getElementById("mobile-menu");
+const langToggleMobile=document.getElementById("lang-toggle-mobile");
 
-const menuBtn = document.getElementById("menu-btn");
-const mobileMenu = document.getElementById("mobile-menu");
-
-menuBtn.onclick = () => mobileMenu.classList.remove("-translate-y-full");
-function closeMenu() {
-  mobileMenu.classList.add("-translate-y-full");
-}
+menuBtn.onclick=()=>mobileMenu.classList.remove("-translate-y-full");
+function closeMenu(){mobileMenu.classList.add("-translate-y-full");}
+langToggleMobile.onclick=()=>document.getElementById("lang-toggle").click();
 </script>
 
 </body>
