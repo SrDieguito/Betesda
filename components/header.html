@@ -1,0 +1,48 @@
+<!-- Header Global -->
+<header class="bg-black py-4 px-6 fixed w-full z-50">
+    <nav class="flex items-center justify-between max-w-7xl mx-auto">
+        <div class="flex items-center">
+            <a href="index.html">
+                <img src="img/1.png" alt="Logo de la Iglesia" class="h-24 w-24 rounded-full">
+            </a>
+            <span class="text-[#BF9B30] ml-3 text-xl font-semibold">IBFB</span>
+        </div>
+        
+        <!-- Menú Desktop -->
+        <div class="hidden md:flex space-x-8">
+            <a href="index.html" class="text-white hover:text-[#BF9B30]" data-i18n="nav-home">Inicio</a>
+            <a href="index.html#recursos" class="text-white hover:text-[#BF9B30]" data-i18n="nav-resources">Recursos</a>
+            <a href="index.html#services" class="text-white hover:text-[#BF9B30]" data-i18n="nav-services">Servicios</a>
+            <a href="index.html#sermones" class="text-white hover:text-[#BF9B30]" data-i18n="nav-sermons">Sermones</a>
+            <a href="index.html#eventos" class="text-white hover:text-[#BF9B30]" data-i18n="nav-events">Eventos</a>
+            <a href="index.html#contact" class="text-white hover:text-[#BF9B30]" data-i18n="nav-contact">Contacto</a>
+        </div>
+        
+        <div class="flex items-center space-x-4">
+            <button id="lang-toggle" class="text-white border border-[#BF9B30] px-4 py-2 rounded hover:bg-[#BF9B30]" data-i18n="lang-toggle">ES/EN</button>
+            <!-- Botón Menú Móvil -->
+            <button id="menu-btn" class="md:hidden text-white text-2xl">☰</button>
+        </div>
+    </nav>
+</header>
+
+<!-- MENÚ MÓVIL Global -->
+<div id="mobile-menu"
+    class="fixed top-0 left-0 w-full h-full bg-black text-white z-40
+    flex flex-col items-center justify-center space-y-6 text-xl
+    transform -translate-y-full transition-transform duration-300">
+
+    <a href="index.html" onclick="closeMenu()" data-i18n="nav-home">Inicio</a>
+    <a href="index.html#recursos" onclick="closeMenu()" data-i18n="nav-resources">Recursos</a>
+    <a href="index.html#services" onclick="closeMenu()" data-i18n="nav-services">Servicios</a>
+    <a href="index.html#sermones" onclick="closeMenu()" data-i18n="nav-sermons">Sermones</a>
+    <a href="index.html#eventos" onclick="closeMenu()" data-i18n="nav-events">Eventos</a>
+    <a href="index.html#contact" onclick="closeMenu()" data-i18n="nav-contact">Contacto</a>
+
+    <button id="lang-toggle-mobile"
+        class="mt-6 border border-[#BF9B30] px-6 py-2 rounded">
+        ES/EN
+    </button>
+
+    <button onclick="closeMenu()" class="absolute top-6 right-6 text-3xl">✕</button>
+</div>
