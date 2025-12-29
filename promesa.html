@@ -1,155 +1,182 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Promesa de Fe – Reportes</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Dashboard – Promesa de Fe</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <style>
-    .fade-up {
-      animation: fadeUp .6s ease both;
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+<style>
+.fade { animation: fade .6s ease both }
+@keyframes fade {
+  from { opacity:0; transform:translateY(15px) }
+  to { opacity:1; transform:translateY(0) }
+}
+</style>
 </head>
 
 <body class="bg-gray-100 min-h-screen p-4">
 
-  <div class="max-w-5xl mx-auto space-y-6 fade-up">
+<div class="max-w-7xl mx-auto space-y-6 fade">
 
-    <!-- HEADER -->
-    <div class="bg-white rounded-xl shadow p-6 text-center">
-      <h1 class="text-3xl font-bold text-gray-800">Promesa de Fe</h1>
-      <p class="text-gray-600 mt-2">
-        Reporte de ofrendas misioneras
-      </p>
-    </div>
-
-    <!-- META -->
-    <div class="bg-white rounded-xl shadow p-6">
-      <label class="block text-sm font-semibold mb-2">
-        Meta mensual ($)
-      </label>
-      <input id="meta"
-        type="number"
-        class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-[#BF9B30]"
-        placeholder="Ej: 2000">
-    </div>
-
-    <!-- INGRESO -->
-    <div class="bg-white rounded-xl shadow p-6 grid md:grid-cols-3 gap-4">
-      <input id="monto"
-        type="number"
-        placeholder="Monto ofrenda"
-        class="p-3 border rounded-lg">
-
-      <select id="dia"
-        class="p-3 border rounded-lg">
-        <option value="Jueves">Jueves</option>
-        <option value="Domingo">Domingo</option>
-      </select>
-
-      <button onclick="agregar()"
-        class="bg-[#BF9B30] text-white rounded-lg hover:bg-black transition">
-        Agregar
-      </button>
-    </div>
-
-    <!-- RESUMEN -->
-    <div class="grid md:grid-cols-3 gap-4">
-      <div class="bg-white rounded-xl shadow p-6 text-center">
-        <div class="text-3xl font-bold text-[#BF9B30]" id="total">$0</div>
-        <div class="text-gray-600">Total acumulado</div>
-      </div>
-
-      <div class="bg-white rounded-xl shadow p-6 text-center">
-        <div class="text-3xl font-bold" id="porcentaje">0%</div>
-        <div class="text-gray-600">Meta alcanzada</div>
-      </div>
-
-      <div class="bg-white rounded-xl shadow p-6">
-        <div class="w-full bg-gray-200 rounded-full h-4">
-          <div id="barra"
-            class="bg-[#BF9B30] h-4 rounded-full transition-all"
-            style="width:0%">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- GRÁFICO -->
-    <div class="bg-white rounded-xl shadow p-6">
-      <canvas id="grafico"></canvas>
-    </div>
-
+<!-- HEADER -->
+<div class="bg-white rounded-xl shadow p-6 flex flex-col md:flex-row justify-between items-center">
+  <div>
+    <h1 class="text-3xl font-bold">Promesa de Fe</h1>
+    <p class="text-gray-600">Dashboard mensual – Misiones</p>
   </div>
 
+  <input id="mes"
+    type="month"
+    class="p-2 border rounded-lg">
+</div>
+
+<!-- KPIs -->
+<div class="grid md:grid-cols-4 gap-4">
+  <div class="bg-white p-6 rounded-xl shadow text-center">
+    <div class="text-3xl font-bold text-[#BF9B30]" id="total">$0</div>
+    <div class="text-gray-600">Total mensual</div>
+  </div>
+
+  <div class="bg-white p-6 rounded-xl shadow text-center">
+    <div class="text-3xl font-bold" id="meta">$0</div>
+    <div class="text-gray-600">Meta</div>
+  </div>
+
+  <div class="bg-white p-6 rounded-xl shadow text-center">
+    <div class="text-3xl font-bold" id="porcentaje">0%</div>
+    <div class="text-gray-600">Avance</div>
+  </div>
+
+  <div class="bg-white p-6 rounded-xl shadow p-4">
+    <div class="w-full bg-gray-200 rounded-full h-4">
+      <div id="barra"
+        class="bg-[#BF9B30] h-4 rounded-full transition-all"></div>
+    </div>
+  </div>
+</div>
+
+<!-- INGRESO -->
+<div class="bg-white rounded-xl shadow p-6 grid md:grid-cols-5 gap-4">
+  <input id="monto" type="number" placeholder="Monto" class="p-3 border rounded">
+  <select id="dia" class="p-3 border rounded">
+    <option>Jueves</option>
+    <option>Domingo</option>
+  </select>
+  <input id="metaInput" type="number" placeholder="Meta mensual" class="p-3 border rounded">
+  <button onclick="guardarMeta()" class="bg-gray-800 text-white rounded">Guardar Meta</button>
+  <button onclick="agregar()" class="bg-[#BF9B30] text-white rounded">Agregar</button>
+</div>
+
+<!-- GRAFICOS -->
+<div class="grid md:grid-cols-2 gap-6">
+  <div class="bg-white p-6 rounded-xl shadow">
+    <canvas id="graficoDias"></canvas>
+  </div>
+  <div class="bg-white p-6 rounded-xl shadow">
+    <canvas id="graficoProgreso"></canvas>
+  </div>
+</div>
+
+<!-- EXPORT -->
+<div class="text-right">
+  <button onclick="exportarCSV()"
+    class="bg-black text-white px-6 py-2 rounded hover:bg-gray-700">
+    Exportar CSV
+  </button>
+</div>
+
+</div>
+
 <script>
-let datos = JSON.parse(localStorage.getItem("promesa")) || [];
-let metaInput = document.getElementById("meta");
-let totalEl = document.getElementById("total");
-let porcentajeEl = document.getElementById("porcentaje");
-let barra = document.getElementById("barra");
+const storage = JSON.parse(localStorage.getItem("promesaFE")) || {};
+const mesInput = document.getElementById("mes");
 
-metaInput.value = localStorage.getItem("meta") || "";
+const hoy = new Date().toISOString().slice(0,7);
+mesInput.value = hoy;
 
-metaInput.oninput = () => {
-  localStorage.setItem("meta", metaInput.value);
+let chart1, chart2;
+
+function getMes() {
+  if (!storage[mesInput.value])
+    storage[mesInput.value] = { meta: 0, registros: [] };
+  return storage[mesInput.value];
+}
+
+function guardarMeta() {
+  getMes().meta = Number(metaInput.value);
+  persistir();
   render();
-};
+}
 
 function agregar() {
   const monto = Number(document.getElementById("monto").value);
   const dia = document.getElementById("dia").value;
   if (!monto) return;
 
-  datos.push({ monto, dia });
-  localStorage.setItem("promesa", JSON.stringify(datos));
+  getMes().registros.push({
+    fecha: new Date().toISOString().slice(0,10),
+    dia, monto
+  });
+
   document.getElementById("monto").value = "";
+  persistir();
   render();
 }
 
-let chart;
 function render() {
-  const total = datos.reduce((a, b) => a + b.monto, 0);
-  const meta = Number(metaInput.value) || 0;
-  const porcentaje = meta ? Math.min((total / meta) * 100, 100) : 0;
+  const { meta, registros } = getMes();
+  const total = registros.reduce((a,b)=>a+b.monto,0);
+  const porcentaje = meta ? Math.min(total/meta*100,100) : 0;
 
   totalEl.textContent = `$${total.toFixed(2)}`;
-  porcentajeEl.textContent = `${porcentaje.toFixed(1)}%`;
-  barra.style.width = porcentaje + "%";
+  metaEl.textContent = `$${meta.toFixed(2)}`;
+  porcentajeEl.textContent = porcentaje.toFixed(1)+"%";
+  barra.style.width = porcentaje+"%";
+  metaInput.value = meta || "";
 
-  const jueves = datos.filter(d => d.dia === "Jueves").reduce((a,b)=>a+b.monto,0);
-  const domingo = datos.filter(d => d.dia === "Domingo").reduce((a,b)=>a+b.monto,0);
+  const jueves = registros.filter(r=>r.dia==="Jueves").reduce((a,b)=>a+b.monto,0);
+  const domingo = registros.filter(r=>r.dia==="Domingo").reduce((a,b)=>a+b.monto,0);
 
-  if (chart) chart.destroy();
+  if (chart1) chart1.destroy();
+  chart1 = new Chart(graficoDias, {
+    type:"bar",
+    data:{
+      labels:["Jueves","Domingo"],
+      datasets:[{ data:[jueves,domingo], backgroundColor:["#BF9B30","#111827"] }]
+    }
+  });
 
-  chart = new Chart(document.getElementById("grafico"), {
-    type: "bar",
-    data: {
-      labels: ["Jueves", "Domingo"],
-      datasets: [{
-        label: "Ofrendas ($)",
-        data: [jueves, domingo],
-        backgroundColor: ["#BF9B30", "#111827"]
-      }]
-    },
-    options: {
-      responsive: true,
-      animation: { duration: 800 }
+  if (chart2) chart2.destroy();
+  chart2 = new Chart(graficoProgreso, {
+    type:"doughnut",
+    data:{
+      labels:["Alcanzado","Faltante"],
+      datasets:[{ data:[total, Math.max(meta-total,0)],
+        backgroundColor:["#BF9B30","#e5e7eb"] }]
     }
   });
 }
 
+function exportarCSV() {
+  const { registros } = getMes();
+  let csv = "Fecha,Dia,Monto\n";
+  registros.forEach(r=>csv+=`${r.fecha},${r.dia},${r.monto}\n`);
+
+  const blob = new Blob([csv],{type:"text/csv"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `promesa-fe-${mesInput.value}.csv`;
+  a.click();
+}
+
+function persistir() {
+  localStorage.setItem("promesaFE", JSON.stringify(storage));
+}
+
+mesInput.onchange = render;
 render();
 </script>
 
