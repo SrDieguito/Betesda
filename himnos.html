@@ -93,53 +93,88 @@
 
 <!-- ================= SCRIPT ================= -->
 <script>
-
 const USUARIO = "SrDieguito";
 const REPO = "ibfb-himnos";
 const CARPETA = "musica";
 
-const BASE = `https://cdn.jsdelivr.net/gh/${USUARIO}/${REPO}/${CARPETA}/`;
-const grid = document.getElementById("resource-grid");
+const BASE = `https://raw.githubusercontent.com/${USUARIO}/${REPO}/main/${CARPETA}/`;
 
+const grid = document.getElementById("resource-grid");
+const searchInput = document.getElementById("search-input");
+const sortSelect = document.getElementById("sort-select");
+
+let songs = [];
+
+/* ===== CARGAR DESDE GITHUB ===== */
 fetch(`https://api.github.com/repos/${USUARIO}/${REPO}/contents/${CARPETA}`)
   .then(res => res.json())
   .then(files => {
 
-    files
+    songs = files
       .filter(f => f.name.endsWith(".mp3"))
-      .sort((a,b) => a.name.localeCompare(b.name))
-      .forEach(file => {
-
+      .map(file => {
         const nombre = file.name
           .replace(".mp3","")
           .replace(/^\d+-?/,"")
           .replace(/-/g," ");
 
-        const url = BASE + file.name;
-
-        const card = document.createElement("div");
-        card.className = "bg-white rounded-lg shadow-lg p-6";
-
-        card.innerHTML = `
-          <h3 class="text-xl font-semibold mb-2">${nombre}</h3>
-
-          <audio controls preload="metadata" class="w-full mb-4">
-            <source src="${url}" type="audio/mpeg">
-          </audio>
-
-          <a href="${url}" download
-             class="inline-block bg-[#BF9B30] text-white px-4 py-2 rounded hover:bg-black">
-             Descargar MP3
-          </a>
-        `;
-
-        grid.appendChild(card);
+        return {
+          name: nombre,
+          filename: file.name,
+          url: BASE + file.name,
+          date: file.sha   // usamos sha solo para ordenar (consistente)
+        };
       });
+
+    renderSongs();
   })
   .catch(err => {
     console.error("Error cargando himnos:", err);
   });
+
+/* ===== RENDER ===== */
+function renderSongs() {
+  grid.innerHTML = "";
+
+  const term = searchInput.value.toLowerCase();
+  const order = sortSelect.value;
+
+  let filtered = songs.filter(s =>
+    s.name.toLowerCase().includes(term)
+  );
+
+  filtered.sort((a, b) => {
+    return order === "asc"
+      ? a.filename.localeCompare(b.filename)
+      : b.filename.localeCompare(a.filename);
+  });
+
+  filtered.forEach(song => {
+    const card = document.createElement("div");
+    card.className = "bg-white rounded-lg shadow-lg p-6";
+
+    card.innerHTML = `
+      <h3 class="text-xl font-semibold mb-2">${song.name}</h3>
+
+      <audio controls preload="metadata" class="w-full mb-4">
+        <source src="${song.url}" type="audio/mpeg">
+      </audio>
+
+      <a href="${song.url}" download
+         class="inline-block bg-[#BF9B30] text-white px-4 py-2 rounded hover:bg-black">
+         Descargar MP3
+      </a>
+    `;
+
+    grid.appendChild(card);
+  });
+}
+
+/* ===== EVENTOS ===== */
+searchInput.addEventListener("input", renderSongs);
+sortSelect.addEventListener("change", renderSongs);
 </script>
+
 
 
 </body>
