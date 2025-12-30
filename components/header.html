@@ -1,38 +1,534 @@
-<!-- Header Global -->
-<header class="bg-black fixed top-0 left-0 w-full z-50 shadow-md">
+<!-- Header Global Mejorado -->
+<header class="bg-gradient-to-r from-secondary via-gray-900 to-black fixed top-0 left-0 w-full z-50 shadow-lg transition-all duration-300 hover:shadow-xl">
     
-    <nav class="flex items-center justify-between max-w-7xl mx-auto
-                px-6 h-24">
-        <!-- 👆 h-24 = altura fija consistente -->
-
-        <div class="flex items-center">
-            <a href="index.html">
-                <img src="img/1.png" alt="Logo de la Iglesia"
-                     class="h-20 w-20 rounded-full">
-            </a>
-            <span class="text-[#BF9B30] ml-3 text-xl font-semibold">IBFB</span>
-        </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Barra de navegación principal -->
+        <nav class="flex items-center justify-between h-20 md:h-24">
+            
+            <!-- Logo y marca -->
+            <div class="flex items-center space-x-3 md:space-x-4">
+                <a href="index.html" class="group relative">
+                    <div class="relative">
+                        <!-- Efecto de brillo alrededor del logo -->
+                        <div class="absolute -inset-2 bg-gradient-to-r from-primary to-yellow-400 rounded-full opacity-0 group-hover:opacity-50 blur-sm transition-opacity duration-500"></div>
+                        <!-- Logo -->
+                        <img src="img/1.png" alt="Logo Iglesia Bautista Betesda" 
+                             class="relative h-14 w-14 md:h-20 md:w-20 rounded-full border-2 border-primary/30 
+                                    transition-all duration-300 
+                                    group-hover:scale-105 group-hover:border-primary 
+                                    group-hover:shadow-lg group-hover:shadow-primary/20">
+                    </div>
+                    <!-- Punto de notificación (opcional) -->
+                    <div class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse-gentle"></div>
+                </a>
+                
+                <!-- Nombre de la iglesia -->
+                <div class="flex flex-col">
+                    <span class="text-white font-bold text-lg md:text-xl leading-tight">Iglesia Bautista</span>
+                    <span class="gradient-text font-bold text-lg md:text-xl leading-tight">Betesda</span>
+                </div>
+            </div>
+            
+            <!-- Menú Desktop - Centrado -->
+            <div class="hidden lg:flex items-center justify-center flex-1 mx-8">
+                <div class="flex items-center space-x-1 bg-gray-800/50 backdrop-blur-sm rounded-full px-2 py-1">
+                    <a href="index.html" 
+                       class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
+                              hover:bg-primary/10 hover:text-primary group">
+                        <i class="fas fa-home mr-2 text-gray-400 group-hover:text-primary transition-colors"></i>
+                        Inicio
+                    </a>
+                    
+                    <a href="index.html#recursos" 
+                       class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
+                              hover:bg-primary/10 hover:text-primary group">
+                        <i class="fas fa-book-open mr-2 text-gray-400 group-hover:text-primary transition-colors"></i>
+                        Recursos
+                    </a>
+                    
+                    <a href="index.html#services" 
+                       class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
+                              hover:bg-primary/10 hover:text-primary group">
+                        <i class="fas fa-hands-helping mr-2 text-gray-400 group-hover:text-primary transition-colors"></i>
+                        Servicios
+                    </a>
+                    
+                    <a href="predicas.html" 
+                       class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
+                              hover:bg-primary/10 hover:text-primary group">
+                        <i class="fas fa-video mr-2 text-gray-400 group-hover:text-primary transition-colors"></i>
+                        Prédicas
+                    </a>
+                    
+                    <a href="musica.html" 
+                       class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
+                              hover:bg-primary/10 hover:text-primary group">
+                        <i class="fas fa-music mr-2 text-gray-400 group-hover:text-primary transition-colors"></i>
+                        Música
+                    </a>
+                    
+                    <a href="index.html#eventos" 
+                       class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
+                              hover:bg-primary/10 hover:text-primary group">
+                        <i class="fas fa-calendar-alt mr-2 text-gray-400 group-hover:text-primary transition-colors"></i>
+                        Eventos
+                    </a>
+                    
+                    <a href="index.html#contact" 
+                       class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
+                              hover:bg-primary/10 hover:text-primary group">
+                        <i class="fas fa-envelope mr-2 text-gray-400 group-hover:text-primary transition-colors"></i>
+                        Contacto
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Acciones derecha -->
+            <div class="flex items-center space-x-2 md:space-x-4">
+                <!-- Botón Idioma mejorado -->
+                <button id="lang-toggle"
+                    class="hidden md:flex items-center px-4 py-2 rounded-lg bg-gray-800/50 text-white 
+                           border border-gray-700 hover:border-primary hover:bg-primary/10 
+                           transition-all duration-300 group">
+                    <i class="fas fa-globe mr-2 text-gray-400 group-hover:text-primary transition-colors"></i>
+                    <span class="font-medium">ES</span>
+                    <span class="mx-1 text-gray-500">|</span>
+                    <span class="text-gray-400">EN</span>
+                </button>
+                
+                <!-- Botón Menú Móvil Mejorado -->
+                <button id="menu-btn" 
+                        class="lg:hidden relative w-12 h-12 flex items-center justify-center 
+                               rounded-lg bg-gray-800/50 hover:bg-primary/10 
+                               border border-gray-700 hover:border-primary 
+                               transition-all duration-300 group">
+                    <!-- Ícono hamburguesa animado -->
+                    <div class="relative w-6 h-5">
+                        <span class="absolute left-0 top-0 w-full h-0.5 bg-white group-hover:bg-primary 
+                               transition-all duration-300 transform group-[[aria-expanded=true]]:rotate-45 
+                               group-[[aria-expanded=true]]:top-2"></span>
+                        <span class="absolute left-0 top-2 w-full h-0.5 bg-white group-hover:bg-primary 
+                               transition-all duration-300 opacity-100 group-[[aria-expanded=true]]:opacity-0"></span>
+                        <span class="absolute left-0 bottom-0 w-full h-0.5 bg-white group-hover:bg-primary 
+                               transition-all duration-300 transform group-[[aria-expanded=true]]:-rotate-45 
+                               group-[[aria-expanded=true]]:bottom-2"></span>
+                    </div>
+                </button>
+            </div>
+        </nav>
+    </div>
+    
+    <!-- Menú Móvil Mejorado -->
+    <div id="mobile-menu" 
+         class="lg:hidden fixed inset-0 top-20 z-40 bg-gradient-to-b from-gray-900 to-black 
+                transform translate-x-full transition-transform duration-300 ease-in-out
+                opacity-0 pointer-events-none">
         
-        <!-- Menú Desktop -->
-        <div class="hidden md:flex space-x-8">
-            <a href="index.html" class="text-white hover:text-[#BF9B30]">Inicio</a>
-            <a href="index.html#recursos" class="text-white hover:text-[#BF9B30]">Recursos</a>
-            <a href="index.html#services" class="text-white hover:text-[#BF9B30]">Servicios</a>
-            <a href="index.html#sermones" class="text-white hover:text-[#BF9B30]">Sermones</a>
-            <a href="index.html#eventos" class="text-white hover:text-[#BF9B30]">Eventos</a>
-            <a href="index.html#contact" class="text-white hover:text-[#BF9B30]">Contacto</a>
-        </div>
+        <!-- Fondo decorativo -->
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23BF9B30" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
         
-        <div class="flex items-center space-x-4">
-            <button id="lang-toggle"
-                class="text-white border border-[#BF9B30] px-4 py-2 rounded hover:bg-[#BF9B30]">
-                ES/EN
-            </button>
-
-            <!-- Botón Menú Móvil -->
-            <button id="menu-btn" class="md:hidden text-white text-2xl">
-                ☰
-            </button>
+        <div class="relative h-full overflow-y-auto">
+            <div class="px-6 py-8 space-y-6">
+                <!-- Encabezado del menú móvil -->
+                <div class="flex items-center justify-between mb-8">
+                    <h3 class="text-xl font-bold text-white">Menú de Navegación</h3>
+                    <button id="close-mobile-menu" 
+                            class="p-2 rounded-full bg-gray-800 hover:bg-primary/20 
+                                   transition-colors duration-300">
+                        <i class="fas fa-times text-white text-lg"></i>
+                    </button>
+                </div>
+                
+                <!-- Enlaces del menú móvil -->
+                <div class="space-y-2">
+                    <a href="index.html" 
+                       class="mobile-nav-link flex items-center px-4 py-4 rounded-xl 
+                              bg-gray-800/50 hover:bg-primary/10 hover:border-primary/30
+                              border border-transparent transition-all duration-300 group">
+                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
+                            <i class="fas fa-home text-primary"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-white group-hover:text-primary transition-colors">Inicio</div>
+                            <div class="text-xs text-gray-400">Página principal</div>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-500 group-hover:text-primary transition-colors"></i>
+                    </a>
+                    
+                    <a href="index.html#recursos" 
+                       class="mobile-nav-link flex items-center px-4 py-4 rounded-xl 
+                              bg-gray-800/50 hover:bg-primary/10 hover:border-primary/30
+                              border border-transparent transition-all duration-300 group">
+                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
+                            <i class="fas fa-book-open text-primary"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-white group-hover:text-primary transition-colors">Recursos</div>
+                            <div class="text-xs text-gray-400">Materiales de estudio</div>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-500 group-hover:text-primary transition-colors"></i>
+                    </a>
+                    
+                    <a href="index.html#services" 
+                       class="mobile-nav-link flex items-center px-4 py-4 rounded-xl 
+                              bg-gray-800/50 hover:bg-primary/10 hover:border-primary/30
+                              border border-transparent transition-all duration-300 group">
+                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
+                            <i class="fas fa-hands-helping text-primary"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-white group-hover:text-primary transition-colors">Servicios</div>
+                            <div class="text-xs text-gray-400">Nuestros ministerios</div>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-500 group-hover:text-primary transition-colors"></i>
+                    </a>
+                    
+                    <a href="predicas.html" 
+                       class="mobile-nav-link flex items-center px-4 py-4 rounded-xl 
+                              bg-gray-800/50 hover:bg-primary/10 hover:border-primary/30
+                              border border-transparent transition-all duration-300 group">
+                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
+                            <i class="fas fa-video text-primary"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-white group-hover:text-primary transition-colors">Prédicas</div>
+                            <div class="text-xs text-gray-400">Videos y enseñanzas</div>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-500 group-hover:text-primary transition-colors"></i>
+                    </a>
+                    
+                    <a href="musica.html" 
+                       class="mobile-nav-link flex items-center px-4 py-4 rounded-xl 
+                              bg-gray-800/50 hover:bg-primary/10 hover:border-primary/30
+                              border border-transparent transition-all duration-300 group">
+                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
+                            <i class="fas fa-music text-primary"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-white group-hover:text-primary transition-colors">Música</div>
+                            <div class="text-xs text-gray-400">Alabanza y adoración</div>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-500 group-hover:text-primary transition-colors"></i>
+                    </a>
+                    
+                    <a href="index.html#eventos" 
+                       class="mobile-nav-link flex items-center px-4 py-4 rounded-xl 
+                              bg-gray-800/50 hover:bg-primary/10 hover:border-primary/30
+                              border border-transparent transition-all duration-300 group">
+                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
+                            <i class="fas fa-calendar-alt text-primary"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-white group-hover:text-primary transition-colors">Eventos</div>
+                            <div class="text-xs text-gray-400">Próximas actividades</div>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-500 group-hover:text-primary transition-colors"></i>
+                    </a>
+                    
+                    <a href="index.html#contact" 
+                       class="mobile-nav-link flex items-center px-4 py-4 rounded-xl 
+                              bg-gray-800/50 hover:bg-primary/10 hover:border-primary/30
+                              border border-transparent transition-all duration-300 group">
+                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
+                            <i class="fas fa-envelope text-primary"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-medium text-white group-hover:text-primary transition-colors">Contacto</div>
+                            <div class="text-xs text-gray-400">Comunícate con nosotros</div>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-500 group-hover:text-primary transition-colors"></i>
+                    </a>
+                </div>
+                
+                <!-- Separador -->
+                <div class="my-8 border-t border-gray-800"></div>
+                
+                <!-- Idioma en móvil -->
+                <div class="px-4">
+                    <button id="mobile-lang-toggle"
+                            class="w-full flex items-center justify-center px-4 py-3 rounded-xl 
+                                   bg-gray-800/50 text-white border border-gray-700 
+                                   hover:border-primary hover:bg-primary/10 
+                                   transition-all duration-300 group">
+                        <i class="fas fa-globe mr-3 text-gray-400 group-hover:text-primary transition-colors"></i>
+                        <span class="font-medium">Español</span>
+                        <span class="mx-3 text-gray-500">|</span>
+                        <span class="text-gray-400">English</span>
+                    </button>
+                </div>
+                
+                <!-- Información de contacto rápida -->
+                <div class="px-4 pt-6 border-t border-gray-800">
+                    <div class="text-center text-gray-400 text-sm">
+                        <p class="mb-2">Iglesia Bautista Betesda</p>
+                        <p class="text-xs">© <span id="current-year"></span> Todos los derechos reservados</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </nav>
+    </div>
+    
+    <!-- Indicador de scroll -->
+    <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent opacity-30"></div>
 </header>
+
+<!-- Estilos específicos para el header -->
+<style>
+    /* Estilos para gradientes de texto */
+    .gradient-text {
+        background: linear-gradient(135deg, #BF9B30 0%, #d4af37 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    /* Animación para enlaces de navegación */
+    .nav-link {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #BF9B30 0%, #d4af37 100%);
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+    
+    .nav-link:hover::after {
+        width: calc(100% - 2rem);
+    }
+    
+    /* Animación para enlaces móviles */
+    .mobile-nav-link {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .mobile-nav-link::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 4px;
+        height: 0;
+        background: linear-gradient(180deg, #BF9B30 0%, #d4af37 100%);
+        transition: height 0.3s ease;
+    }
+    
+    .mobile-nav-link:hover::before {
+        height: 100%;
+    }
+    
+    /* Animación de entrada del menú móvil */
+    #mobile-menu[data-open="true"] {
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+    
+    /* Efecto de brillo en hover para elementos interactivos */
+    .hover-glow {
+        transition: all 0.3s ease;
+    }
+    
+    .hover-glow:hover {
+        box-shadow: 0 0 15px rgba(191, 155, 48, 0.3);
+    }
+    
+    /* Animación suave para el logo */
+    @keyframes logo-pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+    
+    .logo-pulse {
+        animation: logo-pulse 3s ease-in-out infinite;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+        .nav-desktop {
+            display: none !important;
+        }
+    }
+    
+    @media (max-width: 640px) {
+        header {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        .logo-text {
+            font-size: 1.1rem !important;
+        }
+        
+        .mobile-nav-link {
+            padding: 0.75rem !important;
+        }
+    }
+</style>
+
+<!-- Script para el header -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMobileMenu = document.getElementById('close-mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+        const langToggle = document.getElementById('lang-toggle');
+        const mobileLangToggle = document.getElementById('mobile-lang-toggle');
+        const currentYear = document.getElementById('current-year');
+        
+        // Año actual para el footer
+        if (currentYear) {
+            currentYear.textContent = new Date().getFullYear();
+        }
+        
+        // Toggle del menú móvil
+        function toggleMobileMenu() {
+            const isOpen = mobileMenu.getAttribute('data-open') === 'true';
+            mobileMenu.setAttribute('data-open', !isOpen);
+            menuBtn.setAttribute('aria-expanded', !isOpen);
+            
+            // Prevenir scroll del body cuando el menú está abierto
+            document.body.style.overflow = !isOpen ? 'hidden' : 'auto';
+        }
+        
+        // Cerrar menú móvil
+        function closeMenu() {
+            mobileMenu.setAttribute('data-open', 'false');
+            menuBtn.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Event listeners
+        menuBtn.addEventListener('click', toggleMobileMenu);
+        closeMobileMenu.addEventListener('click', closeMenu);
+        
+        // Cerrar menú al hacer clic en un enlace
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+        
+        // Cerrar menú al presionar Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mobileMenu.getAttribute('data-open') === 'true') {
+                closeMenu();
+            }
+        });
+        
+        // Toggle de idioma
+        function toggleLanguage() {
+            const isES = langToggle.querySelector('span:first-child').textContent === 'ES';
+            
+            if (isES) {
+                langToggle.querySelector('span:first-child').textContent = 'EN';
+                langToggle.querySelector('span:last-child').textContent = 'ES';
+                
+                if (mobileLangToggle) {
+                    mobileLangToggle.querySelector('span:nth-child(2)').textContent = 'English';
+                    mobileLangToggle.querySelector('span:last-child').textContent = 'Español';
+                }
+                
+                // Aquí puedes añadir lógica para cambiar el idioma de la página
+                console.log('Cambiando a inglés');
+            } else {
+                langToggle.querySelector('span:first-child').textContent = 'ES';
+                langToggle.querySelector('span:last-child').textContent = 'EN';
+                
+                if (mobileLangToggle) {
+                    mobileLangToggle.querySelector('span:nth-child(2)').textContent = 'Español';
+                    mobileLangToggle.querySelector('span:last-child').textContent = 'English';
+                }
+                
+                // Aquí puedes añadir lógica para cambiar el idioma de la página
+                console.log('Cambiando a español');
+            }
+        }
+        
+        if (langToggle) {
+            langToggle.addEventListener('click', toggleLanguage);
+        }
+        
+        if (mobileLangToggle) {
+            mobileLangToggle.addEventListener('click', function() {
+                toggleLanguage();
+                closeMenu(); // Cerrar menú después de cambiar idioma
+            });
+        }
+        
+        // Efecto de scroll en el header
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // Scroll hacia abajo
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                // Scroll hacia arriba
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+        
+        // Indicador de página activa
+        function setActiveNavLink() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+            
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPage || 
+                    (currentPage === 'index.html' && href.includes('index.html#')) ||
+                    (currentPage === 'predicas.html' && href === 'predicas.html') ||
+                    (currentPage === 'musica.html' && href === 'musica.html')) {
+                    
+                    link.classList.add('active');
+                    link.classList.remove('hover:bg-primary/10');
+                    link.classList.add('bg-primary/20', 'border-primary/50');
+                    
+                    // Para enlaces de escritorio
+                    if (link.classList.contains('nav-link')) {
+                        link.classList.add('text-primary');
+                    }
+                    
+                    // Para enlaces móviles
+                    if (link.classList.contains('mobile-nav-link')) {
+                        link.classList.add('border-primary/50');
+                    }
+                }
+            });
+        }
+        
+        // Llamar a la función cuando se carga la página
+        setActiveNavLink();
+        
+        // Efecto hover en el logo
+        const logo = document.querySelector('a[href="index.html"]');
+        if (logo) {
+            logo.addEventListener('mouseenter', function() {
+                const img = this.querySelector('img');
+                if (img) {
+                    img.classList.add('logo-pulse');
+                }
+            });
+            
+            logo.addEventListener('mouseleave', function() {
+                const img = this.querySelector('img');
+                if (img) {
+                    img.classList.remove('logo-pulse');
+                }
+            });
+        }
+    });
+</script>
