@@ -1,469 +1,263 @@
-<!-- Header Global Mejorado -->
-<header class="bg-gradient-to-r from-secondary via-gray-900 to-black fixed top-0 left-0 w-full z-50 shadow-lg transition-all duration-300 hover:shadow-xl">
+<!-- Header Global Simplificado -->
+<header class="bg-black fixed top-0 left-0 w-full z-50 shadow-lg">
     
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Barra de navegación principal -->
         <nav class="flex items-center justify-between h-20 md:h-24">
             
             <!-- Logo y marca -->
             <div class="flex items-center space-x-3 md:space-x-4">
-                <a href="index.html" class="group relative">
+                <a href="index.html" class="group">
                     <div class="relative">
-                        <!-- Efecto de brillo alrededor del logo -->
-                        <div class="absolute -inset-2 bg-gradient-to-r from-primary to-yellow-400 rounded-full opacity-0 group-hover:opacity-50 blur-sm transition-opacity duration-500"></div>
-                        <!-- Logo -->
                         <img src="img/1.png" alt="Logo Iglesia Bautista Betesda" 
-                             class="relative h-14 w-14 md:h-20 md:w-20 rounded-full border-2 border-primary/30 
-                                    transition-all duration-300 
-                                    group-hover:scale-105 group-hover:border-primary 
-                                    group-hover:shadow-lg group-hover:shadow-primary/20">
+                             class="h-14 w-14 md:h-20 md:w-20 rounded-full border-2 border-[#BF9B30] 
+                                    transition-all duration-300 group-hover:scale-105">
                     </div>
-                    <!-- Punto de notificación (opcional) -->
-                    <div class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse-gentle"></div>
                 </a>
                 
-                <!-- Nombre de la iglesia -->
                 <div class="flex flex-col">
                     <span class="text-white font-bold text-lg md:text-xl leading-tight">Iglesia Bautista</span>
-                    <span class="gradient-text font-bold text-lg md:text-xl leading-tight">Betesda</span>
+                    <span class="text-[#BF9B30] font-bold text-lg md:text-xl leading-tight">Betesda</span>
                 </div>
             </div>
             
-            <!-- Menú Desktop - Centrado -->
-            <div class="hidden lg:flex items-center justify-center flex-1 mx-8">
-                <div class="flex items-center space-x-1 bg-gray-800/50 backdrop-blur-sm rounded-full px-2 py-1">
-                    <a href="index.html" 
-                       class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
-                              hover:bg-primary/10 hover:text-primary group">
-                        <i class="fas fa-home mr-2 text-gray-400 group-hover:text-primary transition-colors"></i>
-                        Inicio
-                    </a>
-                    
-                    <a href="index.html#recursos" 
-                       class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
-                              hover:bg-primary/10 hover:text-primary group">
-                        <i class="fas fa-book-open mr-2 text-gray-400 group-hover:text-primary transition-colors"></i>
-                        Recursos
-                    </a>
-                    
-                    <a href="index.html#services" 
-                       class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
-                              hover:bg-primary/10 hover:text-primary group">
-                        <i class="fas fa-hands-helping mr-2 text-gray-400 group-hover:text-primary transition-colors"></i>
-                        Servicios
-                    </a>
-                    
-                    <a href="predicas.html" 
-                       class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
-                              hover:bg-primary/10 hover:text-primary group">
-                        <i class="fas fa-video mr-2 text-gray-400 group-hover:text-primary transition-colors"></i>
-                        Prédicas
-                    </a>
-                    
-                    <a href="musica.html" 
-                       class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
-                              hover:bg-primary/10 hover:text-primary group">
-                        <i class="fas fa-music mr-2 text-gray-400 group-hover:text-primary transition-colors"></i>
-                        Música
-                    </a>
-                    
-                    <a href="index.html#eventos" 
-                       class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
-                              hover:bg-primary/10 hover:text-primary group">
-                        <i class="fas fa-calendar-alt mr-2 text-gray-400 group-hover:text-primary transition-colors"></i>
-                        Eventos
-                    </a>
-                    
-                    <a href="index.html#contact" 
-                       class="nav-link px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
-                              hover:bg-primary/10 hover:text-primary group">
-                        <i class="fas fa-envelope mr-2 text-gray-400 group-hover:text-primary transition-colors"></i>
-                        Contacto
-                    </a>
-                </div>
+            <!-- Menú Desktop -->
+            <div class="hidden lg:flex items-center space-x-6">
+                <a href="index.html" 
+                   class="text-white hover:text-[#BF9B30] transition-colors duration-300 font-medium">
+                    Inicio
+                </a>
+                
+                <a href="index.html#recursos" 
+                   class="text-white hover:text-[#BF9B30] transition-colors duration-300 font-medium">
+                    Recursos
+                </a>
+                
+                <a href="predicas.html" 
+                   class="text-white hover:text-[#BF9B30] transition-colors duration-300 font-medium">
+                    Prédicas
+                </a>
+                
+                <a href="musica.html" 
+                   class="text-white hover:text-[#BF9B30] transition-colors duration-300 font-medium">
+                    Himnos
+                </a>
             </div>
             
             <!-- Acciones derecha -->
-            <div class="flex items-center space-x-2 md:space-x-4">
-                <!-- Botón Idioma mejorado -->
+            <div class="flex items-center space-x-4">
+                <!-- Botón Idioma funcional -->
                 <button id="lang-toggle"
-                    class="hidden md:flex items-center px-4 py-2 rounded-lg bg-gray-800/50 text-white 
-                           border border-gray-700 hover:border-primary hover:bg-primary/10 
-                           transition-all duration-300 group">
-                    <i class="fas fa-globe mr-2 text-gray-400 group-hover:text-primary transition-colors"></i>
-                    <span class="font-medium">ES</span>
-                    <span class="mx-1 text-gray-500">|</span>
+                    class="px-4 py-2 rounded-lg bg-gray-800 text-white border border-gray-700 
+                           hover:border-[#BF9B30] hover:bg-gray-700 transition-all duration-300 
+                           flex items-center">
+                    <span class="font-medium" id="current-lang">ES</span>
+                    <span class="mx-2">/</span>
                     <span class="text-gray-400">EN</span>
                 </button>
                 
-                <!-- Botón Menú Móvil Mejorado -->
+                <!-- Botón Menú Móvil -->
                 <button id="menu-btn" 
-                        class="lg:hidden relative w-12 h-12 flex items-center justify-center 
-                               rounded-lg bg-gray-800/50 hover:bg-primary/10 
-                               border border-gray-700 hover:border-primary 
-                               transition-all duration-300 group">
-                    <!-- Ícono hamburguesa animado -->
-                    <div class="relative w-6 h-5">
-                        <span class="absolute left-0 top-0 w-full h-0.5 bg-white group-hover:bg-primary 
-                               transition-all duration-300 transform group-[[aria-expanded=true]]:rotate-45 
-                               group-[[aria-expanded=true]]:top-2"></span>
-                        <span class="absolute left-0 top-2 w-full h-0.5 bg-white group-hover:bg-primary 
-                               transition-all duration-300 opacity-100 group-[[aria-expanded=true]]:opacity-0"></span>
-                        <span class="absolute left-0 bottom-0 w-full h-0.5 bg-white group-hover:bg-primary 
-                               transition-all duration-300 transform group-[[aria-expanded=true]]:-rotate-45 
-                               group-[[aria-expanded=true]]:bottom-2"></span>
-                    </div>
+                        class="lg:hidden w-12 h-12 flex items-center justify-center 
+                               rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
                 </button>
             </div>
         </nav>
     </div>
     
-    <!-- Menú Móvil Mejorado -->
+    <!-- Menú Móvil -->
     <div id="mobile-menu" 
-         class="lg:hidden fixed inset-0 top-20 z-40 bg-gradient-to-b from-gray-900 to-black 
-                transform translate-x-full transition-transform duration-300 ease-in-out
-                opacity-0 pointer-events-none">
+         class="lg:hidden fixed inset-0 top-20 z-40 bg-black transform -translate-x-full 
+                transition-transform duration-300 ease-in-out">
         
-        <!-- Fondo decorativo -->
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23BF9B30" fill-opacity="0.05"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
-        
-        <div class="relative h-full overflow-y-auto">
-            <div class="px-6 py-8 space-y-6">
-                <!-- Encabezado del menú móvil -->
-                <div class="flex items-center justify-between mb-8">
-                    <h3 class="text-xl font-bold text-white">Menú de Navegación</h3>
-                    <button id="close-mobile-menu" 
-                            class="p-2 rounded-full bg-gray-800 hover:bg-primary/20 
-                                   transition-colors duration-300">
-                        <i class="fas fa-times text-white text-lg"></i>
-                    </button>
-                </div>
+        <div class="h-full overflow-y-auto px-6 py-8">
+            <div class="space-y-4">
+                <a href="index.html" 
+                   class="block text-white hover:text-[#BF9B30] transition-colors py-3 text-lg font-medium">
+                    Inicio
+                </a>
                 
-                <!-- Enlaces del menú móvil -->
-                <div class="space-y-2">
-                    <a href="index.html" 
-                       class="mobile-nav-link flex items-center px-4 py-4 rounded-xl 
-                              bg-gray-800/50 hover:bg-primary/10 hover:border-primary/30
-                              border border-transparent transition-all duration-300 group">
-                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
-                            <i class="fas fa-home text-primary"></i>
-                        </div>
-                        <div class="flex-1">
-                            <div class="font-medium text-white group-hover:text-primary transition-colors">Inicio</div>
-                            <div class="text-xs text-gray-400">Página principal</div>
-                        </div>
-                        <i class="fas fa-chevron-right text-gray-500 group-hover:text-primary transition-colors"></i>
-                    </a>
-                    
-                    <a href="index.html#recursos" 
-                       class="mobile-nav-link flex items-center px-4 py-4 rounded-xl 
-                              bg-gray-800/50 hover:bg-primary/10 hover:border-primary/30
-                              border border-transparent transition-all duration-300 group">
-                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
-                            <i class="fas fa-book-open text-primary"></i>
-                        </div>
-                        <div class="flex-1">
-                            <div class="font-medium text-white group-hover:text-primary transition-colors">Recursos</div>
-                            <div class="text-xs text-gray-400">Materiales de estudio</div>
-                        </div>
-                        <i class="fas fa-chevron-right text-gray-500 group-hover:text-primary transition-colors"></i>
-                    </a>
-                    
-                    <a href="index.html#services" 
-                       class="mobile-nav-link flex items-center px-4 py-4 rounded-xl 
-                              bg-gray-800/50 hover:bg-primary/10 hover:border-primary/30
-                              border border-transparent transition-all duration-300 group">
-                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
-                            <i class="fas fa-hands-helping text-primary"></i>
-                        </div>
-                        <div class="flex-1">
-                            <div class="font-medium text-white group-hover:text-primary transition-colors">Servicios</div>
-                            <div class="text-xs text-gray-400">Nuestros ministerios</div>
-                        </div>
-                        <i class="fas fa-chevron-right text-gray-500 group-hover:text-primary transition-colors"></i>
-                    </a>
-                    
-                    <a href="predicas.html" 
-                       class="mobile-nav-link flex items-center px-4 py-4 rounded-xl 
-                              bg-gray-800/50 hover:bg-primary/10 hover:border-primary/30
-                              border border-transparent transition-all duration-300 group">
-                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
-                            <i class="fas fa-video text-primary"></i>
-                        </div>
-                        <div class="flex-1">
-                            <div class="font-medium text-white group-hover:text-primary transition-colors">Prédicas</div>
-                            <div class="text-xs text-gray-400">Videos y enseñanzas</div>
-                        </div>
-                        <i class="fas fa-chevron-right text-gray-500 group-hover:text-primary transition-colors"></i>
-                    </a>
-                    
-                    <a href="musica.html" 
-                       class="mobile-nav-link flex items-center px-4 py-4 rounded-xl 
-                              bg-gray-800/50 hover:bg-primary/10 hover:border-primary/30
-                              border border-transparent transition-all duration-300 group">
-                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
-                            <i class="fas fa-music text-primary"></i>
-                        </div>
-                        <div class="flex-1">
-                            <div class="font-medium text-white group-hover:text-primary transition-colors">Música</div>
-                            <div class="text-xs text-gray-400">Alabanza y adoración</div>
-                        </div>
-                        <i class="fas fa-chevron-right text-gray-500 group-hover:text-primary transition-colors"></i>
-                    </a>
-                    
-                    <a href="index.html#eventos" 
-                       class="mobile-nav-link flex items-center px-4 py-4 rounded-xl 
-                              bg-gray-800/50 hover:bg-primary/10 hover:border-primary/30
-                              border border-transparent transition-all duration-300 group">
-                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
-                            <i class="fas fa-calendar-alt text-primary"></i>
-                        </div>
-                        <div class="flex-1">
-                            <div class="font-medium text-white group-hover:text-primary transition-colors">Eventos</div>
-                            <div class="text-xs text-gray-400">Próximas actividades</div>
-                        </div>
-                        <i class="fas fa-chevron-right text-gray-500 group-hover:text-primary transition-colors"></i>
-                    </a>
-                    
-                    <a href="index.html#contact" 
-                       class="mobile-nav-link flex items-center px-4 py-4 rounded-xl 
-                              bg-gray-800/50 hover:bg-primary/10 hover:border-primary/30
-                              border border-transparent transition-all duration-300 group">
-                        <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-4">
-                            <i class="fas fa-envelope text-primary"></i>
-                        </div>
-                        <div class="flex-1">
-                            <div class="font-medium text-white group-hover:text-primary transition-colors">Contacto</div>
-                            <div class="text-xs text-gray-400">Comunícate con nosotros</div>
-                        </div>
-                        <i class="fas fa-chevron-right text-gray-500 group-hover:text-primary transition-colors"></i>
-                    </a>
-                </div>
+                <a href="index.html#recursos" 
+                   class="block text-white hover:text-[#BF9B30] transition-colors py-3 text-lg font-medium">
+                    Recursos
+                </a>
+                
+                <a href="predicas.html" 
+                   class="block text-white hover:text-[#BF9B30] transition-colors py-3 text-lg font-medium">
+                    Prédicas
+                </a>
+                
+                <a href="musica.html" 
+                   class="block text-white hover:text-[#BF9B30] transition-colors py-3 text-lg font-medium">
+                    Himnos
+                </a>
                 
                 <!-- Separador -->
-                <div class="my-8 border-t border-gray-800"></div>
+                <div class="my-6 border-t border-gray-800"></div>
                 
                 <!-- Idioma en móvil -->
-                <div class="px-4">
-                    <button id="mobile-lang-toggle"
-                            class="w-full flex items-center justify-center px-4 py-3 rounded-xl 
-                                   bg-gray-800/50 text-white border border-gray-700 
-                                   hover:border-primary hover:bg-primary/10 
-                                   transition-all duration-300 group">
-                        <i class="fas fa-globe mr-3 text-gray-400 group-hover:text-primary transition-colors"></i>
-                        <span class="font-medium">Español</span>
-                        <span class="mx-3 text-gray-500">|</span>
-                        <span class="text-gray-400">English</span>
-                    </button>
-                </div>
+                <button id="mobile-lang-toggle"
+                        class="w-full flex items-center justify-center px-4 py-3 rounded-lg 
+                               bg-gray-800 text-white border border-gray-700 
+                               hover:border-[#BF9B30] transition-all duration-300">
+                    <span class="font-medium" id="mobile-current-lang">Español</span>
+                    <span class="mx-3">/</span>
+                    <span class="text-gray-400">English</span>
+                </button>
                 
-                <!-- Información de contacto rápida -->
-                <div class="px-4 pt-6 border-t border-gray-800">
+                <!-- Información -->
+                <div class="pt-6 border-t border-gray-800">
                     <div class="text-center text-gray-400 text-sm">
                         <p class="mb-2">Iglesia Bautista Betesda</p>
-                        <p class="text-xs">© <span id="current-year"></span> Todos los derechos reservados</p>
+                        <p class="text-xs">© <span id="current-year"></span></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <!-- Indicador de scroll -->
-    <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent opacity-30"></div>
 </header>
-
-<!-- Estilos específicos para el header -->
-<style>
-    /* Estilos para gradientes de texto */
-    .gradient-text {
-        background: linear-gradient(135deg, #BF9B30 0%, #d4af37 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-    
-    /* Animación para enlaces de navegación */
-    .nav-link {
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .nav-link::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        width: 0;
-        height: 2px;
-        background: linear-gradient(90deg, #BF9B30 0%, #d4af37 100%);
-        transition: all 0.3s ease;
-        transform: translateX(-50%);
-    }
-    
-    .nav-link:hover::after {
-        width: calc(100% - 2rem);
-    }
-    
-    /* Animación para enlaces móviles */
-    .mobile-nav-link {
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .mobile-nav-link::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 4px;
-        height: 0;
-        background: linear-gradient(180deg, #BF9B30 0%, #d4af37 100%);
-        transition: height 0.3s ease;
-    }
-    
-    .mobile-nav-link:hover::before {
-        height: 100%;
-    }
-    
-    /* Animación de entrada del menú móvil */
-    #mobile-menu[data-open="true"] {
-        transform: translateX(0);
-        opacity: 1;
-        pointer-events: auto;
-    }
-    
-    /* Efecto de brillo en hover para elementos interactivos */
-    .hover-glow {
-        transition: all 0.3s ease;
-    }
-    
-    .hover-glow:hover {
-        box-shadow: 0 0 15px rgba(191, 155, 48, 0.3);
-    }
-    
-    /* Animación suave para el logo */
-    @keyframes logo-pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-    }
-    
-    .logo-pulse {
-        animation: logo-pulse 3s ease-in-out infinite;
-    }
-    
-    /* Responsive adjustments */
-    @media (max-width: 1024px) {
-        .nav-desktop {
-            display: none !important;
-        }
-    }
-    
-    @media (max-width: 640px) {
-        header {
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-        
-        .logo-text {
-            font-size: 1.1rem !important;
-        }
-        
-        .mobile-nav-link {
-            padding: 0.75rem !important;
-        }
-    }
-</style>
 
 <!-- Script para el header -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        const closeMobileMenu = document.getElementById('close-mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
         const langToggle = document.getElementById('lang-toggle');
         const mobileLangToggle = document.getElementById('mobile-lang-toggle');
+        const currentLang = document.getElementById('current-lang');
+        const mobileCurrentLang = document.getElementById('mobile-current-lang');
         const currentYear = document.getElementById('current-year');
         
-        // Año actual para el footer
+        // Año actual
         if (currentYear) {
             currentYear.textContent = new Date().getFullYear();
         }
         
         // Toggle del menú móvil
-        function toggleMobileMenu() {
-            const isOpen = mobileMenu.getAttribute('data-open') === 'true';
-            mobileMenu.setAttribute('data-open', !isOpen);
-            menuBtn.setAttribute('aria-expanded', !isOpen);
-            
-            // Prevenir scroll del body cuando el menú está abierto
-            document.body.style.overflow = !isOpen ? 'hidden' : 'auto';
-        }
-        
-        // Cerrar menú móvil
-        function closeMenu() {
-            mobileMenu.setAttribute('data-open', 'false');
-            menuBtn.setAttribute('aria-expanded', 'false');
-            document.body.style.overflow = 'auto';
-        }
-        
-        // Event listeners
-        menuBtn.addEventListener('click', toggleMobileMenu);
-        closeMobileMenu.addEventListener('click', closeMenu);
+        menuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('-translate-x-full');
+            document.body.style.overflow = mobileMenu.classList.contains('-translate-x-full') ? 'auto' : 'hidden';
+        });
         
         // Cerrar menú al hacer clic en un enlace
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', closeMenu);
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.add('-translate-x-full');
+                document.body.style.overflow = 'auto';
+            });
         });
         
         // Cerrar menú al presionar Escape
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && mobileMenu.getAttribute('data-open') === 'true') {
-                closeMenu();
+            if (e.key === 'Escape' && !mobileMenu.classList.contains('-translate-x-full')) {
+                mobileMenu.classList.add('-translate-x-full');
+                document.body.style.overflow = 'auto';
             }
         });
         
-        // Toggle de idioma
+        // Sistema de idiomas
+        let currentLanguage = 'es';
+        
         function toggleLanguage() {
-            const isES = langToggle.querySelector('span:first-child').textContent === 'ES';
-            
-            if (isES) {
-                langToggle.querySelector('span:first-child').textContent = 'EN';
-                langToggle.querySelector('span:last-child').textContent = 'ES';
-                
-                if (mobileLangToggle) {
-                    mobileLangToggle.querySelector('span:nth-child(2)').textContent = 'English';
-                    mobileLangToggle.querySelector('span:last-child').textContent = 'Español';
+            if (currentLanguage === 'es') {
+                // Cambiar a inglés
+                currentLanguage = 'en';
+                currentLang.textContent = 'EN';
+                if (mobileCurrentLang) {
+                    mobileCurrentLang.textContent = 'English';
                 }
                 
-                // Aquí puedes añadir lógica para cambiar el idioma de la página
+                // Aquí puedes añadir lógica para cambiar el contenido de la página
                 console.log('Cambiando a inglés');
-            } else {
-                langToggle.querySelector('span:first-child').textContent = 'ES';
-                langToggle.querySelector('span:last-child').textContent = 'EN';
                 
-                if (mobileLangToggle) {
-                    mobileLangToggle.querySelector('span:nth-child(2)').textContent = 'Español';
-                    mobileLangToggle.querySelector('span:last-child').textContent = 'English';
+                // Mostrar mensaje temporal
+                showLanguageNotification('Switching to English');
+                
+            } else {
+                // Cambiar a español
+                currentLanguage = 'es';
+                currentLang.textContent = 'ES';
+                if (mobileCurrentLang) {
+                    mobileCurrentLang.textContent = 'Español';
                 }
                 
-                // Aquí puedes añadir lógica para cambiar el idioma de la página
+                // Aquí puedes añadir lógica para cambiar el contenido de la página
                 console.log('Cambiando a español');
+                
+                // Mostrar mensaje temporal
+                showLanguageNotification('Cambiando a Español');
+            }
+            
+            // Guardar preferencia en localStorage
+            localStorage.setItem('preferredLanguage', currentLanguage);
+            
+            // Cerrar menú móvil si está abierto
+            mobileMenu.classList.add('-translate-x-full');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function showLanguageNotification(message) {
+            // Crear notificación temporal
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-24 right-4 bg-[#BF9B30] text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-fade-in';
+            notification.textContent = message;
+            notification.style.animation = 'fadeIn 0.3s ease-out';
+            
+            document.body.appendChild(notification);
+            
+            // Remover después de 3 segundos
+            setTimeout(() => {
+                notification.style.animation = 'fadeOut 0.3s ease-out';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+        
+        // Cargar idioma guardado
+        const savedLanguage = localStorage.getItem('preferredLanguage');
+        if (savedLanguage && savedLanguage === 'en') {
+            currentLanguage = 'en';
+            currentLang.textContent = 'EN';
+            if (mobileCurrentLang) {
+                mobileCurrentLang.textContent = 'English';
             }
         }
         
+        // Event listeners para botones de idioma
         if (langToggle) {
             langToggle.addEventListener('click', toggleLanguage);
         }
         
         if (mobileLangToggle) {
-            mobileLangToggle.addEventListener('click', function() {
-                toggleLanguage();
-                closeMenu(); // Cerrar menú después de cambiar idioma
+            mobileLangToggle.addEventListener('click', toggleLanguage);
+        }
+        
+        // Indicador de página activa
+        function setActiveNavLink() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('header a[href]');
+            
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPage || 
+                    (currentPage === 'index.html' && href === 'index.html') ||
+                    (currentPage === 'predicas.html' && href === 'predicas.html') ||
+                    (currentPage === 'musica.html' && href === 'musica.html')) {
+                    
+                    link.classList.add('text-[#BF9B30]');
+                    link.classList.remove('text-white', 'hover:text-[#BF9B30]');
+                }
             });
         }
         
-        // Efecto de scroll en el header
+        // Llamar a la función cuando se carga la página
+        setActiveNavLink();
+        
+        // Header que se oculta al hacer scroll
         let lastScrollTop = 0;
         const header = document.querySelector('header');
         
@@ -481,54 +275,37 @@
             lastScrollTop = scrollTop;
         });
         
-        // Indicador de página activa
-        function setActiveNavLink() {
-            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-            const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', function(e) {
+            const isMenuButton = menuBtn.contains(e.target);
+            const isMobileMenu = mobileMenu.contains(e.target);
             
-            navLinks.forEach(link => {
-                const href = link.getAttribute('href');
-                if (href === currentPage || 
-                    (currentPage === 'index.html' && href.includes('index.html#')) ||
-                    (currentPage === 'predicas.html' && href === 'predicas.html') ||
-                    (currentPage === 'musica.html' && href === 'musica.html')) {
-                    
-                    link.classList.add('active');
-                    link.classList.remove('hover:bg-primary/10');
-                    link.classList.add('bg-primary/20', 'border-primary/50');
-                    
-                    // Para enlaces de escritorio
-                    if (link.classList.contains('nav-link')) {
-                        link.classList.add('text-primary');
-                    }
-                    
-                    // Para enlaces móviles
-                    if (link.classList.contains('mobile-nav-link')) {
-                        link.classList.add('border-primary/50');
-                    }
-                }
-            });
-        }
-        
-        // Llamar a la función cuando se carga la página
-        setActiveNavLink();
-        
-        // Efecto hover en el logo
-        const logo = document.querySelector('a[href="index.html"]');
-        if (logo) {
-            logo.addEventListener('mouseenter', function() {
-                const img = this.querySelector('img');
-                if (img) {
-                    img.classList.add('logo-pulse');
-                }
-            });
-            
-            logo.addEventListener('mouseleave', function() {
-                const img = this.querySelector('img');
-                if (img) {
-                    img.classList.remove('logo-pulse');
-                }
-            });
-        }
+            if (!isMenuButton && !isMobileMenu && !mobileMenu.classList.contains('-translate-x-full')) {
+                mobileMenu.classList.add('-translate-x-full');
+                document.body.style.overflow = 'auto';
+            }
+        });
     });
 </script>
+
+<!-- Estilos para animaciones -->
+<style>
+    .animate-fade-in {
+        animation: fadeIn 0.3s ease-out;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes fadeOut {
+        from { opacity: 1; transform: translateY(0); }
+        to { opacity: 0; transform: translateY(-10px); }
+    }
+    
+    /* Estilo para enlaces activos */
+    header a.active {
+        color: #BF9B30 !important;
+    }
+</style>
