@@ -1,25 +1,86 @@
 <!-- Footer Global -->
-<footer class="bg-black text-white py-12 px-6">
-    <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
-        <div>
-            <h3 class="text-[#BF9B30] text-xl font-semibold mb-4" data-i18n="footer-location">Ubicación</h3>
-            <p data-i18n="footer-location-desc">Cuenca, Ecuador</p>
-        </div>
-        <div>
-            <h3 class="text-[#BF9B30] text-xl font-semibold mb-4" data-i18n="footer-contact">Contacto</h3>
-            <p data-i18n="footer-contact-email">Correo: contact@ibfb.org</p>
-            <p data-i18n="footer-contact-phone">Teléfono: +593 123 456 789</p>
-        </div>
-        <div>
-            <h3 class="text-[#BF9B30] text-xl font-semibold mb-4" data-i18n="footer-follow">Síguenos</h3>
-            <div class="flex space-x-4">
-                <a href="#" class="hover:text-[#BF9B30]" data-i18n="footer-social-facebook">Facebook</a>
-                <a href="#" class="hover:text-[#BF9B30]" data-i18n="footer-social-youtube">YouTube</a>
-                <a href="#" class="hover:text-[#BF9B30]" data-i18n="footer-social-instagram">Instagram</a>
+<footer class="bg-gradient-to-r from-secondary via-gray-900 to-black text-white py-12 md:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+            <!-- Información -->
+            <div class="animate-fade-in">
+                <div class="flex items-center mb-6">
+                    <img src="img/1.png" alt="Logo" class="h-16 w-16 rounded-full border-2 border-primary mr-4">
+                    <div>
+                        <h3 class="text-xl font-bold">Iglesia Bautista</h3>
+                        <h4 class="text-primary font-bold">Betesda</h4>
+                    </div>
+                </div>
+                <p class="text-gray-400 mb-4">
+                    Una familia en Cristo comprometida con la predicación 
+                    bíblica y la adoración genuina.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                        <i class="fab fa-facebook-f text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Contacto -->
+            <div class="animate-fade-in" style="animation-delay: 100ms">
+                <h4 class="text-xl font-bold mb-6 text-primary">Contacto</h4>
+                <div class="space-y-4">
+                    <div class="flex items-center">
+                        <i class="fas fa-map-marker-alt text-primary mr-3"></i>
+                        <span class="text-gray-400">Cuenca, Ecuador</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-user text-primary mr-3"></i>
+                        <span class="text-gray-400">Pastor Adolfo Hernandez</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-clock text-primary mr-3"></i>
+                        <span class="text-gray-400">Dom 10:00 AM - 12:00 PM</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enlaces Rápidos -->
+            <div class="animate-fade-in" style="animation-delay: 200ms">
+                <h4 class="text-xl font-bold mb-6 text-primary">Enlaces Rápidos</h4>
+                <div class="space-y-3">
+                    <a href="index.html" class="block text-gray-400 hover:text-primary transition-colors">
+                        <i class="fas fa-home mr-2"></i>Inicio
+                    </a>
+                    <a href="predicas.html" class="block text-gray-400 hover:text-primary transition-colors">
+                        <i class="fas fa-video mr-2"></i>Prédicas
+                    </a>
+                    <a href="musica.html" class="block text-gray-400 hover:text-primary transition-colors">
+                        <i class="fas fa-music mr-2"></i>Himnos
+                    </a>
+                    <a href="#horarios" class="block text-gray-400 hover:text-primary transition-colors">
+                        <i class="far fa-clock mr-2"></i>Horarios
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="mt-8 text-center text-gray-400">
-        <p data-i18n="footer-copyright">&copy; 2025 Iglesia Bautista Fundamental Betesda. Todos los derechos reservados.</p>
+
+        <div class="mt-12 pt-8 border-t border-gray-800 text-center">
+            <p class="text-gray-500 text-sm">
+                © <span id="current-year"></span> Iglesia Bautista Betesda. Todos los derechos reservados.
+            </p>
+        </div>
     </div>
 </footer>
+
+<script>
+    // Actualizar año en el footer
+    document.addEventListener('DOMContentLoaded', function() {
+        const yearSpan = document.getElementById('current-year');
+        if (yearSpan) {
+            yearSpan.textContent = new Date().getFullYear();
+        }
+    });
+</script>
