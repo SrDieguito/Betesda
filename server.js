@@ -1,33 +1,49 @@
-// server.js
-const express = require('express');
-const ytdl = require('yt-dlp-wrap').default;
-const path = require('path');
-const fs = require('fs');
+import express from "express";
+import fetch from "node-fetch";
+import cors from "cors";
 
 const app = express();
-const port = 3000;
+app.use(cors());
 
-app.get('/download', async (req, res) => {
-    const videoId = req.query.videoId;
-    if (!videoId) return res.status(400).send('videoId es requerido');
+const API_KEY = process.env.YT_API_KEY; // usa .env
+const CHANNEL_HANDLE = "IglesiaBautistaBetesda-p3e";
 
-    const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
-    const outputPath = path.resolve(__dirname, `${videoId}.mp4`);
+// 1️⃣ obtener uploads playlist
+async function getUploadsPlaylistId() {
+  const url = `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&forHandle=@${CHANNEL_HANDLE}&key=${API_KEY}`;
+  const r = await fetch(url);
+  const d = await r.json();
 
-    const ytdlp = new ytdl();
+  return d.items[0].contentDetails.relatedPlaylists.uploads;
+}
 
-    try {
-        await ytdlp.execPromise([videoUrl, '-f', 'best', '-o', outputPath]);
-        res.download(outputPath, `${videoId}.mp4`, (err) => {
-            if (err) console.error(err);
-            fs.unlinkSync(outputPath); // Borra el archivo después de la descarga
-        });
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Error al descargar el video');
-    }
+// 2️⃣ obtener videos
+async function getVideos() {
+  const uploadsId = await getUploadsPlaylistId();
+
+  const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=12&playlistId=${uploadsId}&key=${API_KEY}`;
+  const r = await fetch(url);
+  const d = await r.json();
+
+  return d.items.map(v => ({
+    id: v.snippet.resourceId.videoId,
+    title: v.snippet.title,
+    description: v.snippet.description,
+    publishedAt: v.snippet.publishedAt,
+    thumbnail: v.snippet.thumbnails.medium.url
+  }));
+}
+
+// 3️⃣ endpoint público
+app.get("/api/predicas", async (req, res) => {
+  try {
+    const videos = await getVideos();
+    res.json(videos);
+  } catch (e) {
+    res.status(500).json({ error: "Error al cargar prédicas" });
+  }
 });
 
-app.listen(port, () => {
-    console.log(`Servidor corriendo en http://localhost:${port}`);
-});
+app.listen(3000, () =>
+  console.log("✅ Backend activo en http://localhost:3000")
+);
