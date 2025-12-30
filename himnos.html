@@ -3,240 +3,701 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Música Cristiana - IBFB</title>
+    <title>Música Cristiana - Iglesia Bautista Betesda</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#BF9B30',
+                        secondary: '#1a1a1a',
+                        accent: '#2c5282',
+                        worship: '#8B5CF6',
+                        praise: '#10B981'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-gentle': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'wave': 'wave 1.8s ease-in-out infinite',
+                        'spin-slow': 'spin 3s linear infinite',
+                        'bounce-subtle': 'bounceSubtle 2s infinite'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        wave: {
+                            '0%, 100%': { transform: 'rotate(0deg)' },
+                            '25%': { transform: 'rotate(10deg)' },
+                            '75%': { transform: 'rotate(-10deg)' }
+                        },
+                        bounceSubtle: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-5px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     
-    <!-- XLSX para funcionalidad de Excel -->
-    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Waveform Library -->
+    <script src="https://unpkg.com/wavesurfer.js"></script>
     
     <style>
-        /* ===== Animaciones ===== */
-        .card {
-            animation: fadeUp .45s ease both;
-        }
-        
-        @keyframes fadeUp {
-            from { 
-                opacity: 0; 
-                transform: translateY(18px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
+        * {
+            font-family: 'Inter', sans-serif;
         }
 
-        .card:hover {
-            transform: translateY(-4px) scale(1.01);
-            transition: .3s ease;
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
         }
 
-        #pagination button {
-            transition: all .25s ease;
+        .brand-font {
+            font-family: 'Montserrat', sans-serif;
         }
 
-        #pagination button:hover {
-            transform: translateY(-2px);
+        /* Glassmorphism effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
         }
 
-        /* ===== Ajustes para header fijo ===== */
-        /* IMPORTANTE: Agregar padding-top al body para evitar que el header tape contenido */
-        body {
-            padding-top: 100px; /* Ajusta según la altura de tu header */
-        }
-        
-        /* Para pantallas pequeñas, ajustar el padding */
-        @media (max-width: 768px) {
-            body {
-                padding-top: 90px;
-            }
-            
-            header img {
-                width: 56px;
-                height: 56px;
-            }
-
-            h1 {
-                font-size: 1.9rem !important;
-            }
-
-            audio {
-                height: 42px;
-            }
-
-            .card {
-                padding: 1rem;
-            }
+        /* Gradient backgrounds */
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
-        /* ===== Botones flotantes ===== */
-        .floating-btn {
-            position: fixed;
-            right: 1rem;
-            z-index: 50;
-            background: black;
-            color: white;
-            border-radius: 999px;
-            padding: .7rem .8rem;
-            box-shadow: 0 10px 20px rgba(0,0,0,.3);
+        .worship-gradient {
+            background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+        }
+
+        .praise-gradient {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+        }
+
+        .primary-gradient {
+            background: linear-gradient(135deg, #BF9B30 0%, #d4af37 100%);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #BF9B30 0%, #d4af37 100%);
+            border-radius: 10px;
+        }
+
+        /* Music card hover effect */
+        .music-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .music-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(191, 155, 48, 0.15);
+        }
+
+        .music-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #BF9B30 0%, #d4af37 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .music-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Loading animation */
+        .loading-shimmer {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Audio player custom */
+        .audio-player {
+            border-radius: 12px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        /* Music notes animation */
+        .music-note {
+            animation: float 2s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.2s);
+        }
+
+        /* Waveform styling */
+        .waveform-container {
+            cursor: pointer;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* Playlist animation */
+        .playlist-item {
             transition: all 0.3s ease;
         }
 
-        .floating-btn:hover {
-            background: #BF9B30;
-            transform: scale(1.1);
+        .playlist-item:hover {
+            background: rgba(191, 155, 48, 0.1);
+            transform: translateX(5px);
         }
 
-        #btn-top { 
-            bottom: 1.3rem; 
+        /* Now playing bar */
+        .now-playing-bar {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95) 0%, rgba(45, 55, 72, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
-        #btn-back { 
-            bottom: 4.8rem; 
+
+        /* Volume slider */
+        .volume-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #BF9B30;
+            cursor: pointer;
         }
-        
-        /* Asegurar que el header esté por encima de todo */
-        #header-placeholder {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
+
+        .volume-slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #BF9B30;
+            cursor: pointer;
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #BF9B30 0%, #d4af37 100%);
+            width: 30%;
+            border-radius: 2px;
+        }
+
+        /* Music visualization */
+        .music-visualizer {
+            display: flex;
+            align-items: flex-end;
+            height: 40px;
+            gap: 2px;
+        }
+
+        .visualizer-bar {
+            width: 3px;
+            background: linear-gradient(to top, #BF9B30 0%, #d4af37 100%);
+            border-radius: 2px;
+            animation: visualizer 1.5s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.1s);
+        }
+
+        @keyframes visualizer {
+            0%, 100% { height: 20%; }
+            50% { height: 100%; }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .music-visualizer {
+                height: 30px;
+            }
+            
+            .visualizer-bar {
+                width: 2px;
+            }
+        }
+
+        /* Download button animation */
+        .download-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .download-btn:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 
-<body class="bg-white">
-    <!-- Placeholder para Header Global -->
+<body class="bg-gradient-to-br from-gray-50 via-white to-gray-100 min-h-screen">
+    <!-- HEADER -->
     <div id="header-placeholder"></div>
-    
-    <!-- MAIN CONTENT -->
-    <!-- NOTA: No necesitamos pt-28 aquí porque el body ya tiene padding-top -->
-    <section class="min-h-screen bg-gray-100">
-        <div class="max-w-7xl mx-auto px-4 py-8">
-            <h1 class="text-4xl font-bold text-center mb-8 text-black">Música Cristiana</h1>
-            
-            <!-- Descripción de la sección -->
-            <div class="text-center mb-10 max-w-3xl mx-auto">
-                <p class="text-gray-600 text-lg">Explora nuestra colección de música cristiana para adoración y edificación espiritual. Escucha y descarga gratuitamente.</p>
-            </div>
 
-            <!-- FILTROS -->
-            <div class="mb-10 flex flex-col md:flex-row gap-4 justify-between items-center">
-                <input id="search-input"
-                    type="text"
-                    placeholder="Buscar por nombre de canción..."
-                    class="w-full md:w-1/2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BF9B30] focus:border-transparent">
+    <!-- NOW PLAYING BAR (Fixed at bottom) -->
+    <div id="now-playing-bar" class="now-playing-bar fixed bottom-0 left-0 right-0 z-40 hidden">
+        <div class="max-w-7xl mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-lg overflow-hidden">
+                        <img id="now-playing-img" src="" class="w-full h-full object-cover" alt="">
+                    </div>
+                    <div>
+                        <div id="now-playing-title" class="text-white font-medium truncate max-w-xs"></div>
+                        <div class="text-gray-400 text-sm">En reproducción</div>
+                    </div>
+                </div>
                 
-                <select id="sort-select"
-                    class="w-full md:w-1/4 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BF9B30] focus:border-transparent">
-                    <option value="desc">Más reciente primero</option>
-                    <option value="asc">Más antiguo primero</option>
-                    <option value="name">Orden alfabético (A-Z)</option>
-                </select>
+                <div class="flex-1 max-w-xl mx-8">
+                    <div class="flex items-center space-x-4">
+                        <button id="prev-track" class="text-gray-400 hover:text-white">
+                            <i class="fas fa-step-backward"></i>
+                        </button>
+                        <button id="play-pause" class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center hover:bg-primary/90">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <button id="next-track" class="text-gray-400 hover:text-white">
+                            <i class="fas fa-step-forward"></i>
+                        </button>
+                    </div>
+                    <div class="mt-2">
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-gray-400 mt-1">
+                            <span id="current-time">0:00</span>
+                            <span id="total-time">0:00</span>
+                        </div>
+                    </div>
+                </div>
                 
-                <button id="clear-filters" 
-                    class="w-full md:w-auto px-4 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
-                    Limpiar filtros
-                </button>
-            </div>
-
-            <!-- CONTADOR DE RESULTADOS -->
-            <div class="mb-6 flex justify-between items-center">
-                <div id="result-count" class="text-gray-600">
-                    Cargando canciones...
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-volume-up text-gray-400"></i>
+                        <input type="range" id="volume" class="volume-slider w-24" min="0" max="100" value="70">
+                    </div>
+                    <button id="close-player" class="text-gray-400 hover:text-white">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
-                <div class="text-sm text-gray-500">
-                    <span id="current-page">1</span> de <span id="total-pages">1</span> páginas
-                </div>
-            </div>
-
-            <!-- GRID DE CANCIONES -->
-            <div id="resource-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-                <!-- Las canciones se cargarán aquí dinámicamente -->
-                <div class="text-center py-10 col-span-3">
-                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#BF9B30] mx-auto mb-4"></div>
-                    <p class="text-gray-500">Cargando música cristiana...</p>
-                </div>
-            </div>
-
-            <!-- PAGINACIÓN -->
-            <div id="pagination" class="flex justify-center gap-2 flex-wrap mb-10"></div>
-            
-            <!-- SIN RESULTADOS -->
-            <div id="no-results" class="hidden text-center py-10">
-                <div class="text-5xl mb-4">🎵</div>
-                <h3 class="text-xl font-semibold mb-2">No se encontraron canciones</h3>
-                <p class="text-gray-600">Intenta con otros términos de búsqueda o limpia los filtros.</p>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Placeholder para Footer Global -->
+    <!-- MAIN CONTENT -->
+    <main class="min-h-screen pb-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            
+            <!-- HERO SECTION -->
+            <div class="text-center mb-12 animate-slide-up">
+                <div class="inline-block p-4 bg-gradient-to-r from-primary/10 to-yellow-100 rounded-2xl mb-6">
+                    <div class="music-visualizer flex justify-center items-center h-12">
+                        <div class="visualizer-bar" style="--i:0"></div>
+                        <div class="visualizer-bar" style="--i:1"></div>
+                        <div class="visualizer-bar" style="--i:2"></div>
+                        <div class="visualizer-bar" style="--i:3"></div>
+                        <div class="visualizer-bar" style="--i:4"></div>
+                    </div>
+                </div>
+                <h1 class="text-5xl font-bold mb-4 brand-font bg-gradient-to-r from-primary via-worship to-praise bg-clip-text text-transparent">
+                    Música Cristiana
+                </h1>
+                <p class="text-gray-600 text-lg max-w-3xl mx-auto leading-relaxed">
+                    Encuentra alabanza y adoración para tu crecimiento espiritual. Escucha, descarga y comparte música que glorifica a Dios.
+                </p>
+            </div>
+
+            <!-- STATS BAR -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 animate-fade-in">
+                <div class="glass-card rounded-xl p-4 text-center border border-gray-200/50">
+                    <div class="text-2xl font-bold text-primary animate-pulse-gentle">150+</div>
+                    <div class="text-gray-600">Canciones</div>
+                </div>
+                <div class="glass-card rounded-xl p-4 text-center border border-gray-200/50">
+                    <div class="text-2xl font-bold text-worship">24/7</div>
+                    <div class="text-gray-600">Disponible</div>
+                </div>
+                <div class="glass-card rounded-xl p-4 text-center border border-gray-200/50">
+                    <div class="text-2xl font-bold text-praise">100%</div>
+                    <div class="text-gray-600">Gratis</div>
+                </div>
+                <div class="glass-card rounded-xl p-4 text-center border border-gray-200/50">
+                    <div class="text-2xl font-bold text-accent">HD</div>
+                    <div class="text-gray-600">Calidad Audio</div>
+                </div>
+            </div>
+
+            <!-- SEARCH AND FILTERS -->
+            <div class="mb-10 space-y-6">
+                <!-- SEARCH BAR -->
+                <div class="relative animate-fade-in">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <i class="fas fa-search text-gray-400 animate-pulse-gentle"></i>
+                    </div>
+                    <input
+                        id="search-input"
+                        type="text"
+                        placeholder="Buscar canciones por nombre, artista o tema..."
+                        class="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all duration-300 glass-card"
+                    />
+                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center">
+                        <button id="clear-search" class="text-gray-400 hover:text-primary transition-colors hidden">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- FILTERS ROW -->
+                <div class="flex flex-wrap gap-3 animate-fade-in" style="animation-delay: 100ms">
+                    <div class="flex items-center gap-2">
+                        <span class="text-gray-600 font-medium">Filtrar:</span>
+                    </div>
+                    
+                    <select id="sort-select" class="px-4 py-2.5 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all">
+                        <option value="newest">Más recientes</option>
+                        <option value="oldest">Más antiguas</option>
+                        <option value="name-asc">Nombre A-Z</option>
+                        <option value="name-desc">Nombre Z-A</option>
+                    </select>
+
+                    <select id="filter-type" class="px-4 py-2.5 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all">
+                        <option value="">Todos los géneros</option>
+                        <option value="alabanza">Alabanza</option>
+                        <option value="adoracion">Adoración</option>
+                        <option value="himno">Himnos</option>
+                        <option value="coro">Coros</option>
+                        <option value="instrumental">Instrumental</option>
+                    </select>
+
+                    <button id="play-random" class="px-4 py-2.5 rounded-xl border border-gray-300 bg-white hover:bg-gray-50 transition-colors">
+                        <i class="fas fa-random mr-2"></i>Aleatorio
+                    </button>
+
+                    <button id="clear-filters" class="px-4 py-2.5 rounded-xl border border-gray-300 bg-white hover:bg-gray-50 transition-colors">
+                        <i class="fas fa-redo mr-2"></i>Limpiar
+                    </button>
+                </div>
+            </div>
+
+            <!-- MUSIC PLAYER SECTION -->
+            <div id="music-player-container" class="hidden mb-8 glass-card rounded-2xl p-6 border border-gray-200/50 animate-fade-in">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-20 h-20 rounded-xl overflow-hidden">
+                            <img id="player-album-art" src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover" alt="Album Art">
+                        </div>
+                        <div>
+                            <h3 id="player-title" class="text-xl font-bold mb-1"></h3>
+                            <p id="player-artist" class="text-gray-600">Artista Cristiano</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 max-w-2xl">
+                        <div class="waveform-container" id="waveform"></div>
+                        <div class="flex items-center justify-between mt-4">
+                            <div class="text-sm text-gray-500" id="player-time">0:00 / 0:00</div>
+                            <div class="flex items-center space-x-4">
+                                <button id="player-prev" class="text-gray-600 hover:text-primary">
+                                    <i class="fas fa-step-backward"></i>
+                                </button>
+                                <button id="player-play" class="w-12 h-12 rounded-full primary-gradient text-white flex items-center justify-center hover:shadow-lg transition-shadow">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <button id="player-next" class="text-gray-600 hover:text-primary">
+                                    <i class="fas fa-step-forward"></i>
+                                </button>
+                                <button id="player-download" class="text-gray-600 hover:text-primary">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-volume-up text-gray-500"></i>
+                                <input type="range" id="player-volume" class="w-24" min="0" max="100" value="70">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PLAYLIST VIEW -->
+            <div class="mb-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">Lista de Canciones</h2>
+                    <button id="toggle-view" class="px-4 py-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-50 transition-colors">
+                        <i class="fas fa-th-large mr-2"></i>Cambiar vista
+                    </button>
+                </div>
+                
+                <div id="playlist-view" class="hidden space-y-2">
+                    <!-- Playlist items will be loaded here -->
+                </div>
+            </div>
+
+            <!-- MUSIC GRID -->
+            <div id="resource-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
+                <!-- Loading skeletons -->
+                <div class="music-card rounded-xl overflow-hidden loading-shimmer" style="height: 320px"></div>
+                <div class="music-card rounded-xl overflow-hidden loading-shimmer" style="height: 320px"></div>
+                <div class="music-card rounded-xl overflow-hidden loading-shimmer" style="height: 320px"></div>
+            </div>
+
+            <!-- NO RESULTS -->
+            <div id="no-results" class="hidden text-center py-16 animate-fade-in">
+                <div class="max-w-md mx-auto">
+                    <div class="text-6xl mb-6 text-gray-300">
+                        <i class="fas fa-music-slash"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-3">No se encontraron canciones</h3>
+                    <p class="text-gray-500 mb-8">Intenta con otros términos de búsqueda o ajusta los filtros</p>
+                    <button id="reset-search" class="px-6 py-3 primary-gradient text-white rounded-full font-medium hover:shadow-lg transition-shadow">
+                        <i class="fas fa-redo mr-2"></i>Limpiar búsqueda
+                    </button>
+                </div>
+            </div>
+
+            <!-- PAGINATION -->
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-6 mt-12 animate-fade-in">
+                <div class="text-gray-600">
+                    Mostrando <span id="start-count" class="font-semibold">1</span>-<span id="end-count" class="font-semibold">9</span> 
+                    de <span id="total-count" class="font-semibold">0</span> canciones
+                </div>
+                
+                <div class="flex items-center gap-2">
+                    <button id="prev" class="px-5 py-2.5 rounded-lg border border-gray-300 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+                        <i class="fas fa-chevron-left mr-2"></i>Anterior
+                    </button>
+                    
+                    <div class="flex items-center gap-1" id="page-numbers"></div>
+                    
+                    <button id="next" class="px-5 py-2.5 rounded-lg border border-gray-300 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+                        Siguiente<i class="fas fa-chevron-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- DOWNLOAD ALL SECTION -->
+            <div class="mt-16 p-8 rounded-2xl worship-gradient text-white text-center animate-fade-in">
+                <div class="max-w-2xl mx-auto">
+                    <h3 class="text-2xl font-bold mb-4">Descarga toda la colección</h3>
+                    <p class="mb-6 opacity-90">Obtén todas nuestras canciones en un solo archivo ZIP para escuchar sin conexión</p>
+                    <button id="download-all" class="px-8 py-3 bg-white text-worship rounded-full font-bold hover:bg-gray-100 transition-colors">
+                        <i class="fas fa-download mr-2"></i>Descargar Todo (ZIP)
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
     <div id="footer-placeholder"></div>
 
-    <!-- BOTONES FLOTANTES -->
-    <button id="btn-back" class="floating-btn" title="Volver atrás">⬅️</button>
-    <button id="btn-top" class="floating-btn" title="Ir al inicio">⬆️</button>
+    <!-- FLOATING BUTTONS -->
+    <button id="btn-back" class="floating-btn bottom-24 right-6" title="Volver">
+        <i class="fas fa-arrow-left"></i>
+    </button>
 
-    <!-- SCRIPTS GLOBALES -->
+    <button id="btn-top" class="floating-btn bottom-6 right-6" title="Ir arriba">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- PLAYER MODAL -->
+    <div id="player-modal" class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center p-4">
+        <div class="relative w-full max-w-4xl">
+            <button id="close-modal" class="absolute -top-10 right-0 text-white hover:text-primary text-2xl">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="bg-gradient-to-br from-gray-900 to-black rounded-2xl overflow-hidden">
+                <div class="p-8">
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <div class="w-64 h-64 rounded-2xl overflow-hidden">
+                            <img id="modal-album-art" src="" class="w-full h-full object-cover" alt="">
+                        </div>
+                        <div class="flex-1 text-white">
+                            <h2 id="modal-title" class="text-3xl font-bold mb-4"></h2>
+                            <div class="flex items-center gap-4 mb-6">
+                                <span class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm">Cristiana</span>
+                                <span class="px-3 py-1 bg-worship/20 text-worship rounded-full text-sm">Adoración</span>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-gray-400">Duración</span>
+                                    <span id="modal-duration" class="font-medium">3:45</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-gray-400">Tamaño</span>
+                                    <span id="modal-size" class="font-medium">4.2 MB</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-gray-400">Calidad</span>
+                                    <span class="font-medium text-green-400">HD Audio</span>
+                                </div>
+                            </div>
+                            <div class="mt-8 flex gap-4">
+                                <button id="modal-play" class="px-8 py-3 primary-gradient rounded-full font-bold hover:shadow-lg transition-shadow">
+                                    <i class="fas fa-play mr-2"></i>Reproducir
+                                </button>
+                                <button id="modal-download" class="px-8 py-3 bg-white/10 backdrop-blur-sm text-white rounded-full font-bold hover:bg-white/20 transition-colors">
+                                    <i class="fas fa-download mr-2"></i>Descargar
+                                </button>
+                                <button id="modal-share" class="px-8 py-3 bg-white/10 backdrop-blur-sm text-white rounded-full font-bold hover:bg-white/20 transition-colors">
+                                    <i class="fas fa-share-alt mr-2"></i>Compartir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GLOBAL SCRIPTS -->
     <script src="js/loadComponents.js"></script>
     <script src="js/language.js"></script>
     <script src="js/excel-functions.js"></script>
     <script src="js/header-fix.js"></script>
     
-    
-    <!-- Script para ajustar dinámicamente el padding según la altura del header -->
+    <!-- PAGE SPECIFIC SCRIPT -->
     <script>
-        function adjustBodyPadding() {
-            const header = document.querySelector('#header-placeholder header');
-            if (header) {
-                const headerHeight = header.offsetHeight;
-                document.body.style.paddingTop = headerHeight + 'px';
-                console.log('Header height adjusted to:', headerHeight + 'px');
-            }
-        }
-        
-        // Ajustar cuando se cargue el DOM
-        document.addEventListener('DOMContentLoaded', function() {
-            // Esperar un momento para que el header se cargue completamente
-            setTimeout(adjustBodyPadding, 100);
-            
-            // Ajustar también cuando cambie el tamaño de la ventana
-            window.addEventListener('resize', adjustBodyPadding);
-        });
-    </script>
-    
-    <!-- SCRIPT ESPECÍFICO PARA MÚSICA -->
-    <script>
-        // Configuración
+        // Configuration
         const USUARIO = "SrDieguito";
         const REPO = "ibfb-himnos";
         const CARPETA = "musica";
         const BASE = `https://raw.githubusercontent.com/${USUARIO}/${REPO}/main/${CARPETA}/`;
+        const PER_PAGE = 9;
         
-        // Elementos del DOM
+        // DOM Elements
         const grid = document.getElementById("resource-grid");
         const searchInput = document.getElementById("search-input");
+        const clearSearch = document.getElementById("clear-search");
         const sortSelect = document.getElementById("sort-select");
-        const pagination = document.getElementById("pagination");
-        const resultCount = document.getElementById("result-count");
-        const currentPageSpan = document.getElementById("current-page");
-        const totalPagesSpan = document.getElementById("total-pages");
+        const filterType = document.getElementById("filter-type");
+        const playRandom = document.getElementById("play-random");
+        const clearFilters = document.getElementById("clear-filters");
         const noResults = document.getElementById("no-results");
-        const clearFiltersBtn = document.getElementById("clear-filters");
+        const resetSearch = document.getElementById("reset-search");
+        const toggleView = document.getElementById("toggle-view");
+        const playlistView = document.getElementById("playlist-view");
+        const musicPlayerContainer = document.getElementById("music-player-container");
+        const downloadAll = document.getElementById("download-all");
         
-        // Variables de estado
-        const ITEMS_POR_PAGINA = 9;
-        let paginaActual = 1;
+        // Pagination
+        const prevBtn = document.getElementById("prev");
+        const nextBtn = document.getElementById("next");
+        const pageNumbers = document.getElementById("page-numbers");
+        const startCount = document.getElementById("start-count");
+        const endCount = document.getElementById("end-count");
+        const totalCount = document.getElementById("total-count");
+        
+        // Player Elements
+        const playerTitle = document.getElementById("player-title");
+        const playerArtist = document.getElementById("player-artist");
+        const playerAlbumArt = document.getElementById("player-album-art");
+        const playerPlay = document.getElementById("player-play");
+        const playerPrev = document.getElementById("player-prev");
+        const playerNext = document.getElementById("player-next");
+        const playerDownload = document.getElementById("player-download");
+        const playerVolume = document.getElementById("player-volume");
+        const playerTime = document.getElementById("player-time");
+        
+        // Now Playing Bar
+        const nowPlayingBar = document.getElementById("now-playing-bar");
+        const nowPlayingTitle = document.getElementById("now-playing-title");
+        const nowPlayingImg = document.getElementById("now-playing-img");
+        const playPauseBtn = document.getElementById("play-pause");
+        const prevTrackBtn = document.getElementById("prev-track");
+        const nextTrackBtn = document.getElementById("next-track");
+        const volumeSlider = document.getElementById("volume");
+        const closePlayerBtn = document.getElementById("close-player");
+        
+        // Modal
+        const playerModal = document.getElementById("player-modal");
+        const modalTitle = document.getElementById("modal-title");
+        const modalAlbumArt = document.getElementById("modal-album-art");
+        const modalDuration = document.getElementById("modal-duration");
+        const modalSize = document.getElementById("modal-size");
+        const modalPlay = document.getElementById("modal-play");
+        const modalDownload = document.getElementById("modal-download");
+        const modalShare = document.getElementById("modal-share");
+        const closeModal = document.getElementById("close-modal");
+        
+        // State
         let songs = [];
-        let isLoading = true;
-
-        /* ===== FUNCIONES ===== */
+        let filtered = [];
+        let currentPage = 1;
+        let isGridView = true;
+        let currentAudio = null;
+        let currentSongIndex = -1;
+        let wavesurfer = null;
         
-        // Formatear nombre de archivo para mostrar
+        // Format song name
         function formatSongName(filename) {
             return filename
                 .replace(".mp3", "")
@@ -247,249 +708,599 @@
                 .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
                 .join(' ');
         }
-
-        // Cargar canciones desde GitHub
+        
+        // Generate random song data for demo
+        function generateSongData(filename) {
+            const genres = ['alabanza', 'adoracion', 'himno', 'coro', 'instrumental'];
+            const artists = [
+                'Ministerio de Alabanza IBFB', 
+                'Coro Betesda', 
+                'Grupo Juvenil', 
+                'David Worship', 
+                'Maria Adoración'
+            ];
+            const durations = ['2:45', '3:20', '4:15', '5:30', '6:10', '7:45'];
+            const sizes = ['2.1 MB', '3.4 MB', '4.2 MB', '5.8 MB', '6.3 MB'];
+            
+            return {
+                genre: genres[Math.floor(Math.random() * genres.length)],
+                artist: artists[Math.floor(Math.random() * artists.length)],
+                duration: durations[Math.floor(Math.random() * durations.length)],
+                size: sizes[Math.floor(Math.random() * sizes.length)],
+                plays: Math.floor(Math.random() * 1000) + 100,
+                likes: Math.floor(Math.random() * 500) + 50
+            };
+        }
+        
+        // Load songs from GitHub
         async function loadSongs() {
-            isLoading = true;
             showLoading();
             
             try {
                 const response = await fetch(`https://api.github.com/repos/${USUARIO}/${REPO}/contents/${CARPETA}`);
                 
-                if (!response.ok) {
-                    throw new Error(`Error HTTP: ${response.status}`);
-                }
+                if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
                 
                 const files = await response.json();
                 
                 songs = files
                     .filter(file => file.name.toLowerCase().endsWith(".mp3"))
-                    .map(file => ({
-                        name: formatSongName(file.name),
-                        filename: file.name,
-                        url: BASE + encodeURIComponent(file.name),
-                        size: file.size || 0,
-                        date: file.name.match(/^\d+/)?.[0] || "0000"
-                    }));
-                    
-                console.log(`Cargadas ${songs.length} canciones`);
+                    .map(file => {
+                        const songData = generateSongData(file.name);
+                        return {
+                            id: file.sha,
+                            name: formatSongName(file.name),
+                            filename: file.name,
+                            url: BASE + encodeURIComponent(file.name),
+                            size: file.size || 0,
+                            formattedSize: songData.size,
+                            date: file.name.match(/^\d+/)?.[0] || "0000",
+                            ...songData,
+                            thumbnail: `https://images.unsplash.com/photo-${1500000000000 + Math.floor(Math.random() * 100000000)}?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80`
+                        };
+                    });
+                
+                console.log(`Loaded ${songs.length} songs`);
+                filtered = [...songs];
                 render();
                 
             } catch (error) {
-                console.error("Error cargando canciones:", error);
+                console.error("Error loading songs:", error);
                 showError();
             }
         }
-
-        // Mostrar estado de carga
+        
+        // Show loading state
         function showLoading() {
             grid.innerHTML = `
-                <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-10">
-                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#BF9B30] mx-auto mb-4"></div>
-                    <p class="text-gray-500">Cargando música cristiana...</p>
+                <div class="col-span-1 md:col-span-2 lg:col-span-3">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        ${Array.from({length: 6}).map(() => `
+                            <div class="music-card rounded-xl overflow-hidden loading-shimmer" style="height: 320px"></div>
+                        `).join('')}
+                    </div>
                 </div>
             `;
         }
-
-        // Mostrar error
+        
+        // Show error state
         function showError() {
             grid.innerHTML = `
-                <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-10">
-                    <div class="text-5xl mb-4">⚠️</div>
-                    <h3 class="text-xl font-semibold mb-2">Error al cargar las canciones</h3>
-                    <p class="text-gray-600 mb-4">No se pudo conectar con el servidor. Por favor, intente nuevamente.</p>
-                    <button onclick="loadSongs()" class="bg-[#BF9B30] text-white px-6 py-2 rounded-lg hover:bg-black">
+                <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-16">
+                    <div class="text-6xl mb-6 text-gray-300">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-gray-700 mb-3">Error cargando la música</h3>
+                    <p class="text-gray-500 mb-8">Por favor, intenta nuevamente más tarde</p>
+                    <button onclick="loadSongs()" class="px-6 py-3 primary-gradient text-white rounded-full font-medium hover:shadow-lg transition-shadow">
                         Reintentar
                     </button>
                 </div>
             `;
         }
-
-        // Renderizar canciones
+        
+        // Apply filters
+        function applyFilters() {
+            let results = [...songs];
+            
+            // Search filter
+            const searchTerm = searchInput.value.toLowerCase();
+            if (searchTerm) {
+                results = results.filter(song =>
+                    song.name.toLowerCase().includes(searchTerm) ||
+                    song.artist.toLowerCase().includes(searchTerm) ||
+                    song.genre.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            // Genre filter
+            if (filterType.value) {
+                results = results.filter(song => song.genre === filterType.value);
+            }
+            
+            // Sort
+            switch(sortSelect.value) {
+                case 'newest':
+                    results.sort((a, b) => b.filename.localeCompare(a.filename));
+                    break;
+                case 'oldest':
+                    results.sort((a, b) => a.filename.localeCompare(b.filename));
+                    break;
+                case 'name-asc':
+                    results.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'name-desc':
+                    results.sort((a, b) => b.name.localeCompare(a.name));
+                    break;
+            }
+            
+            filtered = results;
+            currentPage = 1;
+            render();
+        }
+        
+        // Render songs
         function render() {
-            isLoading = false;
+            // Update counts
+            const total = filtered.length;
+            totalCount.textContent = total;
             
-            // Filtrar
-            let filtered = songs.filter(song =>
-                song.name.toLowerCase().includes(searchInput.value.toLowerCase())
-            );
-            
-            // Ordenar
-            filtered.sort((a, b) => {
-                switch(sortSelect.value) {
-                    case "asc":
-                        return a.filename.localeCompare(b.filename);
-                    case "name":
-                        return a.name.localeCompare(b.name);
-                    default: // "desc"
-                        return b.filename.localeCompare(a.filename);
-                }
-            });
-            
-            // Actualizar contador
-            resultCount.textContent = `${filtered.length} canción${filtered.length !== 1 ? 'es' : ''} encontrada${filtered.length !== 1 ? 's' : ''}`;
-            
-            // Mostrar/ocultar mensaje sin resultados
-            if (filtered.length === 0) {
+            if (total === 0) {
                 noResults.classList.remove("hidden");
-                grid.innerHTML = "";
-            } else {
-                noResults.classList.add("hidden");
+                grid.innerHTML = '';
+                playlistView.innerHTML = '';
+                startCount.textContent = '0';
+                endCount.textContent = '0';
+                pageNumbers.innerHTML = '';
+                prevBtn.disabled = nextBtn.disabled = true;
+                return;
+            }
+            
+            noResults.classList.add("hidden");
+            
+            // Calculate pagination
+            const totalPages = Math.ceil(total / PER_PAGE);
+            const start = (currentPage - 1) * PER_PAGE;
+            const end = Math.min(start + PER_PAGE, total);
+            const pageItems = filtered.slice(start, end);
+            
+            // Update count display
+            startCount.textContent = start + 1;
+            endCount.textContent = end;
+            
+            // Render grid view
+            if (isGridView) {
+                grid.classList.remove("hidden");
+                playlistView.classList.add("hidden");
                 
-                // Calcular paginación
-                const totalPaginas = Math.ceil(filtered.length / ITEMS_POR_PAGINA);
-                paginaActual = Math.min(paginaActual, totalPaginas || 1);
-                
-                const inicio = (paginaActual - 1) * ITEMS_POR_PAGINA;
-                const paginaCanciones = filtered.slice(inicio, inicio + ITEMS_POR_PAGINA);
-                
-                // Renderizar grid
-                grid.innerHTML = paginaCanciones.map(song => `
-                    <div class="card bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
-                        <div class="mb-4">
-                            <span class="inline-block bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">
-                                ${song.filename.split('.').pop().toUpperCase()}
-                            </span>
-                            ${song.size ? `<span class="ml-2 text-xs text-gray-500">${Math.round(song.size/1024)} KB</span>` : ''}
+                grid.innerHTML = pageItems.map((song, index) => {
+                    const delay = index * 100;
+                    return `
+                        <div class="music-card glass-card rounded-xl overflow-hidden border border-gray-200/50 animate-fade-in" style="animation-delay: ${delay}ms">
+                            <div class="p-6">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="w-16 h-16 rounded-xl overflow-hidden">
+                                        <img src="${song.thumbnail}" class="w-full h-full object-cover" alt="${song.name}">
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="px-2 py-1 bg-${song.genre === 'alabanza' ? 'worship/20' : song.genre === 'adoracion' ? 'primary/20' : 'praise/20'} text-${song.genre === 'alabanza' ? 'worship' : song.genre === 'adoracion' ? 'primary' : 'praise'} rounded-full text-xs">
+                                            ${song.genre}
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <h3 class="text-lg font-bold mb-2 line-clamp-1">${song.name}</h3>
+                                <p class="text-gray-600 text-sm mb-4">${song.artist}</p>
+                                
+                                <div class="flex items-center justify-between text-sm text-gray-500 mb-6">
+                                    <span><i class="far fa-clock mr-1"></i> ${song.duration}</span>
+                                    <span><i class="fas fa-download mr-1"></i> ${song.formattedSize}</span>
+                                    <span><i class="far fa-play-circle mr-1"></i> ${song.plays}</span>
+                                </div>
+                                
+                                <div class="flex gap-3">
+                                    <button onclick="playSong(${start + index})" class="flex-1 px-4 py-2.5 primary-gradient text-white rounded-lg font-medium hover:shadow-lg transition-shadow">
+                                        <i class="fas fa-play mr-2"></i>Reproducir
+                                    </button>
+                                    <button onclick="openSongModal(${start + index})" class="px-4 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                                        <i class="fas fa-info"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="mt-4 pt-4 border-t border-gray-100">
+                                    <a href="${song.url}" download="${song.filename}" 
+                                        class="download-btn flex items-center justify-center w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                                        <i class="fas fa-download mr-2"></i>Descargar
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <h3 class="text-lg font-semibold mb-3 line-clamp-2 h-14">${song.name}</h3>
-                        
-                        <audio controls preload="metadata" class="w-full mb-4">
-                            <source src="${song.url}" type="audio/mpeg">
-                            Tu navegador no soporta el elemento de audio.
-                        </audio>
-                        
-                        <div class="flex gap-2">
-                            <a href="${song.url}" download="${song.filename}"
-                                class="flex-1 bg-[#BF9B30] text-white px-4 py-2 rounded-lg hover:bg-black transition text-center">
-                                Descargar
-                            </a>
-                            <button onclick="shareSong('${song.name}', '${song.url}')"
-                                class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
-                                Compartir
-                            </button>
+                    `;
+                }).join('');
+            } else {
+                // Render playlist view
+                grid.classList.add("hidden");
+                playlistView.classList.remove("hidden");
+                
+                playlistView.innerHTML = pageItems.map((song, index) => `
+                    <div class="playlist-item glass-card rounded-xl p-4 border border-gray-200/50 animate-fade-in" style="animation-delay: ${index * 50}ms">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-12 h-12 rounded-lg overflow-hidden">
+                                    <img src="${song.thumbnail}" class="w-full h-full object-cover" alt="${song.name}">
+                                </div>
+                                <div>
+                                    <div class="font-medium">${song.name}</div>
+                                    <div class="text-sm text-gray-600">${song.artist}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-4">
+                                <span class="text-sm text-gray-500">${song.duration}</span>
+                                <button onclick="playSong(${start + index})" class="w-10 h-10 rounded-full primary-gradient text-white flex items-center justify-center">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <a href="${song.url}" download="${song.filename}" class="text-gray-500 hover:text-primary">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 `).join('');
-                
-                // Actualizar paginación
-                renderPagination(totalPaginas);
-                currentPageSpan.textContent = paginaActual;
-                totalPagesSpan.textContent = totalPaginas;
             }
+            
+            // Update pagination
+            updatePagination(totalPages);
         }
-
-        // Renderizar paginación
-        function renderPagination(total) {
-            pagination.innerHTML = "";
+        
+        // Update pagination
+        function updatePagination(totalPages) {
+            pageNumbers.innerHTML = '';
             
-            if (total <= 1) return;
+            // Show max 5 page numbers
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, startPage + 4);
             
-            // Botón Anterior
-            if (paginaActual > 1) {
-                pagination.innerHTML += `
-                    <button onclick="goPage(${paginaActual - 1})"
-                        class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50">
-                        ← Anterior
-                    </button>
-                `;
+            if (endPage - startPage < 4) {
+                startPage = Math.max(1, endPage - 4);
             }
             
-            // Números de página
-            const maxVisible = 5;
-            let start = Math.max(1, paginaActual - Math.floor(maxVisible / 2));
-            let end = Math.min(total, start + maxVisible - 1);
-            
-            if (end - start + 1 < maxVisible) {
-                start = Math.max(1, end - maxVisible + 1);
+            for (let i = startPage; i <= endPage; i++) {
+                const btn = document.createElement('button');
+                btn.className = `w-10 h-10 rounded-lg ${i === currentPage ? 'primary-gradient text-white' : 'border border-gray-300 hover:bg-gray-50'}`;
+                btn.textContent = i;
+                btn.onclick = () => {
+                    currentPage = i;
+                    render();
+                    window.scrollTo({ top: grid.offsetTop - 100, behavior: 'smooth' });
+                };
+                pageNumbers.appendChild(btn);
             }
             
-            for (let i = start; i <= end; i++) {
-                pagination.innerHTML += `
-                    <button onclick="goPage(${i})"
-                        class="px-4 py-2 rounded-lg ${i === paginaActual 
-                            ? 'bg-black text-white' 
-                            : 'border border-gray-300 hover:bg-gray-50'}">
-                        ${i}
-                    </button>
-                `;
-            }
-            
-            // Botón Siguiente
-            if (paginaActual < total) {
-                pagination.innerHTML += `
-                    <button onclick="goPage(${paginaActual + 1})"
-                        class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50">
-                        Siguiente →
-                    </button>
-                `;
-            }
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
         }
-
-        // Ir a página específica
-        function goPage(n) {
-            paginaActual = n;
-            render();
-            window.scrollTo({ 
-                top: grid.offsetTop - 100, 
-                behavior: "smooth" 
-            });
-        }
-
-        // Compartir canción
-        function shareSong(name, url) {
-            if (navigator.share) {
-                navigator.share({
-                    title: name,
-                    text: `Escucha "${name}" en la Iglesia Bautista Fundamental Betesda`,
-                    url: window.location.href
+        
+        // Play song
+        function playSong(index) {
+            if (index < 0 || index >= filtered.length) return;
+            
+            const song = filtered[index];
+            currentSongIndex = index;
+            
+            // Update player UI
+            playerTitle.textContent = song.name;
+            playerArtist.textContent = song.artist;
+            playerAlbumArt.src = song.thumbnail;
+            
+            // Update now playing bar
+            nowPlayingTitle.textContent = song.name;
+            nowPlayingImg.src = song.thumbnail;
+            
+            // Initialize wavesurfer if not exists
+            if (!wavesurfer) {
+                wavesurfer = WaveSurfer.create({
+                    container: '#waveform',
+                    waveColor: '#e2e8f0',
+                    progressColor: '#BF9B30',
+                    cursorColor: '#BF9B30',
+                    barWidth: 3,
+                    barRadius: 3,
+                    cursorWidth: 1,
+                    height: 80,
+                    barGap: 3,
+                    responsive: true
                 });
-            } else {
-                // Fallback: copiar al portapapeles
-                navigator.clipboard.writeText(`${name} - ${url}`);
-                alert("Enlace copiado al portapapeles");
+                
+                wavesurfer.on('ready', () => {
+                    playerTime.textContent = `0:00 / ${formatTime(wavesurfer.getDuration())}`;
+                });
+                
+                wavesurfer.on('audioprocess', () => {
+                    playerTime.textContent = `${formatTime(wavesurfer.getCurrentTime())} / ${formatTime(wavesurfer.getDuration())}`;
+                });
             }
+            
+            // Load and play audio
+            wavesurfer.load(song.url);
+            wavesurfer.on('ready', () => {
+                wavesurfer.play();
+                playerPlay.innerHTML = '<i class="fas fa-pause"></i>';
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                musicPlayerContainer.classList.remove('hidden');
+                nowPlayingBar.classList.remove('hidden');
+            });
+            
+            // Show player
+            musicPlayerContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
-
-        /* ===== EVENTOS ===== */
+        
+        // Format time
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+        
+        // Open song modal
+        function openSongModal(index) {
+            const song = filtered[index];
+            
+            modalTitle.textContent = song.name;
+            modalAlbumArt.src = song.thumbnail;
+            modalDuration.textContent = song.duration;
+            modalSize.textContent = song.formattedSize;
+            
+            // Set modal button actions
+            modalPlay.onclick = () => {
+                playSong(index);
+                playerModal.classList.add('hidden');
+            };
+            
+            modalDownload.onclick = () => {
+                const link = document.createElement('a');
+                link.href = song.url;
+                link.download = song.filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };
+            
+            modalShare.onclick = () => {
+                if (navigator.share) {
+                    navigator.share({
+                        title: song.name,
+                        text: `Escucha "${song.name}" en IBFB Música`,
+                        url: window.location.href
+                    });
+                } else {
+                    navigator.clipboard.writeText(`${song.name} - ${song.url}`);
+                    alert('Enlace copiado al portapapeles');
+                }
+            };
+            
+            playerModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Event Listeners
         document.addEventListener('DOMContentLoaded', function() {
-            // Cargar canciones al iniciar
+            // Load songs
             loadSongs();
             
-            // Eventos de filtros
-            searchInput.addEventListener("input", () => {
-                paginaActual = 1;
-                render();
+            // Search
+            searchInput.addEventListener('input', () => {
+                clearSearch.classList.toggle('hidden', !searchInput.value);
+                applyFilters();
             });
-
-            sortSelect.addEventListener("change", () => {
-                paginaActual = 1;
-                render();
+            
+            clearSearch.addEventListener('click', () => {
+                searchInput.value = '';
+                clearSearch.classList.add('hidden');
+                applyFilters();
             });
-
-            // Limpiar filtros
-            clearFiltersBtn.addEventListener("click", () => {
-                searchInput.value = "";
-                sortSelect.value = "desc";
-                paginaActual = 1;
-                render();
-            });
-
-            // Botones flotantes
-            document.getElementById("btn-top").onclick = () =>
-                window.scrollTo({ top: 0, behavior: "smooth" });
-
-            document.getElementById("btn-back").onclick = () =>
-                window.history.back();
-                
-            // Soporte para tecla Enter en búsqueda
-            searchInput.addEventListener("keypress", (e) => {
-                if (e.key === "Enter") {
-                    paginaActual = 1;
-                    render();
+            
+            // Filters
+            sortSelect.addEventListener('change', applyFilters);
+            filterType.addEventListener('change', applyFilters);
+            
+            // Buttons
+            playRandom.addEventListener('click', () => {
+                if (filtered.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * filtered.length);
+                    playSong(randomIndex);
                 }
             });
+            
+            clearFilters.addEventListener('click', () => {
+                searchInput.value = '';
+                sortSelect.value = 'newest';
+                filterType.value = '';
+                clearSearch.classList.add('hidden');
+                applyFilters();
+            });
+            
+            resetSearch.addEventListener('click', () => {
+                searchInput.value = '';
+                clearSearch.classList.add('hidden');
+                applyFilters();
+            });
+            
+            // Toggle view
+            toggleView.addEventListener('click', () => {
+                isGridView = !isGridView;
+                toggleView.innerHTML = isGridView ? 
+                    '<i class="fas fa-list mr-2"></i>Vista lista' : 
+                    '<i class="fas fa-th-large mr-2"></i>Vista cuadrícula';
+                render();
+            });
+            
+            // Player controls
+            playerPlay.addEventListener('click', () => {
+                if (wavesurfer) {
+                    if (wavesurfer.isPlaying()) {
+                        wavesurfer.pause();
+                        playerPlay.innerHTML = '<i class="fas fa-play"></i>';
+                        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                    } else {
+                        wavesurfer.play();
+                        playerPlay.innerHTML = '<i class="fas fa-pause"></i>';
+                        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    }
+                }
+            });
+            
+            playerPrev.addEventListener('click', () => {
+                if (currentSongIndex > 0) {
+                    playSong(currentSongIndex - 1);
+                }
+            });
+            
+            playerNext.addEventListener('click', () => {
+                if (currentSongIndex < filtered.length - 1) {
+                    playSong(currentSongIndex + 1);
+                }
+            });
+            
+            playerDownload.addEventListener('click', () => {
+                if (currentSongIndex >= 0) {
+                    const song = filtered[currentSongIndex];
+                    const link = document.createElement('a');
+                    link.href = song.url;
+                    link.download = song.filename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            });
+            
+            playerVolume.addEventListener('input', (e) => {
+                if (wavesurfer) {
+                    wavesurfer.setVolume(e.target.value / 100);
+                }
+            });
+            
+            // Now playing bar controls
+            playPauseBtn.addEventListener('click', () => {
+                if (wavesurfer) {
+                    if (wavesurfer.isPlaying()) {
+                        wavesurfer.pause();
+                        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                        playerPlay.innerHTML = '<i class="fas fa-play"></i>';
+                    } else {
+                        wavesurfer.play();
+                        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                        playerPlay.innerHTML = '<i class="fas fa-pause"></i>';
+                    }
+                }
+            });
+            
+            prevTrackBtn.addEventListener('click', () => {
+                if (currentSongIndex > 0) {
+                    playSong(currentSongIndex - 1);
+                }
+            });
+            
+            nextTrackBtn.addEventListener('click', () => {
+                if (currentSongIndex < filtered.length - 1) {
+                    playSong(currentSongIndex + 1);
+                }
+            });
+            
+            volumeSlider.addEventListener('input', (e) => {
+                if (wavesurfer) {
+                    wavesurfer.setVolume(e.target.value / 100);
+                }
+            });
+            
+            closePlayerBtn.addEventListener('click', () => {
+                if (wavesurfer) {
+                    wavesurfer.stop();
+                }
+                nowPlayingBar.classList.add('hidden');
+            });
+            
+            // Modal
+            closeModal.addEventListener('click', () => {
+                playerModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+            
+            playerModal.addEventListener('click', (e) => {
+                if (e.target === playerModal) {
+                    playerModal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Download all
+            downloadAll.addEventListener('click', () => {
+                alert('Esta función descargaría todas las canciones en un archivo ZIP. En una implementación real, necesitarías generar el ZIP en el servidor.');
+            });
+            
+            // Pagination
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    render();
+                    window.scrollTo({ top: grid.offsetTop - 100, behavior: 'smooth' });
+                }
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                const totalPages = Math.ceil(filtered.length / PER_PAGE);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    render();
+                    window.scrollTo({ top: grid.offsetTop - 100, behavior: 'smooth' });
+                }
+            });
+            
+            // Floating buttons
+            document.getElementById("btn-top").onclick = () => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            };
+            
+            document.getElementById("btn-back").onclick = () => {
+                history.back();
+            };
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (!playerModal.classList.contains('hidden')) {
+                        playerModal.classList.add('hidden');
+                        document.body.style.overflow = 'auto';
+                    }
+                }
+                
+                if (e.key === ' ' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                    if (wavesurfer) {
+                        if (wavesurfer.isPlaying()) {
+                            wavesurfer.pause();
+                            playerPlay.innerHTML = '<i class="fas fa-play"></i>';
+                            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                        } else {
+                            wavesurfer.play();
+                            playerPlay.innerHTML = '<i class="fas fa-pause"></i>';
+                            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                        }
+                    }
+                }
+            });
+            
+            // Adjust header padding
+            function adjustHeaderPadding() {
+                const header = document.querySelector('#header-placeholder header');
+                if (header) {
+                    document.body.style.paddingTop = header.offsetHeight + 'px';
+                }
+            }
+            
+            // Initial adjustment
+            setTimeout(adjustHeaderPadding, 100);
+            window.addEventListener('resize', adjustHeaderPadding);
         });
     </script>
 </body>
