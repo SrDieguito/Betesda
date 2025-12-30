@@ -5,119 +5,411 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Prédicas | Iglesia Bautista Betesda</title>
 
-  <!-- Tailwind -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#BF9B30',
+            secondary: '#1a1a1a',
+            accent: '#2c5282'
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.5s ease-in-out',
+            'slide-up': 'slideUp 0.6s ease-out',
+            'float': 'float 3s ease-in-out infinite',
+            'pulse-gentle': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' }
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(20px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' }
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
-    .fade-up {
-      animation: fadeUp .5s ease both;
+    * {
+      font-family: 'Inter', sans-serif;
     }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    h1, h2, h3, h4 {
+      font-family: 'Poppins', sans-serif;
     }
 
-    .card-hover {
-      transition: all .3s ease;
+    /* Glassmorphism effect */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    .card-hover:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 15px 30px rgba(0,0,0,.15);
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #BF9B30 0%, #d4af37 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #BF9B30 0%, #d4af37 100%);
+      border-radius: 10px;
+    }
+
+    /* Video card hover effect */
+    .video-card {
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(191, 155, 48, 0.15);
+    }
+
+    .video-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #BF9B30 0%, #d4af37 100%);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .video-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    /* Loading animation */
+    .loading-shimmer {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    /* Filter pill animation */
+    .filter-pill {
+      transition: all 0.3s ease;
+    }
+
+    .filter-pill:hover {
+      transform: scale(1.05);
+    }
+
+    /* Floating buttons with gradient */
     .floating-btn {
       position: fixed;
-      right: 1rem;
-      background: #000;
-      color: #fff;
-      padding: .7rem .8rem;
-      border-radius: 999px;
-      z-index: 50;
-      box-shadow: 0 10px 20px rgba(0,0,0,.3);
-      transition: all .3s ease;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
+      color: white;
+      border-radius: 50%;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      z-index: 100;
     }
 
     .floating-btn:hover {
-      background: #BF9B30;
-      transform: scale(1.1);
+      transform: translateY(-3px) scale(1.1);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      background: linear-gradient(135deg, #BF9B30 0%, #d4af37 100%);
     }
 
-    #btn-top { bottom: 1.3rem; }
-    #btn-back { bottom: 4.5rem; }
+    /* Modal animation */
+    .modal-enter {
+      animation: modalEnter 0.3s ease-out;
+    }
+
+    @keyframes modalEnter {
+      from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* Video thumbnail overlay */
+    .thumbnail-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    .thumbnail-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .video-card:hover .thumbnail-overlay {
+      opacity: 1;
+    }
+
+    .play-button {
+      width: 60px;
+      height: 60px;
+      background: rgba(191, 155, 48, 0.9);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: scale(0.8);
+      transition: transform 0.3s ease;
+    }
+
+    .video-card:hover .play-button {
+      transform: scale(1);
+    }
+
+    /* Stats badges */
+    .stat-badge {
+      background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
   </style>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
 
   <!-- HEADER -->
   <div id="header-placeholder"></div>
 
-  <!-- MAIN -->
-  <section class="min-h-screen">
-    <div class="max-w-7xl mx-auto px-4 py-10">
-
-      <!-- TITLE -->
-      <div class="text-center mb-10 fade-up">
-        <h1 class="text-4xl font-bold mb-4">Prédicas y Enseñanzas</h1>
-        <p class="text-gray-600 max-w-3xl mx-auto">
-          Predicación bíblica para edificación espiritual.  
-          Todos los mensajes se actualizan automáticamente desde nuestro canal de YouTube.
+  <!-- MAIN CONTENT -->
+  <main class="min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      
+      <!-- HERO SECTION -->
+      <div class="text-center mb-12 animate-slide-up">
+        <div class="inline-block p-3 bg-gradient-to-r from-primary/10 to-yellow-100 rounded-2xl mb-6">
+          <i class="fas fa-video text-primary text-3xl animate-float"></i>
+        </div>
+        <h1 class="text-5xl font-bold mb-4 gradient-text">Prédicas y Enseñanzas</h1>
+        <p class="text-gray-600 text-lg max-w-3xl mx-auto leading-relaxed">
+          Explora nuestra colección de prédicas bíblicas para tu crecimiento espiritual. 
+          Cada mensaje es una oportunidad para acercarte más a Dios.
         </p>
       </div>
 
-      <!-- SEARCH -->
-      <div class="mb-8 fade-up">
-        <input
-          id="search"
-          type="text"
-          placeholder="Buscar prédica por título..."
-          class="w-full p-4 rounded-lg border focus:ring-2 focus:ring-[#BF9B30] outline-none"
-        />
+      <!-- STATS BAR -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 animate-fade-in">
+        <div class="glass-card rounded-xl p-4 text-center border border-gray-200">
+          <div class="text-2xl font-bold text-primary">200+</div>
+          <div class="text-gray-600">Prédicas</div>
+        </div>
+        <div class="glass-card rounded-xl p-4 text-center border border-gray-200">
+          <div class="text-2xl font-bold text-accent">50K+</div>
+          <div class="text-gray-600">Visualizaciones</div>
+        </div>
+        <div class="glass-card rounded-xl p-4 text-center border border-gray-200">
+          <div class="text-2xl font-bold text-primary">4.8</div>
+          <div class="text-gray-600">Calificación</div>
+        </div>
+        <div class="glass-card rounded-xl p-4 text-center border border-gray-200">
+          <div class="text-2xl font-bold text-accent">100%</div>
+          <div class="text-gray-600">Gratis</div>
+        </div>
       </div>
 
-      <!-- GRID -->
-      <div
-        id="video-grid"
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 fade-up">
+      <!-- SEARCH AND FILTERS -->
+      <div class="mb-10 space-y-6">
+        <!-- SEARCH BAR -->
+        <div class="relative animate-fade-in">
+          <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <i class="fas fa-search text-gray-400"></i>
+          </div>
+          <input
+            id="search"
+            type="text"
+            placeholder="Buscar prédicas por título, tema o palabra clave..."
+            class="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all duration-300 glass-card"
+          />
+          <div class="absolute inset-y-0 right-0 pr-4 flex items-center">
+            <button id="clear-search" class="text-gray-400 hover:text-gray-600 hidden">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- FILTERS ROW -->
+        <div class="flex flex-wrap gap-4 animate-fade-in" style="animation-delay: 100ms">
+          <div class="flex items-center gap-2">
+            <span class="text-gray-600 font-medium">Filtrar por:</span>
+          </div>
+          
+          <select id="sort-by" class="filter-pill px-4 py-2 rounded-full border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-primary/30">
+            <option value="newest">Más recientes</option>
+            <option value="oldest">Más antiguas</option>
+            <option value="title">Título A-Z</option>
+          </select>
+
+          <select id="filter-series" class="filter-pill px-4 py-2 rounded-full border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-primary/30">
+            <option value="">Todas las series</option>
+            <option value="evangelio">Evangelio de Juan</option>
+            <option value="salmos">Estudio de Salmos</option>
+            <option value="familia">Familia Cristiana</option>
+            <option value="oracion">Escuela de Oración</option>
+          </select>
+
+          <select id="filter-duration" class="filter-pill px-4 py-2 rounded-full border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-primary/30">
+            <option value="">Cualquier duración</option>
+            <option value="short">Cortas (0-15 min)</option>
+            <option value="medium">Medianas (15-45 min)</option>
+            <option value="long">Largas (45+ min)</option>
+          </select>
+
+          <button id="reset-filters" class="filter-pill px-4 py-2 rounded-full border border-gray-300 bg-white hover:bg-gray-50 transition-colors">
+            <i class="fas fa-redo mr-2"></i>Limpiar filtros
+          </button>
+        </div>
+      </div>
+
+      <!-- VIDEO GRID -->
+      <div id="video-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Loading skeletons -->
+        <div class="video-card rounded-xl overflow-hidden loading-shimmer" style="height: 400px"></div>
+        <div class="video-card rounded-xl overflow-hidden loading-shimmer" style="height: 400px"></div>
+        <div class="video-card rounded-xl overflow-hidden loading-shimmer" style="height: 400px"></div>
       </div>
 
       <!-- NO RESULTS -->
-      <div id="no-results" class="hidden text-center py-12">
-        <p class="text-xl text-gray-600">No se encontraron prédicas 📖</p>
+      <div id="no-results" class="hidden text-center py-16 animate-fade-in">
+        <div class="max-w-md mx-auto">
+          <div class="text-6xl mb-6 text-gray-300">
+            <i class="fas fa-video-slash"></i>
+          </div>
+          <h3 class="text-2xl font-semibold text-gray-700 mb-3">No se encontraron prédicas</h3>
+          <p class="text-gray-500 mb-8">Intenta con otros términos de búsqueda o ajusta los filtros</p>
+          <button id="reset-search" class="px-6 py-3 bg-primary text-white rounded-full font-medium hover:bg-primary/90 transition-colors">
+            <i class="fas fa-redo mr-2"></i>Limpiar búsqueda
+          </button>
+        </div>
       </div>
 
       <!-- PAGINATION -->
-      <div class="flex justify-center items-center gap-6 mt-12">
-        <button id="prev"
-          class="px-5 py-2 bg-black text-white rounded disabled:opacity-40">
-          ◀ Anterior
-        </button>
-
-        <span id="page-info" class="font-semibold"></span>
-
-        <button id="next"
-          class="px-5 py-2 bg-black text-white rounded disabled:opacity-40">
-          Siguiente ▶
-        </button>
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-6 mt-12 animate-fade-in">
+        <div class="text-gray-600">
+          Mostrando <span id="start-count" class="font-semibold">1</span>-<span id="end-count" class="font-semibold">9</span> 
+          de <span id="total-count" class="font-semibold">0</span> prédicas
+        </div>
+        
+        <div class="flex items-center gap-2">
+          <button id="prev" class="px-5 py-2.5 rounded-lg border border-gray-300 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+            <i class="fas fa-chevron-left mr-2"></i>Anterior
+          </button>
+          
+          <div class="flex items-center gap-1" id="page-numbers"></div>
+          
+          <button id="next" class="px-5 py-2.5 rounded-lg border border-gray-300 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+            Siguiente<i class="fas fa-chevron-right ml-2"></i>
+          </button>
+        </div>
       </div>
 
     </div>
-  </section>
+  </main>
+
+  <!-- VIDEO MODAL -->
+  <div id="video-modal" class="fixed inset-0 bg-black/80 z-50 hidden items-center justify-center p-4">
+    <div class="relative w-full max-w-4xl modal-enter">
+      <button id="close-modal" class="absolute -top-10 right-0 text-white hover:text-primary text-2xl">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="bg-white rounded-2xl overflow-hidden">
+        <div class="p-6">
+          <div class="aspect-video rounded-lg overflow-hidden">
+            <iframe id="modal-video" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="mt-6">
+            <h3 id="modal-title" class="text-2xl font-bold mb-3"></h3>
+            <div class="flex flex-wrap gap-3 mb-4">
+              <span id="modal-date" class="stat-badge"></span>
+              <span id="modal-duration" class="stat-badge"></span>
+              <span id="modal-views" class="stat-badge"></span>
+            </div>
+            <p id="modal-description" class="text-gray-600"></p>
+          </div>
+        </div>
+        <div class="border-t p-6 flex justify-between items-center">
+          <a id="youtube-link" target="_blank" class="px-6 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+            <i class="fab fa-youtube mr-2"></i>Ver en YouTube
+          </a>
+          <button id="share-btn" class="px-6 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+            <i class="fas fa-share-alt mr-2"></i>Compartir
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <div id="footer-placeholder"></div>
 
   <!-- FLOATING BUTTONS -->
-  <button id="btn-back" class="floating-btn" title="Volver">
+  <button id="btn-back" class="floating-btn bottom-24 right-6" title="Volver">
     <i class="fas fa-arrow-left"></i>
   </button>
 
-  <button id="btn-top" class="floating-btn" title="Ir arriba">
+  <button id="btn-top" class="floating-btn bottom-6 right-6" title="Ir arriba">
     <i class="fas fa-arrow-up"></i>
   </button>
 
@@ -127,84 +419,380 @@
 
   <!-- PAGE JS -->
   <script>
+    // Elements
     const grid = document.getElementById("video-grid");
     const search = document.getElementById("search");
+    const clearSearch = document.getElementById("clear-search");
     const noResults = document.getElementById("no-results");
+    const resetSearch = document.getElementById("reset-search");
+    const resetFilters = document.getElementById("reset-filters");
 
+    // Filters
+    const sortBy = document.getElementById("sort-by");
+    const filterSeries = document.getElementById("filter-series");
+    const filterDuration = document.getElementById("filter-duration");
+
+    // Pagination
     const prevBtn = document.getElementById("prev");
     const nextBtn = document.getElementById("next");
-    const pageInfo = document.getElementById("page-info");
+    const pageNumbers = document.getElementById("page-numbers");
+    const startCount = document.getElementById("start-count");
+    const endCount = document.getElementById("end-count");
+    const totalCount = document.getElementById("total-count");
 
+    // Modal
+    const videoModal = document.getElementById("video-modal");
+    const modalVideo = document.getElementById("modal-video");
+    const modalTitle = document.getElementById("modal-title");
+    const modalDate = document.getElementById("modal-date");
+    const modalDuration = document.getElementById("modal-duration");
+    const modalViews = document.getElementById("modal-views");
+    const modalDescription = document.getElementById("modal-description");
+    const youtubeLink = document.getElementById("youtube-link");
+    const shareBtn = document.getElementById("share-btn");
+    const closeModal = document.getElementById("close-modal");
+
+    // Configuration
     const PER_PAGE = 9;
     let videos = [];
     let filtered = [];
     let currentPage = 1;
 
-    // 🔤 Normalizar texto (ignorar tildes)
+    // Normalize text (remove accents)
     const normalize = text =>
       text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
-    // Cargar videos
+    // Format date
+    const formatDate = dateStr => {
+      const date = new Date(dateStr);
+      return date.toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    };
+
+    // Generate random stats (for demo - replace with real data from API)
+    const generateStats = () => ({
+      duration: `${Math.floor(Math.random() * 60) + 10} min`,
+      views: `${Math.floor(Math.random() * 10000) + 100} vistas`,
+      series: ['evangelio', 'salmos', 'familia', 'oracion'][Math.floor(Math.random() * 4)],
+      likes: Math.floor(Math.random() * 1000) + 50
+    });
+
+    // Load videos
     fetch("/api/predicas")
       .then(r => r.json())
       .then(data => {
-        videos = data;
-        filtered = videos;
+        // Add additional data to videos
+        videos = data.map(video => ({
+          ...video,
+          ...generateStats(),
+          dateFormatted: formatDate(video.publishedAt),
+          shortDescription: video.description.substring(0, 150) + '...'
+        }));
+        
+        filtered = [...videos];
         render();
+      })
+      .catch(err => {
+        console.error('Error loading videos:', err);
+        grid.innerHTML = `
+          <div class="col-span-3 text-center py-16">
+            <div class="text-6xl mb-6 text-gray-300">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3 class="text-2xl font-semibold text-gray-700 mb-3">Error cargando las prédicas</h3>
+            <p class="text-gray-500">Por favor, intenta nuevamente más tarde</p>
+          </div>
+        `;
       });
 
-    // Buscar
+    // Search functionality
     search.addEventListener("input", () => {
       const q = normalize(search.value);
+      clearSearch.classList.toggle('hidden', !q);
+      
       filtered = videos.filter(v =>
-        normalize(v.title).includes(q)
+        normalize(v.title).includes(q) ||
+        normalize(v.description).includes(q)
       );
+      
       currentPage = 1;
       render();
     });
 
-    // Render
+    clearSearch.addEventListener("click", () => {
+      search.value = '';
+      clearSearch.classList.add('hidden');
+      filtered = [...videos];
+      currentPage = 1;
+      render();
+    });
+
+    // Filter functionality
+    sortBy.addEventListener("change", applyFilters);
+    filterSeries.addEventListener("change", applyFilters);
+    filterDuration.addEventListener("change", applyFilters);
+
+    function applyFilters() {
+      let results = [...videos];
+
+      // Sort
+      switch(sortBy.value) {
+        case 'newest':
+          results.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+          break;
+        case 'oldest':
+          results.sort((a, b) => new Date(a.publishedAt) - new Date(b.publishedAt));
+          break;
+        case 'title':
+          results.sort((a, b) => a.title.localeCompare(b.title));
+          break;
+      }
+
+      // Filter by series
+      if (filterSeries.value) {
+        results = results.filter(v => v.series === filterSeries.value);
+      }
+
+      // Filter by duration
+      if (filterDuration.value) {
+        results = results.filter(v => {
+          const duration = parseInt(v.duration);
+          switch(filterDuration.value) {
+            case 'short': return duration <= 15;
+            case 'medium': return duration > 15 && duration <= 45;
+            case 'long': return duration > 45;
+            default: return true;
+          }
+        });
+      }
+
+      filtered = results;
+      currentPage = 1;
+      render();
+    }
+
+    // Reset all filters
+    resetFilters.addEventListener("click", () => {
+      search.value = '';
+      clearSearch.classList.add('hidden');
+      sortBy.value = 'newest';
+      filterSeries.value = '';
+      filterDuration.value = '';
+      filtered = [...videos];
+      currentPage = 1;
+      render();
+    });
+
+    resetSearch.addEventListener("click", () => {
+      search.value = '';
+      clearSearch.classList.add('hidden');
+      filtered = [...videos];
+      currentPage = 1;
+      render();
+    });
+
+    // Render video grid
     function render() {
-      grid.innerHTML = "";
+      // Clear loading skeletons
+      grid.innerHTML = '';
 
-      const totalPages = Math.ceil(filtered.length / PER_PAGE);
-      noResults.classList.toggle("hidden", filtered.length > 0);
+      // Update counts
+      const total = filtered.length;
+      totalCount.textContent = total;
+      
+      if (total === 0) {
+        noResults.classList.remove("hidden");
+        startCount.textContent = '0';
+        endCount.textContent = '0';
+        pageNumbers.innerHTML = '';
+        prevBtn.disabled = nextBtn.disabled = true;
+        return;
+      }
 
+      noResults.classList.add("hidden");
+
+      // Calculate pagination
+      const totalPages = Math.ceil(total / PER_PAGE);
       const start = (currentPage - 1) * PER_PAGE;
-      const pageItems = filtered.slice(start, start + PER_PAGE);
+      const end = Math.min(start + PER_PAGE, total);
+      const pageItems = filtered.slice(start, end);
 
-      pageItems.forEach(v => {
+      // Update count display
+      startCount.textContent = start + 1;
+      endCount.textContent = end;
+
+      // Render videos
+      pageItems.forEach((v, index) => {
+        const delay = index * 100;
         const card = document.createElement("div");
-        card.className = "bg-white rounded-xl shadow p-4 card-hover";
-
+        card.className = "video-card bg-white rounded-xl overflow-hidden border border-gray-200 animate-fade-in";
+        card.style.animationDelay = `${delay}ms`;
+        
         card.innerHTML = `
-          <img src="${v.thumbnail}" class="rounded-lg mb-4 w-full">
-          <h3 class="font-semibold mb-3">${v.title}</h3>
-          <iframe
-            class="w-full aspect-video rounded-lg"
-            src="https://www.youtube.com/embed/${v.id}"
-            allowfullscreen>
-          </iframe>
+          <div class="thumbnail-container">
+            <img src="${v.thumbnail}" class="w-full h-48 object-cover" loading="lazy" alt="${v.title}">
+            <div class="thumbnail-overlay">
+              <div class="play-button">
+                <i class="fas fa-play text-white text-xl"></i>
+              </div>
+            </div>
+            <div class="absolute top-3 right-3">
+              <span class="stat-badge">
+                <i class="far fa-clock"></i> ${v.duration}
+              </span>
+            </div>
+          </div>
+          
+          <div class="p-5">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="font-bold text-lg line-clamp-2" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                ${v.title}
+              </h3>
+              <button class="text-gray-400 hover:text-primary video-share" data-id="${v.id}">
+                <i class="fas fa-share-alt"></i>
+              </button>
+            </div>
+            
+            <p class="text-gray-600 text-sm mb-4 line-clamp-2" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+              ${v.shortDescription}
+            </p>
+            
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-3">
+                <span class="text-xs text-gray-500">
+                  <i class="far fa-calendar mr-1"></i> ${v.dateFormatted}
+                </span>
+                <span class="text-xs text-gray-500">
+                  <i class="far fa-eye mr-1"></i> ${v.views}
+                </span>
+              </div>
+              <button class="video-play px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors" data-id="${v.id}">
+                <i class="fas fa-play mr-2"></i> Ver ahora
+              </button>
+            </div>
+          </div>
         `;
 
         grid.appendChild(card);
       });
 
-      pageInfo.textContent = `Página ${currentPage} de ${totalPages}`;
-      prevBtn.disabled = currentPage === 1;
-      nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+      // Add event listeners to new buttons
+      document.querySelectorAll('.video-play').forEach(btn => {
+        btn.addEventListener('click', () => openVideoModal(btn.dataset.id));
+      });
+
+      document.querySelectorAll('.video-share').forEach(btn => {
+        btn.addEventListener('click', () => shareVideo(btn.dataset.id));
+      });
+
+      // Update pagination
+      updatePagination(totalPages);
     }
 
+    // Update pagination controls
+    function updatePagination(totalPages) {
+      pageNumbers.innerHTML = '';
+      
+      // Show max 5 page numbers
+      let startPage = Math.max(1, currentPage - 2);
+      let endPage = Math.min(totalPages, startPage + 4);
+      
+      if (endPage - startPage < 4) {
+        startPage = Math.max(1, endPage - 4);
+      }
+      
+      for (let i = startPage; i <= endPage; i++) {
+        const btn = document.createElement('button');
+        btn.className = `w-10 h-10 rounded-lg ${i === currentPage ? 'bg-primary text-white' : 'border border-gray-300 hover:bg-gray-50'}`;
+        btn.textContent = i;
+        btn.onclick = () => {
+          currentPage = i;
+          render();
+          window.scrollTo({ top: grid.offsetTop - 100, behavior: 'smooth' });
+        };
+        pageNumbers.appendChild(btn);
+      }
+      
+      prevBtn.disabled = currentPage === 1;
+      nextBtn.disabled = currentPage === totalPages;
+    }
+
+    // Video modal
+    function openVideoModal(videoId) {
+      const video = videos.find(v => v.id === videoId);
+      if (!video) return;
+      
+      modalVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+      modalTitle.textContent = video.title;
+      modalDate.innerHTML = `<i class="far fa-calendar mr-1"></i> ${video.dateFormatted}`;
+      modalDuration.innerHTML = `<i class="far fa-clock mr-1"></i> ${video.duration}`;
+      modalViews.innerHTML = `<i class="far fa-eye mr-1"></i> ${video.views}`;
+      modalDescription.textContent = video.description || 'Descripción no disponible';
+      youtubeLink.href = `https://youtube.com/watch?v=${videoId}`;
+      
+      videoModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Share video
+    function shareVideo(videoId) {
+      const video = videos.find(v => v.id === videoId);
+      const url = `https://youtube.com/watch?v=${videoId}`;
+      
+      if (navigator.share) {
+        navigator.share({
+          title: video.title,
+          text: 'Mira esta prédica de Iglesia Bautista Betesda',
+          url: url
+        });
+      } else {
+        navigator.clipboard.writeText(url);
+        alert('Enlace copiado al portapapeles!');
+      }
+    }
+
+    // Event listeners for modal
+    closeModal.addEventListener('click', () => {
+      videoModal.classList.add('hidden');
+      modalVideo.src = '';
+      document.body.style.overflow = 'auto';
+    });
+
+    videoModal.addEventListener('click', (e) => {
+      if (e.target === videoModal) {
+        videoModal.classList.add('hidden');
+        modalVideo.src = '';
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    shareBtn.addEventListener('click', () => {
+      const videoId = modalVideo.src.split('/').pop().split('?')[0];
+      shareVideo(videoId);
+    });
+
+    // Pagination controls
     prevBtn.onclick = () => {
-      currentPage--;
-      render();
+      if (currentPage > 1) {
+        currentPage--;
+        render();
+        window.scrollTo({ top: grid.offsetTop - 100, behavior: 'smooth' });
+      }
     };
 
     nextBtn.onclick = () => {
-      currentPage++;
-      render();
+      const totalPages = Math.ceil(filtered.length / PER_PAGE);
+      if (currentPage < totalPages) {
+        currentPage++;
+        render();
+        window.scrollTo({ top: grid.offsetTop - 100, behavior: 'smooth' });
+      }
     };
 
+    // Floating buttons
     document.getElementById("btn-top").onclick = () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     };
@@ -212,7 +800,20 @@
     document.getElementById("btn-back").onclick = () => {
       history.back();
     };
-  </script>
 
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !videoModal.classList.contains('hidden')) {
+        videoModal.classList.add('hidden');
+        modalVideo.src = '';
+        document.body.style.overflow = 'auto';
+      }
+      
+      if (e.key === '/' && e.target.tagName !== 'INPUT') {
+        e.preventDefault();
+        search.focus();
+      }
+    });
+  </script>
 </body>
 </html>
