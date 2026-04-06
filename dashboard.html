@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>CRM Personas</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body{
+font-family:system-ui;
+}
+
+.fade{
+animation:fade .25s ease;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(6px)}
+to{opacity:1;transform:translateY(0)}
+}
+</style>
+
+</head>
+
+<body class="bg-zinc-950 text-zinc-200">
+
+<div class="flex h-screen">
+
+<!-- SIDEBAR -->
+
+<div class="w-64 bg-zinc-900 border-r border-zinc-800 p-6 flex flex-col">
+
+<h1 class="text-xl font-semibold mb-8">
+<i class="fa-solid fa-address-book mr-2"></i>
+Contactos
+</h1>
+
+<button onclick="abrirModal()"
+class="bg-white text-black px-4 py-2 rounded-lg text-sm hover:opacity-80 transition mb-3">
+<i class="fa-solid fa-user-plus mr-2"></i>
+Nueva persona
+</button>
+
+<div class="text-xs text-zinc-500 mt-4">
+Sistema CRM local
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="flex-1 p-10 overflow-auto">
+
+<div class="flex justify-between items-center mb-6">
+
+<h2 class="text-2xl font-semibold">
+Personas registradas
+</h2>
+
+</div>
+
+<!-- BUSCADOR -->
+
+<div class="flex gap-4 mb-6">
+
+<input id="buscar"
+oninput="render()"
+placeholder="Buscar nombre o teléfono..."
+class="bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-2 w-72 focus:outline-none">
+
+<select id="filtroCiudad"
+onchange="render()"
+class="bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2">
+
+<option value="">Todas las ciudades</option>
+<option value="Cuenca">Cuenca</option>
+<option value="Guayaquil">Guayaquil</option>
+
+</select>
+
+</div>
+
+<!-- TABLA -->
+
+<div class="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
+
+<table class="w-full text-sm">
+
+<thead class="border-b border-zinc-800 text-zinc-400">
+
+<tr>
+<th class="text-left p-4">Nombre</th>
+<th class="text-left p-4">Teléfono</th>
+<th class="text-left p-4">Ciudad</th>
+<th class="text-left p-4">Dirección</th>
+<th class="text-right p-4"></th>
+</tr>
+
+</thead>
+
+<tbody id="tabla"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- MODAL -->
+
+<div id="modal"
+class="fixed inset-0 bg-black/50 hidden items-center justify-center">
+
+<div class="bg-zinc-900 border border-zinc-800 rounded-xl w-96 p-6">
+
+<h3 class="text-lg font-semibold mb-4">
+Registrar persona
+</h3>
+
+<div class="space-y-3">
+
+<input id="nombre" placeholder="Nombre completo"
+class="w-full bg-zinc-800 rounded px-3 py-2">
+
+<input id="telefono" placeholder="Teléfono"
+class="w-full bg-zinc-800 rounded px-3 py-2">
+
+<input id="direccion" placeholder="Dirección"
+class="w-full bg-zinc-800 rounded px-3 py-2">
+
+<input id="ciudad" placeholder="Ciudad"
+class="w-full bg-zinc-800 rounded px-3 py-2">
+
+</div>
+
+<div class="flex justify-end gap-3 mt-6">
+
+<button onclick="cerrarModal()"
+class="text-zinc-400 hover:text-white">
+Cancelar
+</button>
+
+<button onclick="guardar()"
+class="bg-white text-black px-4 py-2 rounded-lg text-sm">
+Guardar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+// 🔐 PROTECCIÓN
+const user = localStorage.getItem("user")
+
+if (!user) {
+    window.location.href = "login.html"
+} else {
+    document.body.style.display = "block"
+}
+
+// 🔓 LOGOUT
+function logout(){
+    localStorage.removeItem("user")
+    window.location.href = "login.html"
+}
+
+// ----------------------------
+// CRUD CON SUPABASE (API)
+// ----------------------------
+
+let personas = []
+
+async function cargarPersonas(){
+    const res = await fetch("/api/persons")
+    personas = await res.json()
+    render()
+}
+
+// ABRIR MODAL
+function abrirModal(){
+document.getElementById("modal").classList.remove("hidden")
+document.getElementById("modal").classList.add("flex")
+}
+
+// CERRAR
+function cerrarModal(){
+document.getElementById("modal").classList.add("hidden")
+}
+
+// GUARDAR EN DB
+async function guardar(){
+
+let p={
+nombre:nombre.value,
+telefono:telefono.value,
+direccion:direccion.value,
+ciudad:ciudad.value
+}
+
+await fetch("/api/persons", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(p)
+})
+
+cerrarModal()
+cargarPersonas()
+}
+
+// ELIMINAR
+async function eliminar(id){
+
+await fetch("/api/persons", {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id })
+})
+
+cargarPersonas()
+}
+
+// RENDER
+function render(){
+
+let buscar=document.getElementById("buscar").value.toLowerCase()
+let ciudad=document.getElementById("filtroCiudad").value
+
+let html=""
+
+personas.forEach((p)=>{
+
+if(
+(p.nombre.toLowerCase().includes(buscar) ||
+p.telefono.includes(buscar)) &&
+(ciudad==="" || p.ciudad===ciudad)
+){
+
+html+=`
+<tr class="border-b border-zinc-800 fade">
+
+<td class="p-4">${p.nombre}</td>
+<td class="p-4">${p.telefono}</td>
+<td class="p-4">${p.ciudad}</td>
+<td class="p-4">${p.direccion}</td>
+
+<td class="p-4 text-right">
+<button onclick="eliminar('${p.id}')"
+class="text-red-400 hover:text-red-300">
+<i class="fa-solid fa-trash"></i>
+</button>
+</td>
+
+</tr>
+`
+
+}
+
+})
+
+tabla.innerHTML=html
+
+}
+
+// INICIO
+cargarPersonas()
+
+</script>
+
+</body>
+</html>
