@@ -37,8 +37,7 @@ to{opacity:1;transform:translateY(0)}
 <div class="flex">
 
 <!-- SIDEBAR -->
-<div id="sidebar" class="fixed lg:relative z-50 w-64 h-screen bg-zinc-900 border-r border-zinc-800 p-6 flex flex-col transform -translate-x-full lg:translate-x-0 transition duration-300">
-
+<div id="sidebar" class="fixed lg:relative z-50 w-64 h-screen bg-zinc-900 border-r border-zinc-800 p-6 flex flex-col transform -translate-x-full lg:translate-x-0 transition duration-300 overflow-y-auto">
 <h1 class="text-xl font-semibold mb-8">
 <i class="fa-solid fa-address-book mr-2"></i>
 Contactos
@@ -50,7 +49,7 @@ class="bg-[#BF9B30] text-black px-4 py-2 rounded-lg text-sm hover:opacity-80 tra
 Nueva persona
 </button>
 
-<div class="mt-auto">
+<div class="mt-auto pt-6 border-t border-zinc-800">
 <button onclick="logout()"
 class="w-full bg-red-500 text-white px-4 py-2 rounded-lg text-sm hover:opacity-80 transition">
 <i class="fa-solid fa-right-from-bracket mr-2"></i>
@@ -169,6 +168,12 @@ render()
 
 // MODAL
 function abrirModal(){
+
+// 🔻 cerrar sidebar si está abierto (mobile)
+const sidebar = document.getElementById("sidebar")
+sidebar.classList.add("-translate-x-full")
+
+// abrir modal
 modal.classList.remove("hidden")
 modal.classList.add("flex")
 }
@@ -263,6 +268,17 @@ document.getElementById("cards").innerHTML = cards
 
 // INIT
 cargarPersonas()
+
+document.addEventListener("click", function(e){
+    const sidebar = document.getElementById("sidebar")
+
+    if(
+        !sidebar.contains(e.target) &&
+        !e.target.closest("button")
+    ){
+        sidebar.classList.add("-translate-x-full")
+    }
+})
 
 </script>
 
