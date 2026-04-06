@@ -156,6 +156,22 @@ Guardar
 </div>
 
 <script>
+
+// 🔐 PROTECCIÓN
+const user = localStorage.getItem("user")
+
+if (!user) {
+    window.location.href = "login.html"
+} else {
+    document.body.style.display = "block"
+}
+
+// 🔓 LOGOUT
+function logout(){
+    localStorage.removeItem("user")
+    window.location.href = "login.html"
+}
+
 // ----------------------------
 // CRUD CON SUPABASE (API)
 // ----------------------------
