@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CRM Personas</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -21,16 +22,22 @@ from{opacity:0;transform:translateY(6px)}
 to{opacity:1;transform:translateY(0)}
 }
 </style>
-
 </head>
 
 <body class="bg-zinc-950 text-zinc-200">
 
-<div class="flex h-screen">
+<!-- MOBILE HEADER -->
+<div class="lg:hidden flex justify-between items-center p-4 border-b border-zinc-800">
+    <h1 class="font-semibold">CRM</h1>
+    <button onclick="toggleSidebar()">
+        <i class="fa-solid fa-bars text-xl"></i>
+    </button>
+</div>
+
+<div class="flex">
 
 <!-- SIDEBAR -->
-
-<div class="w-64 bg-zinc-900 border-r border-zinc-800 p-6 flex flex-col">
+<div id="sidebar" class="fixed lg:relative z-50 w-64 h-screen bg-zinc-900 border-r border-zinc-800 p-6 flex flex-col transform -translate-x-full lg:translate-x-0 transition duration-300">
 
 <h1 class="text-xl font-semibold mb-8">
 <i class="fa-solid fa-address-book mr-2"></i>
@@ -38,66 +45,50 @@ Contactos
 </h1>
 
 <button onclick="abrirModal()"
-class="bg-white text-black px-4 py-2 rounded-lg text-sm hover:opacity-80 transition mb-3">
+class="bg-[#BF9B30] text-black px-4 py-2 rounded-lg text-sm hover:opacity-80 transition mb-3">
 <i class="fa-solid fa-user-plus mr-2"></i>
 Nueva persona
 </button>
 
 <div class="mt-auto">
-    <button onclick="logout()"
-    class="w-full bg-red-500 text-white px-4 py-2 rounded-lg text-sm hover:opacity-80 transition">
-    <i class="fa-solid fa-right-from-bracket mr-2"></i>
-    Cerrar sesión
-    </button>
-</div>
-
-<div class="text-xs text-zinc-500 mt-4">
-Sistema CRM local
+<button onclick="logout()"
+class="w-full bg-red-500 text-white px-4 py-2 rounded-lg text-sm hover:opacity-80 transition">
+<i class="fa-solid fa-right-from-bracket mr-2"></i>
+Cerrar sesión
+</button>
 </div>
 
 </div>
 
 <!-- MAIN -->
+<div class="flex-1 p-4 lg:p-10">
 
-<div class="flex-1 p-10 overflow-auto">
-
-<div class="flex justify-between items-center mb-6">
-
-<h2 class="text-2xl font-semibold">
+<h2 class="text-2xl font-semibold mb-6">
 Personas registradas
 </h2>
 
-</div>
-
-<!-- BUSCADOR -->
-
-<div class="flex gap-4 mb-6">
+<!-- FILTROS -->
+<div class="flex flex-col lg:flex-row gap-3 mb-6">
 
 <input id="buscar"
 oninput="render()"
-placeholder="Buscar nombre o teléfono..."
-class="bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-2 w-72 focus:outline-none">
+placeholder="Buscar..."
+class="bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-2 w-full lg:w-72">
 
 <select id="filtroCiudad"
 onchange="render()"
 class="bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2">
-
-<option value="">Todas las ciudades</option>
+<option value="">Todas</option>
 <option value="Cuenca">Cuenca</option>
 <option value="Guayaquil">Guayaquil</option>
-
 </select>
 
 </div>
 
-<!-- TABLA -->
-
-<div class="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
-
+<!-- TABLA DESKTOP -->
+<div class="hidden lg:block bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
 <table class="w-full text-sm">
-
 <thead class="border-b border-zinc-800 text-zinc-400">
-
 <tr>
 <th class="text-left p-4">Nombre</th>
 <th class="text-left p-4">Teléfono</th>
@@ -105,25 +96,21 @@ class="bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2">
 <th class="text-left p-4">Dirección</th>
 <th class="text-right p-4"></th>
 </tr>
-
 </thead>
-
 <tbody id="tabla"></tbody>
-
 </table>
-
 </div>
 
-</div>
+<!-- CARDS MOBILE -->
+<div id="cards" class="lg:hidden space-y-3"></div>
 
+</div>
 </div>
 
 <!-- MODAL -->
+<div id="modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center">
 
-<div id="modal"
-class="fixed inset-0 bg-black/50 hidden items-center justify-center">
-
-<div class="bg-zinc-900 border border-zinc-800 rounded-xl w-96 p-6">
+<div class="bg-zinc-900 border border-zinc-800 rounded-xl w-11/12 max-w-md p-6 fade">
 
 <h3 class="text-lg font-semibold mb-4">
 Registrar persona
@@ -131,7 +118,7 @@ Registrar persona
 
 <div class="space-y-3">
 
-<input id="nombre" placeholder="Nombre completo"
+<input id="nombre" placeholder="Nombre"
 class="w-full bg-zinc-800 rounded px-3 py-2">
 
 <input id="telefono" placeholder="Teléfono"
@@ -146,66 +133,51 @@ class="w-full bg-zinc-800 rounded px-3 py-2">
 </div>
 
 <div class="flex justify-end gap-3 mt-6">
-
-<button onclick="cerrarModal()"
-class="text-zinc-400 hover:text-white">
-Cancelar
-</button>
-
-<button onclick="guardar()"
-class="bg-white text-black px-4 py-2 rounded-lg text-sm">
-Guardar
-</button>
-
+<button onclick="cerrarModal()" class="text-zinc-400">Cancelar</button>
+<button onclick="guardar()" class="bg-[#BF9B30] text-black px-4 py-2 rounded-lg">Guardar</button>
 </div>
 
 </div>
-
 </div>
 
 <script>
 
 // 🔐 PROTECCIÓN
 const user = localStorage.getItem("user")
+if (!user) window.location.href = "login.html"
 
-console.log("USER EN DASHBOARD:", user)
-
-if (!user) {
-    window.location.href = "login.html"
-} else {
-    document.body.style.display = "block"
+// SIDEBAR MOBILE
+function toggleSidebar(){
+const sb = document.getElementById("sidebar")
+sb.classList.toggle("-translate-x-full")
 }
 
-// 🔓 LOGOUT
+// LOGOUT
 function logout(){
-    localStorage.removeItem("user")
-    window.location.href = "login.html"
+localStorage.removeItem("user")
+window.location.href = "login.html"
 }
 
-// ----------------------------
-// CRUD CON SUPABASE (API)
-// ----------------------------
-
+// DATA
 let personas = []
 
 async function cargarPersonas(){
-    const res = await fetch("/api/persons")
-    personas = await res.json()
-    render()
+const res = await fetch("/api/persons")
+personas = await res.json()
+render()
 }
 
-// ABRIR MODAL
+// MODAL
 function abrirModal(){
-document.getElementById("modal").classList.remove("hidden")
-document.getElementById("modal").classList.add("flex")
+modal.classList.remove("hidden")
+modal.classList.add("flex")
 }
 
-// CERRAR
 function cerrarModal(){
-document.getElementById("modal").classList.add("hidden")
+modal.classList.add("hidden")
 }
 
-// GUARDAR EN DB
+// GUARDAR
 async function guardar(){
 
 let p={
@@ -216,9 +188,9 @@ ciudad:ciudad.value
 }
 
 await fetch("/api/persons", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(p)
+method:"POST",
+headers:{ "Content-Type":"application/json"},
+body: JSON.stringify(p)
 })
 
 cerrarModal()
@@ -227,25 +199,24 @@ cargarPersonas()
 
 // ELIMINAR
 async function eliminar(id){
-
 await fetch("/api/persons", {
-    method: "DELETE",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id })
+method:"DELETE",
+headers:{ "Content-Type":"application/json"},
+body: JSON.stringify({ id })
 })
-
 cargarPersonas()
 }
 
 // RENDER
 function render(){
 
-let buscar=document.getElementById("buscar").value.toLowerCase()
-let ciudad=document.getElementById("filtroCiudad").value
+let buscar = buscarInput.value.toLowerCase()
+let ciudad = filtroCiudad.value
 
-let html=""
+let html = ""
+let cards = ""
 
-personas.forEach((p)=>{
+personas.forEach(p => {
 
 if(
 (p.nombre.toLowerCase().includes(buscar) ||
@@ -253,33 +224,44 @@ p.telefono.includes(buscar)) &&
 (ciudad==="" || p.ciudad===ciudad)
 ){
 
-html+=`
+// TABLE
+html += `
 <tr class="border-b border-zinc-800 fade">
-
 <td class="p-4">${p.nombre}</td>
 <td class="p-4">${p.telefono}</td>
 <td class="p-4">${p.ciudad}</td>
 <td class="p-4">${p.direccion}</td>
-
 <td class="p-4 text-right">
-<button onclick="eliminar('${p.id}')"
-class="text-red-400 hover:text-red-300">
+<button onclick="eliminar('${p.id}')" class="text-red-400">
 <i class="fa-solid fa-trash"></i>
 </button>
 </td>
-
 </tr>
+`
+
+// CARDS MOBILE
+cards += `
+<div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 fade">
+<div class="font-semibold">${p.nombre}</div>
+<div class="text-sm text-zinc-400">${p.telefono}</div>
+<div class="text-sm">${p.ciudad}</div>
+<div class="text-xs text-zinc-500 mb-2">${p.direccion}</div>
+<button onclick="eliminar('${p.id}')" class="text-red-400 text-sm">
+Eliminar
+</button>
+</div>
 `
 
 }
 
 })
 
-tabla.innerHTML=html
+tabla.innerHTML = html
+document.getElementById("cards").innerHTML = cards
 
 }
 
-// INICIO
+// INIT
 cargarPersonas()
 
 </script>
