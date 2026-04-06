@@ -215,8 +215,10 @@ cargarPersonas()
 // RENDER
 function render(){
 
-let buscar = buscarInput.value.toLowerCase()
-let ciudad = filtroCiudad.value
+function render(){
+
+let buscar = document.getElementById("buscar").value.toLowerCase()
+let ciudad = document.getElementById("filtroCiudad").value
 
 let html = ""
 let cards = ""
