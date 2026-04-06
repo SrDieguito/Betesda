@@ -1,302 +1,189 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>CRM Personas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Betesda</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 body{
-font-family:system-ui;
+    font-family: system-ui;
 }
 
-.fade{
-animation:fade .25s ease;
+/* Animaciones */
+.fade-in{
+    animation: fadeIn .6s ease;
 }
 
-@keyframes fade{
-from{opacity:0;transform:translateY(6px)}
-to{opacity:1;transform:translateY(0)}
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(10px)}
+    to{opacity:1; transform:translateY(0)}
+}
+
+/* Glow dorado */
+.glow:focus{
+    box-shadow: 0 0 0 2px #BF9B30;
 }
 </style>
 
 </head>
 
-<!-- 🔒 oculto hasta validar login -->
+<body class="bg-zinc-950 text-white flex items-center justify-center min-h-screen">
 
-<body style="display:none" class="bg-zinc-950 text-zinc-200">
+<!-- CONTENEDOR -->
+<div class="w-full max-w-md px-6">
 
-<div class="flex h-screen">
+    <!-- LOGO -->
+    <div class="text-center mb-8 fade-in">
+        <img src="img/1.png" class="w-20 h-20 mx-auto rounded-full border-2 border-[#BF9B30] mb-4">
+        
+        <h1 class="text-2xl font-bold">
+            Iglesia Bautista
+        </h1>
+        <h2 class="text-[#BF9B30] text-xl font-bold">
+            Betesda
+        </h2>
+    </div>
 
-<!-- SIDEBAR -->
+    <!-- CARD LOGIN -->
+    <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 shadow-xl fade-in">
 
-<div class="w-64 bg-zinc-900 border-r border-zinc-800 p-6 flex flex-col">
+        <h3 class="text-xl font-semibold mb-6 text-center">
+            Iniciar sesión
+        </h3>
 
-<h1 class="text-xl font-semibold mb-8">
-<i class="fa-solid fa-address-book mr-2"></i>
-Contactos
-</h1>
+        <!-- FORM -->
+        <form id="loginForm" class="space-y-4">
 
-<button onclick="abrirModal()"
-class="bg-white text-black px-4 py-2 rounded-lg text-sm hover:opacity-80 transition mb-3"> <i class="fa-solid fa-user-plus mr-2"></i>
-Nueva persona </button>
+            <!-- EMAIL -->
+            <div>
+                <label class="text-sm text-zinc-400">Correo</label>
+                <div class="relative mt-1">
+                    <i class="fa-solid fa-envelope absolute left-3 top-3 text-zinc-500"></i>
+                    <input 
+                        type="email" 
+                        id="email"
+                        required
+                        placeholder="correo@gmail.com"
+                        class="w-full pl-10 pr-3 py-2 bg-zinc-800 border border-zinc-700 rounded-lg 
+                               focus:outline-none glow transition">
+                </div>
+            </div>
 
-<!-- 🔓 logout -->
+            <!-- PASSWORD -->
+            <div>
+                <label class="text-sm text-zinc-400">Contraseña</label>
+                <div class="relative mt-1">
+                    <i class="fa-solid fa-lock absolute left-3 top-3 text-zinc-500"></i>
+                    <input 
+                        type="password" 
+                        id="password"
+                        required
+                        placeholder="********"
+                        class="w-full pl-10 pr-10 py-2 bg-zinc-800 border border-zinc-700 rounded-lg 
+                               focus:outline-none glow transition">
+                    
+                    <!-- Toggle password -->
+                    <i onclick="togglePassword()" 
+                       class="fa-solid fa-eye absolute right-3 top-3 cursor-pointer text-zinc-500 hover:text-white">
+                    </i>
+                </div>
+            </div>
 
-<button onclick="logout()"
-class="bg-red-500 text-white px-4 py-2 rounded-lg text-sm hover:opacity-80 transition">
-Cerrar sesión </button>
+            <!-- BOTÓN -->
+            <button 
+                type="submit"
+                class="w-full bg-[#BF9B30] text-black py-2 rounded-lg font-semibold 
+                       hover:opacity-80 transition-all duration-300">
+                Ingresar
+            </button>
 
-<div class="text-xs text-zinc-500 mt-4">
-Sistema CRM
-</div>
+        </form>
 
-</div>
+        <!-- ERROR -->
+        <p id="error" class="text-red-400 text-sm mt-4 hidden text-center">
+            Credenciales incorrectas
+        </p>
 
-<!-- MAIN -->
+    </div>
 
-<div class="flex-1 p-10 overflow-auto">
-
-<div class="flex justify-between items-center mb-6">
-
-<h2 class="text-2xl font-semibold">
-Personas registradas
-</h2>
-
-</div>
-
-<!-- BUSCADOR -->
-
-<div class="flex gap-4 mb-6">
-
-<input id="buscar"
-oninput="render()"
-placeholder="Buscar nombre o teléfono..."
-class="bg-zinc-900 border border-zinc-800 rounded-lg px-4 py-2 w-72 focus:outline-none">
-
-<select id="filtroCiudad"
-onchange="render()"
-class="bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2">
-
-<option value="">Todas las ciudades</option>
-<option value="Cuenca">Cuenca</option>
-<option value="Guayaquil">Guayaquil</option>
-
-</select>
-
-</div>
-
-<!-- TABLA -->
-
-<div class="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
-
-<table class="w-full text-sm">
-
-<thead class="border-b border-zinc-800 text-zinc-400">
-
-<tr>
-<th class="text-left p-4">Nombre</th>
-<th class="text-left p-4">Teléfono</th>
-<th class="text-left p-4">Ciudad</th>
-<th class="text-left p-4">Dirección</th>
-<th class="text-right p-4"></th>
-</tr>
-
-</thead>
-
-<tbody id="tabla"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- MODAL -->
-
-<div id="modal"
-class="fixed inset-0 bg-black/50 hidden items-center justify-center">
-
-<div class="bg-zinc-900 border border-zinc-800 rounded-xl w-96 p-6">
-
-<h3 class="text-lg font-semibold mb-4">
-Registrar persona
-</h3>
-
-<div class="space-y-3">
-
-<input id="nombre" placeholder="Nombre completo"
-class="w-full bg-zinc-800 rounded px-3 py-2">
-
-<input id="telefono" placeholder="Teléfono"
-class="w-full bg-zinc-800 rounded px-3 py-2">
-
-<input id="direccion" placeholder="Dirección"
-class="w-full bg-zinc-800 rounded px-3 py-2">
-
-<input id="ciudad" placeholder="Ciudad"
-class="w-full bg-zinc-800 rounded px-3 py-2">
-
-</div>
-
-<div class="flex justify-end gap-3 mt-6">
-
-<button onclick="cerrarModal()"
-class="text-zinc-400 hover:text-white">
-Cancelar </button>
-
-<button onclick="guardar()"
-class="bg-white text-black px-4 py-2 rounded-lg text-sm">
-Guardar </button>
-
-</div>
-
-</div>
+    <!-- VOLVER -->
+    <div class="text-center mt-6 fade-in">
+        <a href="index.html" class="text-zinc-400 hover:text-[#BF9B30] text-sm">
+            ← Volver al inicio
+        </a>
+    </div>
 
 </div>
 
 <script>
 
-// 🔐 PROTECCIÓN LOGIN
+// 🔐 PROTECCIÓN DE LOGIN (PONER ARRIBA DE TODO)
 const user = localStorage.getItem("user")
 
 if (!user) {
     window.location.href = "login.html"
-} else {
-    document.body.style.display = "block"
-}
-
-// 🔓 LOGOUT
-function logout(){
-    localStorage.removeItem("user")
-    window.location.href = "login.html"
 }
 
 // ----------------------------
-// DATOS (temporal localStorage)
+// TU CÓDIGO EXISTENTE ABAJO
 // ----------------------------
 
 let personas = JSON.parse(localStorage.getItem("personas")) || []
 
-function abrirModal(){
-document.getElementById("modal").classList.remove("hidden")
-document.getElementById("modal").classList.add("flex")
+// Mostrar/ocultar contraseña
+function togglePassword(){
+    const input = document.getElementById("password")
+    input.type = input.type === "password" ? "text" : "password"
 }
 
-function cerrarModal(){
-document.getElementById("modal").classList.add("hidden")
-}
+// LOGIN (temporal)
+document.getElementById("loginForm").addEventListener("submit", function(e){
+    e.preventDefault()
 
-function guardar(){
+    const email = document.getElementById("email").value
+    const password = document.getElementById("password").value
 
-let p={
-nombre:nombre.value,
-telefono:telefono.value,
-direccion:direccion.value,
-ciudad:ciudad.value
-}
-
-personas.push(p)
-
-localStorage.setItem("personas",JSON.stringify(personas))
-
-cerrarModal()
-
-render()
-
-}
-
-function eliminar(i){
-
-personas.splice(i,1)
-
-localStorage.setItem("personas",JSON.stringify(personas))
-
-render()
-
-}
-
-function render(){
-
-let buscar=document.getElementById("buscar").value.toLowerCase()
-let ciudad=document.getElementById("filtroCiudad").value
-
-let html=""
-
-personas.forEach((p,i)=>{
-
-if(
-(p.nombre.toLowerCase().includes(buscar) ||
-p.telefono.includes(buscar)) &&
-(ciudad==="" || p.ciudad===ciudad)
-){
-
-html+=`
-<tr class="border-b border-zinc-800 fade">
-
-<td class="p-4">${p.nombre}</td>
-<td class="p-4">${p.telefono}</td>
-<td class="p-4">${p.ciudad}</td>
-<td class="p-4">${p.direccion}</td>
-
-<td class="p-4 text-right">
-<button onclick="eliminar(${i})"
-class="text-red-400 hover:text-red-300">
-<i class="fa-solid fa-trash"></i>
-</button>
-</td>
-
-</tr>
-`
-
-}
-
+    // Simulación (luego lo conectamos a Supabase)
+    if(email === "admin@test.com" && password === "123456"){
+        window.location.href = "dashboard.html"
+    } else {
+        document.getElementById("error").classList.remove("hidden")
+    }
 })
 
-tabla.innerHTML=html
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault()
 
-}
+    const email = document.getElementById("email").value
+    const password = document.getElementById("password").value
 
-function generarDatos(){
+    const res = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+    })
 
-let nombres=["Juan","Carlos","Luis","Pedro","Andrés","David","Miguel","José","Daniel","Kevin"]
-let apellidos=["Ramírez","Torres","Vásquez","Castillo","Mendoza","Guerrero","Lopez","Cordero"]
-let calles=["Av. Solano","Av. Loja","Remigio Crespo","Ordóñez Lasso","12 de Abril"]
+    const data = await res.json()
 
-function tel(){
-return "09"+Math.floor(10000000+Math.random()*90000000)
-}
+    if (!res.ok) {
+        document.getElementById("error").textContent = data.error
+        document.getElementById("error").classList.remove("hidden")
+        return
+    }
 
-function persona(ciudad){
+    // guardar sesión
+    localStorage.setItem("user", JSON.stringify(data.user))
 
-return{
-nombre:nombres[Math.floor(Math.random()*nombres.length)]+" "+apellidos[Math.floor(Math.random()*apellidos.length)],
-telefono:tel(),
-direccion:calles[Math.floor(Math.random()*calles.length)]+" "+Math.floor(Math.random()*400),
-ciudad:ciudad
-}
-
-}
-
-for(let i=0;i<100;i++)personas.push(persona("Cuenca"))
-for(let i=0;i<40;i++)personas.push(persona("Guayaquil"))
-
-localStorage.setItem("personas",JSON.stringify(personas))
-
-}
-
-if(personas.length===0){
-generarDatos()
-}
-
-render()
-
+    // redirigir
+    window.location.href = "dashboard.html"
+})
 </script>
 
 </body>

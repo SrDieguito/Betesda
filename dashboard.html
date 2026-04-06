@@ -160,6 +160,8 @@ Guardar
 // 🔐 PROTECCIÓN
 const user = localStorage.getItem("user")
 
+console.log("USER EN DASHBOARD:", user)
+
 if (!user) {
     window.location.href = "login.html"
 } else {
