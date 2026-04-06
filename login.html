@@ -122,40 +122,20 @@ body{
 
 <script>
 
-// 🔐 PROTECCIÓN DE LOGIN (PONER ARRIBA DE TODO)
+// 🔁 SI YA ESTÁ LOGUEADO → ENTRA AL DASHBOARD
 const user = localStorage.getItem("user")
 
-if (!user) {
-    window.location.href = "login.html"
+if (user) {
+    window.location.href = "/dashboard.html"
 }
 
-// ----------------------------
-// TU CÓDIGO EXISTENTE ABAJO
-// ----------------------------
-
-let personas = JSON.parse(localStorage.getItem("personas")) || []
-
-// Mostrar/ocultar contraseña
+// 👁️ Mostrar/ocultar contraseña
 function togglePassword(){
     const input = document.getElementById("password")
     input.type = input.type === "password" ? "text" : "password"
 }
 
-// LOGIN (temporal)
-document.getElementById("loginForm").addEventListener("submit", function(e){
-    e.preventDefault()
-
-    const email = document.getElementById("email").value
-    const password = document.getElementById("password").value
-
-    // Simulación (luego lo conectamos a Supabase)
-    if(email === "admin@test.com" && password === "123456"){
-        window.location.href = "dashboard.html"
-    } else {
-        document.getElementById("error").classList.remove("hidden")
-    }
-})
-
+// 🔐 LOGIN REAL
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
     e.preventDefault()
 
@@ -178,12 +158,13 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
         return
     }
 
-    // guardar sesión
+    // ✅ GUARDAR SESIÓN (CLAVE DEL PROBLEMA)
     localStorage.setItem("user", JSON.stringify(data.user))
 
-    // redirigir
-    window.location.href = "dashboard.html"
+    // 🚀 REDIRIGIR BIEN
+    window.location.href = "/dashboard.html"
 })
+
 </script>
 
 </body>
